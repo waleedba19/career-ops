@@ -1,0 +1,278 @@
+# Portal Scanner Configuration — Waleed Ballag
+# Targets: Arabic-English translation, ESL teaching, academic services,
+# and vetted remote data entry / typing / admin roles.
+# Strategy: WebSearch with site: filters (broad discovery), plus portal scans.
+
+# -- Location filter --
+# Waleed works fully remote from Libya. PASS if the posting mentions remote/
+# anywhere/worldwide. Otherwise reject on-site roles in hub countries where he
+# cannot work. Empty location strings pass (don't penalize missing data).
+location_filter:
+  always_allow:
+    - "Remote"
+    - "remote"
+    - "Worldwide"
+    - "Anywhere"
+    - "Global"
+    - "Anywhere in the world"
+  block:
+    - "United States"
+    - "United Kingdom"
+    - "Canada"
+    - "Australia"
+    - "France"
+    - "Germany"
+    - "Spain"
+    - "Italy"
+    - "Netherlands"
+    - "Poland"
+    - "Sweden"
+    - "Norway"
+    - "Denmark"
+    - "Finland"
+    - "Ireland"
+    - "Portugal"
+    - "Singapore"
+    - "Indonesia"
+    - "Philippines"
+    - "Malaysia"
+    - "Vietnam"
+    - "Thailand"
+    - "Pakistan"
+    - "India"
+    - "Bangladesh"
+    - "Sri Lanka"
+    - "Nigeria"
+    - "Kenya"
+    - "Ghana"
+    - "South Africa"
+    - "Japan"
+    - "South Korea"
+    - "China"
+    - "Brazil"
+    - "Mexico"
+    - "Argentina"
+    - "Colombia"
+    - "Chile"
+  allow: []
+
+# -- Scan history recheck --
+scan_history:
+  recheck_after_days: 30
+
+# -- Title filter: what we hunt for --
+# Positive: translation, ESL, academic, data-entry related titles
+# Negative: irrelevant heavy-tech roles
+title_filter:
+  positive:
+    # Translation
+    - "Arabic Translator"
+    - "Arabic-English Translator"
+    - "English-Arabic Translator"
+    - "legal translator"
+    - "translator"
+    - "Arabic localization"
+    - "transcreation"
+    - "Arabic linguist"
+    - "Arabic language specialist"
+    # ESL / English teaching
+    - "ESL teacher"
+    - "ESL instructor"
+    - "English teacher"
+    - "English tutor"
+    - "online English"
+    - "EFL"
+    - "TESOL"
+    - "TEFL"
+    - "English instructor"
+    - "English language teacher"
+    # Academic services
+    - "thesis editor"
+    - "academic editor"
+    - "academic writer"
+    - "proofreader"
+    - "academic proofreading"
+    - "manuscript editor"
+    - "research assistant"
+    - "data analyst"
+    - "SPSS"
+    # Data entry / admin / typing
+    - "data entry"
+    - "typist"
+    - "transcription"
+    - "virtual assistant"
+    - "administrative assistant"
+    - "data annotation"
+    - "document processing"
+    - "data entry operator"
+  negative:
+    - "word:Engineer"
+    - "word:Developer"
+    - "word:Software"
+    - "word:DevOps"
+    - "word:Backend"
+    - "word:Frontend"
+    - "word:Full Stack"
+    - "word:QA"
+    - "word:SRE"
+    - "word:Security Engineer"
+    - "word:Data Scientist"
+    - "word:ML Engineer"
+    - "word:Crypto"
+    - "word:Blockchain"
+    - "word:Cryptocurrency"
+
+# -- Tracked companies with free ATS APIs (headless scan, no tokens) --
+# These run on GitHub Actions via scan.mjs with zero tokens.
+tracked_companies:
+  # Localization / translation-heavy companies (Greenhouse = free API)
+  - name: KAYAK
+    careers_url: https://job-boards.greenhouse.io/kayak
+    api: https://boards-api.greenhouse.io/v1/boards/kayak/jobs
+    notes: "Freelance localization specialists; translation-heavy."
+    enabled: true
+  - name: 2K
+    careers_url: https://job-boards.greenhouse.io/2k
+    api: https://boards-api.greenhouse.io/v1/boards/2k/jobs
+    notes: "Game localization, Arabic language leads."
+    enabled: true
+  - name: xAI
+    careers_url: https://job-boards.greenhouse.io/xai
+    api: https://boards-api.greenhouse.io/v1/boards/xai/jobs
+    notes: "AI Tutor roles in Arabic (remote, worldwide)."
+    enabled: true
+  - name: OKX
+    careers_url: https://job-boards.greenhouse.io/okx
+    api: https://boards-api.greenhouse.io/v1/boards/okx/jobs
+    notes: "Arabic Language Manager, MENA remote."
+    enabled: true
+  - name: WPP
+    careers_url: https://job-boards.greenhouse.io/wppmedia
+    api: https://boards-api.greenhouse.io/v1/boards/wppmedia/jobs
+    notes: "Arabic copywriting / media roles."
+    enabled: true
+  # Educational / ESL-heavy companies
+  - name: Duolingo
+    careers_url: https://job-boards.greenhouse.io/duolingo
+    api: https://boards-api.greenhouse.io/v1/boards/duolingo/jobs
+    notes: "Language learning; content roles."
+    enabled: true
+  - name: Preply
+    careers_url: https://jobs.lever.co/preply
+    enabled: false
+    notes: "Lever slug unreachable — disable until verified."
+  - name: Coursera
+    careers_url: https://jobs.lever.co/coursera
+    enabled: false
+    notes: "Lever slug unreachable — disable until verified."
+  # Remote-first general boards with free APIs (broad data-entry/admin coverage)
+  - name: Remotive
+    careers_url: https://remotive.com/remote-jobs
+    api: https://remotive.com/api/remote-jobs
+    notes: "Broad remote board; data entry, admin, VA roles."
+    enabled: true
+  - name: Himalayas
+    careers_url: https://himalayas.app/jobs
+    api: https://himalayas.app/jobs/api
+    notes: "Remote jobs focused; admin + ops."
+    enabled: true
+  - name: Working Nomads
+    careers_url: https://www.workingnomads.com/jobs
+    api: https://www.workingnomads.com/api/exposed_jobs/
+    notes: "Remote jobs for digital workers."
+    enabled: true
+
+# -- Job board search queries --
+search_queries:
+  # Translation — Middle East + international
+  - name: Greenhouse — Arabic Translator
+    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "Arabic translator" OR "Arabic-English" OR "translator" remote'
+    enabled: true
+
+  - name: Ashby — Arabic Translator
+    query: 'site:jobs.ashbyhq.com "Arabic translator" OR "Arabic-English Translator" OR "localization" remote'
+    enabled: true
+
+  - name: Lever — Arabic Translator
+    query: 'site:jobs.lever.co "Arabic translator" OR "Arabic-English" remote'
+    enabled: true
+
+  - name: Wellfound — Arabic Translator
+    query: 'site:wellfound.com "Arabic translator" OR "Arabic-English Translator" OR "Arabic linguist" remote'
+    enabled: true
+
+  - name: Workable — Arabic Translator
+    query: 'site:apply.workable.com "Arabic translator" OR "Arabic-English translator" OR "translation" remote'
+    enabled: true
+
+  # ESL / English teaching
+  - name: Greenhouse — ESL/English Teacher
+    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "ESL teacher" OR "English teacher" OR "English tutor" remote'
+    enabled: true
+
+  - name: Ashby — ESL/English Teacher
+    query: 'site:jobs.ashbyhq.com "ESL teacher" OR "English instructor" OR "online English tutor" remote'
+    enabled: true
+
+  - name: Wellfound — ESL/English Teacher
+    query: 'site:wellfound.com "ESL teacher" OR "English tutor" OR "English instructor" remote'
+    enabled: true
+
+  - name: WeWorkRemotely — ESL/English Tutor
+    query: 'site:weworkremotely.com "English teacher" OR "ESL" OR "English tutor" OR "tutor"'
+    enabled: true
+
+  - name: Remotive — ESL/English Tutor
+    query: 'site:remotive.com "English teacher" OR "ESL" OR "English tutor" OR "tutor"'
+    enabled: true
+
+  # Academic services
+  - name: Greenhouse — Academic Editor/Writer
+    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "academic editor" OR "thesis" OR "proofreader" remote'
+    enabled: true
+
+  - name: Wellfound — Academic Editor
+    query: 'site:wellfound.com "academic editor" OR "proofreader" OR "research assistant" remote'
+    enabled: true
+
+  - name: Workable — Academic/Research
+    query: 'site:apply.workable.com "academic editor" OR "research assistant" OR "proofreader" remote'
+    enabled: true
+
+  # Data entry / typing / admin — vetted, legit channels only
+  - name: Greenhouse — Data Entry
+    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "data entry" OR "data entry operator" OR "administrative assistant" remote'
+    enabled: true
+
+  - name: Ashby — Data Entry/Admin
+    query: 'site:jobs.ashbyhq.com "data entry" OR "virtual assistant" OR "administrative assistant" remote'
+    enabled: true
+
+  - name: Wellfound — Data Entry/Admin
+    query: 'site:wellfound.com "data entry" OR "virtual assistant" OR "administrative assistant" OR "operations assistant" remote'
+    enabled: true
+
+  - name: WeWorkRemotely — Data Entry/Admin
+    query: 'site:weworkremotely.com "data entry" OR "administrative assistant" OR "virtual assistant" OR "operations assistant"'
+    enabled: true
+
+  - name: Remotive — Data Entry/Admin
+    query: 'site:remotive.com "data entry" OR "virtual assistant" OR "administrative assistant" OR "operations assistant"'
+    enabled: true
+
+  - name: Working Nomads — Data Entry/Admin
+    query: 'site:workingnomads.com "data entry" OR "virtual assistant" OR "administrative assistant" remote'
+    enabled: true
+
+  # Translation — general international boards
+  - name: WeWorkRemotely — Translators
+    query: 'site:weworkremotely.com "translator" OR "translation" OR "Arabic" OR "localization"'
+    enabled: true
+
+  - name: Remotive — Translators
+    query: 'site:remotive.com "translator" OR "translation" OR "Arabic" OR "localization"'
+    enabled: true
+
+  - name: Working Nomads — Translators
+    query: 'site:workingnomads.com "translator" OR "translation" OR "Arabic" OR "localization" remote'
+    enabled: true

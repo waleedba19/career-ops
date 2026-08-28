@@ -1,0 +1,83 @@
+name: career-ops scan
+
+# Runs the headless ATS portal scanner 6x/day (Tripoli time, UTC+2)
+# and emails Waleed when new matching offers are found.
+on:
+  schedule:
+    - cron: '0 5,8,11,14,17,20 * * *'   # 07:00, 10:00, 13:00, 16:00, 19:00, 22:00 Tripoli (UTC+2)
+  workflow_dispatch: {}                  # allow manual trigger
+
+permissions:
+  contents: write
+
+concurrency:
+  group: career-ops-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Run portal scanner
+        id: scan
+        run: |
+          node scan.mjs 2>&1 | tee /tmp/scan.log
+          # extract the "New offers:" block for the email body
+          awk '/^New offers:/{flag=1;next}/^\(dry run\)/{flag=0}flag' /tmp/scan.log > /tmp/new-offers.txt || true
+
+      - name: Count new offers
+        id: count
+        run: |
+          if [ -s /tmp/new-offers.txt ]; then
+            NEW=$(grep -c '^  + ' /tmp/new-offers.txt || true)
+            echo "new=${NEW:-0}" >> "$GITHUB_OUTPUT"
+          else
+            echo "new=0" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit scanner results
+        run: |
+          git config user.name "career-ops bot"
+          git config user.email "waleedba19@users.noreply.github.com"
+          # Force-add generated data so scan history/dedup persists across runs.
+          git add -f data/ output/ 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "chore(scan): update pipeline $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
+
+      - name: Email new matches
+        if: steps.count.outputs.new != '0'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          subject: "CareerOps: ${{ steps.count.outputs.new }} new remote job match(es)"
+          to: ${{ secrets.SMTP_TO }}
+          from: "CareerOps Scanner <${{ secrets.SMTP_USER }}>"
+          convert_markdown: true
+          body: |
+            **New remote job matches found for Waleed Ballag.**
+
+            $(cat /tmp/new-offers.txt 2>/dev/null || echo "See data/pipeline.md")
+
+            ---
+            **Next step:** review each match, then run the AI evaluation
+            (open D:\CareerOps\career-ops and run `/career-ops pipeline`).
+            Nothing is submitted automatically — you review and apply.
+
+            — CareerOps automatic scanner
