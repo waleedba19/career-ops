@@ -36,8 +36,9 @@ jobs:
         id: scan
         run: |
           node scan.mjs 2>&1 | tee /tmp/scan.log
-          # extract the "New offers:" block for the email body
-          awk '/^New offers:/{flag=1;next}/^\(dry run\)/{flag=0}flag' /tmp/scan.log > /tmp/new-offers.txt || true
+          # extract the "+" offer lines that follow "New offers:" (stop at the
+          # blank line / footer that closes the section)
+          awk 'BEGIN{s=0} /^New offers:$/{s=1;next} /^$/{if(s)exit} s&&/^  \+ /' /tmp/scan.log > /tmp/new-offers.txt || true
 
       - name: Count new offers
         id: count
