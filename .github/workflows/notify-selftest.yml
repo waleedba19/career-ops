@@ -19,7 +19,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create demo offers + build rich alert
-        id: alert
         run: |
           cat > /tmp/new-offers.txt <<'EOF'
           + 2K | Localization Language Lead, Arabic | Remote | https://job-boards.greenhouse.io/2k/jobs/7809858003
@@ -27,50 +26,14 @@ jobs:
           + Outschool | Online English Tutor | Remote | https://outschool.com/tutor
           EOF
           node generate-alert.mjs /tmp/new-offers.txt
-          {
-            echo "body<<EOF"
-            cat /tmp/alert-email.md
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
 
-      - name: Email new matches
-        id: email
-        if: env.SMTP_PASS != ''
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.SMTP_USER }}
-          password: ${{ secrets.SMTP_PASS }}
-          subject: "CareerOps: [SELF-TEST] rich alert demo"
-          to: ${{ secrets.SMTP_TO }}
-          from: "CareerOps Scanner <${{ secrets.SMTP_USER }}>"
-          convert_markdown: true
-          attachments: data/pipeline.csv
-          body: ${{ steps.alert.outputs.body }}
+      - name: Send alerts (email + Telegram)
+        run: python send_alert.py 3
         env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
-
-      - name: Telegram new matches
-        if: env.TG_BOT_TOKEN != ''
-        run: |
-          python - "${{ secrets.TG_CHAT_ID }}" <<'PY'
-          import json, os, sys, urllib.request
-          with open("/tmp/alert-telegram.txt", encoding="utf-8") as f:
-              text = f.read()
-          text = text.replace("*CareerOps — New Remote Job Matches*",
-                              "*CareerOps — [SELF-TEST] 3 new Remote Job Matches (demo)*")
-          data = json.dumps({
-              "chat_id": os.environ["TG_CHAT_ID"],
-              "text": text,
-              "disable_web_page_preview": False,
-          }).encode()
-          req = urllib.request.Request(
-              f"https://api.telegram.org/bot{os.environ['TG_BOT_TOKEN']}/sendMessage",
-              data=data, headers={"Content-Type": "application/json"})
-          with urllib.request.urlopen(req, timeout=20) as r:
-              print("telegram", r.status)
-          PY
-        env:
+          SMTP_TO: ${{ secrets.SMTP_TO }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          ALERT_EMAIL: /tmp/alert-email.md
+          ALERT_TG: /tmp/alert-telegram.txt

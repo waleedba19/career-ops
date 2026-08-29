@@ -54,16 +54,6 @@ jobs:
         if: steps.count.outputs.new != '0'
         run: node generate-alert.mjs /tmp/new-offers.txt || true
 
-      - name: Read email body
-        id: emailbody
-        if: steps.count.outputs.new != '0'
-        run: |
-          {
-            echo "body<<EOF"
-            cat /tmp/alert-email.md
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-
       - name: Export pipeline CSV
         run: node export-pipeline-csv.mjs || true
 
@@ -76,47 +66,15 @@ jobs:
           git diff --cached --quiet || git commit -m "chore(scan): update pipeline $(date -u +%Y-%m-%dT%H:%MZ)"
           git push
 
-      - name: Email new matches
-        if: steps.count.outputs.new != '0' && env.SMTP_PASS != ''
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.SMTP_USER }}
-          password: ${{ secrets.SMTP_PASS }}
-          subject: "CareerOps: ${{ steps.count.outputs.new }} new remote job match(es)"
-          to: ${{ secrets.SMTP_TO }}
-          from: "CareerOps Scanner <${{ secrets.SMTP_USER }}>"
-          convert_markdown: true
-          attachments: data/pipeline.csv
-          body: ${{ steps.emailbody.outputs.body }}
+      - name: Send alerts (email + Telegram)
+        if: steps.count.outputs.new != '0' && (env.SMTP_PASS != '' || env.TG_BOT_TOKEN != '')
+        run: python send_alert.py "${{ steps.count.outputs.new }}"
         env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
-
-      - name: Telegram new matches
-        if: steps.count.outputs.new != '0' && env.TG_BOT_TOKEN != ''
-        run: |
-          python - "${{ steps.count.outputs.new }}" <<'PY'
-          import json, os, sys, urllib.request
-          n = sys.argv[1]
-          with open("/tmp/alert-telegram.txt", encoding="utf-8") as f:
-              script = f.read()
-          # prepend the count into the header line
-          text = script.replace("*CareerOps — New Remote Job Matches*",
-                                f"*CareerOps — {n} new Remote Job Matches*")
-          if len(text) > 4000:
-              text = text[:3970] + "\n…"
-          data = json.dumps({
-              "chat_id": os.environ["TG_CHAT_ID"],
-              "text": text,
-              "disable_web_page_preview": False,
-          }).encode()
-          req = urllib.request.Request(
-              f"https://api.telegram.org/bot{os.environ['TG_BOT_TOKEN']}/sendMessage",
-              data=data, headers={"Content-Type": "application/json"})
-          with urllib.request.urlopen(req, timeout=20) as r:
-              print("telegram", r.status)
-          PY
-        env:
+          SMTP_TO: ${{ secrets.SMTP_TO }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          ALERT_EMAIL: /tmp/alert-email.md
+          ALERT_TG: /tmp/alert-telegram.txt
+          ALERT_CSV: data/pipeline.csv
