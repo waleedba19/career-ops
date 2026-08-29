@@ -67,6 +67,7 @@ jobs:
         env:
           MATCHES_CSV: /tmp/alert-rows.csv
           CANDIDATES_JSON: data/candidates.json
+          SCAN_RUNS_TSV: data/scan-runs.tsv
           OUT_XLSX: data/matches.xlsx
 
       - name: Commit scanner results

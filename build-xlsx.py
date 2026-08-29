@@ -32,6 +32,7 @@ from openpyxl.utils import get_column_letter
 
 matches_csv = os.environ.get("MATCHES_CSV", "/tmp/alert-rows.csv")
 candidates_json = os.environ.get("CANDIDATES_JSON", "data/candidates.json")
+scan_runs_tsv = os.environ.get("SCAN_RUNS_TSV", "data/scan-runs.tsv")
 out_xlsx = os.environ.get("OUT_XLSX", "data/matches.xlsx")
 run_label = os.environ.get("RUN_LABEL", "").strip()
 tz_offset = float(os.environ.get("TZ_OFFSET_H", "2"))
@@ -92,6 +93,69 @@ def read_candidates():
             return json.load(f).get("candidates", [])
     except Exception:
         return []
+
+
+STAT_HDRS = ["Local time", "Sites pulled", "Search results", "Removed by title",
+             "Removed by location", "Duplicates", "New matches added"]
+
+
+def append_scan_stats(ws, now):
+    """Append this run's scan-statistics row to the shared 'Scan Stats' sheet.
+
+    Reads the latest completed row of data/scan-runs.tsv (companies+boards =
+    sites pulled, found = total search results, filtered_title / filtered_location
+    / dupes = funnel, new_added = survivors). This is the 'how many searches and
+    how many sites' view the user asked for. Returns nothing; ignores missing file.
+    """
+    if not os.path.exists(scan_runs_tsv):
+        return
+    import csv as _csv
+    with open(scan_runs_tsv, newline="", encoding="utf-8-sig") as f:
+        rows = list(_csv.DictReader(f, delimiter="\t"))
+    if not rows:
+        return
+
+    def _i(d, k):
+        try:
+            return int(float(d.get(k) or 0))
+        except (TypeError, ValueError):
+            return 0
+
+    # Take the last completed run of this scan as today's current stats row.
+    last = rows[-1]
+    sites = _i(last, "companies") + _i(last, "boards")
+    stats = [
+        now.strftime("%Y-%m-%d %H:%M"),
+        sites,
+        _i(last, "found"),
+        _i(last, "filtered_title") + _i(last, "filtered_content") +
+        _i(last, "filtered_tier") + _i(last, "filtered_posting_age") +
+        _i(last, "filtered_salary") + _i(last, "filtered_blacklist") +
+        _i(last, "filtered_visa") + _i(last, "filtered_country_eligibility"),
+        _i(last, "filtered_location"),
+        _i(last, "dupes") + _i(last, "filtered_cooldown"),
+        _i(last, "new_added"),
+    ]
+
+    if "Scan Stats" not in ws.parent.sheetnames:
+        s = ws.parent.create_sheet("Scan Stats")
+        s.cell(row=1, column=1, value=("Per-run scan statistics: how many job "
+                                       "searches were pulled, from how many sites, and what survived filtering."))
+        s.cell(row=1, column=1).font = Font(italic=True, size=9, color="808080")
+        style_header(s, 2, STAT_HDRS)
+        s._next_row = 3
+    else:
+        s = ws.parent["Scan Stats"]
+        if not hasattr(s, "_next_row"):
+            # Recompute the next empty row if this sheet was freshly loaded.
+            nxt = 1
+            while s.cell(row=nxt, column=1).value not in (None, ""):
+                nxt += 1
+            s._next_row = nxt
+
+    r = s._next_row
+    write_row(s, r, stats, STAT_HDRS)
+    s._next_row = r + 1
 
 
 MATCH_HDRS = ["Fit", "Field", "Company", "Role", "Location", "Pay", "Age", "Urgency", "Apply link", "Source"]
@@ -201,6 +265,9 @@ def main():
 
     # Leave a blank spacer row between runs so tables stay visually separate.
     ws.cell(row=row, column=1, value="")
+
+    # Record this run's scan statistics (searches pulled, sites, funnel) once.
+    append_scan_stats(ws, now)
 
     out = Path(out_xlsx)
     out.parent.mkdir(parents=True, exist_ok=True)
