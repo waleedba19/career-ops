@@ -50,6 +50,20 @@ jobs:
             echo "new=0" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Build alert (TG + email + CSV)
+        if: steps.count.outputs.new != '0'
+        run: node generate-alert.mjs /tmp/new-offers.txt || true
+
+      - name: Read email body
+        id: emailbody
+        if: steps.count.outputs.new != '0'
+        run: |
+          {
+            echo "body<<EOF"
+            cat /tmp/alert-email.md
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Export pipeline CSV
         run: node export-pipeline-csv.mjs || true
 
@@ -75,29 +89,7 @@ jobs:
           from: "CareerOps Scanner <${{ secrets.SMTP_USER }}>"
           convert_markdown: true
           attachments: data/pipeline.csv
-          body: |
-            **New remote job matches found for Waleed Ballag.**
-
-            $(sed -E 's#(https?://[^ |]+)#<\1>#g' /tmp/new-offers.txt 2>/dev/null || echo "See data/pipeline.md")
-
-            ---
-            **Where each job came from:** the apply links above open the official
-            posting on the employer's own board (Greenhouse, Workable, etc.) — that
-            is always the safe, direct channel.
-
-            **Full lists for this run (attached):**
-            - 📊 **Spreadsheet (CSV):** attached to this email — open in Excel or
-              [view it here](https://github.com/waleedba19/career-ops/blob/main/data/pipeline.csv)
-            - 📋 **Full pipeline:** [data/pipeline.md](https://github.com/waleedba19/career-ops/blob/main/data/pipeline.md)
-              — every match ever found, still open.
-
-            ---
-            **Next step:** open the CSV/Excel, pick one you like, and tell me the
-            company name — I will read the posting, pre-fill the application form
-            from your CV, and draft the message. You review and click submit.
-            Nothing is ever submitted without you.
-
-            — CareerOps automatic scanner
+          body: ${{ steps.emailbody.outputs.body }}
         env:
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
 
@@ -107,23 +99,11 @@ jobs:
           python - "${{ steps.count.outputs.new }}" <<'PY'
           import json, os, sys, urllib.request
           n = sys.argv[1]
-          with open("/tmp/new-offers.txt", encoding="utf-8") as f:
-              lines = [l.strip(" +") for l in f if l.strip()]
-          jobs = []
-          for l in lines:
-              parts = [p.strip() for p in l.split("|")]
-              if len(parts) >= 4:
-                  company, title, loc, url = parts[0], parts[1], parts[2], parts[3]
-                  jobs.append(f"{company} — {title} ({loc})\n{url}")
-              else:
-                  jobs.append(l)
-          text_lines = [f"CareerOps: {n} new remote job match(es)"] + jobs
-          if len(jobs) > 12:
-              text_lines = text_lines[:13] + [f"… +{len(jobs)-12} more in the attached CSV / link below"]
-          text = "\n\n".join(text_lines)
-          text += ("\n\n📊 Full list & links: github.com/waleedba19/career-ops/blob/main/data/pipeline.md"
-                   "\n🧾 CSV view: github.com/waleedba19/career-ops/blob/main/data/pipeline.csv"
-                   "\n\nReview on your PC (Excel tracker) and tell me which company to apply to — I pre-fill everything, you click submit. Nothing is auto-submitted.")
+          with open("/tmp/alert-telegram.txt", encoding="utf-8") as f:
+              script = f.read()
+          # prepend the count into the header line
+          text = script.replace("*CareerOps — New Remote Job Matches*",
+                                f"*CareerOps — {n} new Remote Job Matches*")
           if len(text) > 4000:
               text = text[:3970] + "\n…"
           data = json.dumps({
@@ -135,7 +115,7 @@ jobs:
               f"https://api.telegram.org/bot{os.environ['TG_BOT_TOKEN']}/sendMessage",
               data=data, headers={"Content-Type": "application/json"})
           with urllib.request.urlopen(req, timeout=20) as r:
-              print(r.status)
+              print("telegram", r.status)
           PY
         env:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
