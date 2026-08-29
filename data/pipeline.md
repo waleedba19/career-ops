@@ -14,3 +14,4 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://www.workingnomads.com/job/go/1799726/ | Polly English | Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100 | North America
 
 ## Processed
+- [ ] https://example.com/test-notify-demo | CareerOps | Notification System Test - DEMO DO NOT APPLY | Remote - TEST
