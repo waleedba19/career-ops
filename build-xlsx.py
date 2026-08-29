@@ -32,6 +32,7 @@ from openpyxl.utils import get_column_letter
 
 matches_csv = os.environ.get("MATCHES_CSV", "/tmp/alert-rows.csv")
 candidates_json = os.environ.get("CANDIDATES_JSON", "data/candidates.json")
+all_found_json = os.environ.get("ALL_FOUND_JSON", "data/all-found.json")
 scan_runs_tsv = os.environ.get("SCAN_RUNS_TSV", "data/scan-runs.tsv")
 out_xlsx = os.environ.get("OUT_XLSX", "data/matches.xlsx")
 run_label = os.environ.get("RUN_LABEL", "").strip()
@@ -95,8 +96,61 @@ def read_candidates():
         return []
 
 
+def read_all_found():
+    """Read the wide 'all found jobs' (700+) export. Returns (list, count)."""
+    if not os.path.exists(all_found_json):
+        return [], 0
+    try:
+        with open(all_found_json, encoding="utf-8-sig") as f:
+            d = json.load(f)
+            return d.get("offers", []), d.get("count", 0)
+    except Exception:
+        return [], 0
+
+
 STAT_HDRS = ["Local time", "Sites pulled", "Search results", "Removed by title",
              "Removed by location", "Duplicates", "New matches added"]
+
+ALL_HDRS = ["Company", "Role", "Location", "Posted", "Pay", "Source", "Apply link"]
+
+
+def write_all_found_sheet(ws, all_offers, now, label):
+    """Write (or refresh) the wide '700+' sheet listing every raw job found this
+    run across all sources. Unlike the strict CV-fit sheet, this is the full
+    browse deluge. We refresh a single 'All Jobs 700+' sheet each run so it shows
+    the latest full pull; the strict per-day sheets already accumulate history.
+    """
+    # Clear previous content for this sheet so it reflects this run's full pull.
+    ws.delete_rows(1, ws.max_row or 1)
+    ws.cell(row=1, column=1, value=(
+        f"Every job found this run across all sources ({len(all_offers)} total), "
+        "before strict CV filtering. Browse these to search wider."))
+    ws.cell(row=1, column=1).font = Font(italic=True, size=9, color="808080")
+    style_header(ws, 2, ALL_HDRS)
+    row = 3
+    for c in all_offers:
+        posted = ""
+        if c.get("postedAt"):
+            posted = c["postedAt"][:10] if isinstance(c["postedAt"], str) else str(c.get("postedAt"))
+        pay = ""
+        sal = c.get("salary")
+        if isinstance(sal, dict):
+            lo, hi = sal.get("min"), sal.get("max")
+            cur = sal.get("currency", "")
+            if lo and hi:
+                pay = f"{lo}-{hi} {cur}".strip()
+            elif lo:
+                pay = f"{lo} {cur}".strip()
+        write_row(ws, row, [
+            c.get("company", ""), c.get("role", ""), c.get("location", ""),
+            posted, pay, c.get("source", ""), c.get("url", ""),
+        ], ALL_HDRS)
+        write_link(ws, row, 7, c.get("url", ""))
+        row += 1
+        if row > 1048570:
+            break
+    return row
+
 
 
 def append_scan_stats(ws, now):
@@ -237,11 +291,25 @@ def main():
     name = day_name(now)
     matches = read_matches()
     candidates = read_candidates()
+    all_found, all_count = read_all_found()
 
     if os.path.exists(out_xlsx):
         wb = load_workbook(out_xlsx)
     else:
         wb = Workbook()
+
+    # Wide "All Jobs 700+" browse sheet (get or create; refreshed each run).
+    if "All Jobs 700+" in wb.sheetnames:
+        ws_all = wb["All Jobs 700+"]
+    else:
+        # Reuse the default empty "Sheet" as the wide sheet on a fresh file so
+        # no leftover blank tab remains.
+        dflt = "Sheet" if (len(wb.sheetnames) == 1 and wb.sheetnames[0] == "Sheet"
+                           and (wb["Sheet"].max_row or 0) <= 1) else None
+        ws_all = wb[dflt] if dflt else wb.create_sheet("All Jobs 700+")
+        if dflt:
+            ws_all.title = "All Jobs 700+"
+    write_all_found_sheet(ws_all, all_found, now, label)
 
     # Get (or create) today's sheet.
     if name in wb.sheetnames:
@@ -272,7 +340,7 @@ def main():
     out = Path(out_xlsx)
     out.parent.mkdir(parents=True, exist_ok=True)
     wb.save(out)
-    print(f"xlsx updated: {out}  sheet={name} run={label} matches={len(matches)} candidates={len(candidates)}")
+    print(f"xlsx updated: {out}  sheet={name} run={label} matches={len(matches)} candidates={len(candidates)} all_found={len(all_found)}")
     return 0
 
 

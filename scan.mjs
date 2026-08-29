@@ -88,6 +88,10 @@ const APPLICATIONS_PATH = path.join(DATA_ROOT, 'data/applications.md');
 // Relevant-candidate export (Full List sheet source): every offer that passed
 // title + location relevance this run, before dedup/cooldown culling.
 const CANDIDATES_PATH = process.env.CAREER_OPS_CANDIDATES || path.join(DATA_ROOT, 'data/candidates.json');
+// Wide "all found" export (700+ browse sheet source): every job pulled from
+// every source this run, BEFORE any title/location/relevance filtering. This is
+// the full deluge the user browses, separate from the strict CV-fit candidates.
+const ALL_FOUND_PATH = process.env.CAREER_OPS_ALL_FOUND || path.join(DATA_ROOT, 'data/all-found.json');
 const PROVIDERS_DIR = path.resolve(CODE_ROOT, 'providers');
 
 // Ensure required directories exist (fresh setup). Stays rooted in the user-data
@@ -2554,6 +2558,9 @@ async function main() {
   // relevant pool each run — not just the newly-added matches. Kept in memory
   // and written out in step 5.8.
   const candidateOffers = [];
+  // Wide raw export: every job from every source, no filtering. Feeds the
+  // "all found jobs / 700+" browse sheet in the Excel workbook.
+  const allFound = [];
   let totalFound = 0;
   let totalFilteredTitle = 0;
   let totalFilteredTier = 0;
@@ -2637,6 +2644,19 @@ async function main() {
       totalFound += jobs.length;
       if (!company._isBoard && jobs.length === 0) {
         emptyTargets.push(company.name);
+      }
+      // Record every raw job for the wide "all found" browse sheet, regardless
+      // of the filters below. Only pulls fields; never drops on its own.
+      for (const job of jobs) {
+        allFound.push({
+          company: job.company || company.name || '',
+          role: job.title || '',
+          location: job.location || '',
+          url: job.url || '',
+          salary: job.salary ?? null,
+          postedAt: job.postedAt ?? null,
+          source: sourceName,
+        });
       }
 
       for (const job of jobs) {
@@ -2806,6 +2826,16 @@ async function main() {
       generatedAt: new Date().toISOString(),
       count: candidateOffers.length,
       candidates: candidateOffers,
+    }, null, 2), 'utf-8');
+  }
+  // Write the wide "all found" (700+) export used for the browse sheet. Written
+  // even when empty so the builder always has a file to read.
+  if (!dryRun) {
+    mkdirSync(path.dirname(ALL_FOUND_PATH), { recursive: true });
+    writeFileSync(ALL_FOUND_PATH, JSON.stringify({
+      generatedAt: new Date().toISOString(),
+      count: allFound.length,
+      offers: allFound,
     }, null, 2), 'utf-8');
   }
   if (!dryRun && cooldownOffers.length > 0) {
