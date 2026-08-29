@@ -60,7 +60,7 @@ jobs:
           git push
 
       - name: Email new matches
-        if: steps.count.outputs.new != '0' && secrets.SMTP_PASS != ''
+        if: steps.count.outputs.new != '0' && env.SMTP_PASS != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -82,9 +82,11 @@ jobs:
             Nothing is submitted automatically — you review and apply.
 
             — CareerOps automatic scanner
+        env:
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
 
       - name: Telegram new matches
-        if: steps.count.outputs.new != '0' && secrets.TG_BOT_TOKEN != ''
+        if: steps.count.outputs.new != '0' && env.TG_BOT_TOKEN != ''
         run: |
           python - "${{ steps.count.outputs.new }}" <<'PY'
           import json, os, sys, urllib.request
