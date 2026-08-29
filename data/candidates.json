@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-08-29T15:15:50.977Z",
+  "count": 4,
+  "candidates": [
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Belgium",
+      "url": "https://www.workingnomads.com/job/go/1821504/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Polly English",
+      "role": "Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100",
+      "location": "North America",
+      "url": "https://www.workingnomads.com/job/go/1799726/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Japan - Remote",
+      "url": "https://www.workingnomads.com/job/go/1775548/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Oak National Academy",
+      "role": "Senior Data Analyst",
+      "location": "United Kingdom, Remote",
+      "url": "https://4dayweek.io/job/senior-data-analyst-at-oak-national-academy-41c852ae",
+      "salary": null,
+      "postedAt": 1787920853000,
+      "source": "4dayweek-api"
+    }
+  ]
+}
