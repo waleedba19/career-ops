@@ -60,7 +60,7 @@ jobs:
           git push
 
       - name: Email new matches
-        if: steps.count.outputs.new != '0'
+        if: steps.count.outputs.new != '0' && secrets.SMTP_PASS != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -82,3 +82,30 @@ jobs:
             Nothing is submitted automatically — you review and apply.
 
             — CareerOps automatic scanner
+
+      - name: Telegram new matches
+        if: steps.count.outputs.new != '0' && secrets.TG_BOT_TOKEN != ''
+        run: |
+          python - "${{ steps.count.outputs.new }}" <<'PY'
+          import json, os, sys, urllib.request
+          n = sys.argv[1]
+          with open("/tmp/new-offers.txt", encoding="utf-8") as f:
+              lines = [l.strip(" +") for l in f if l.strip()]
+          text = (f"CareerOps: {n} new remote job match(es)\n\n"
+                  + "\n".join(lines[:15])
+                  + ("\n…" if len(lines) > 15 else "")
+                  + "\n\nReview in data/pipeline.md — nothing is submitted automatically.")
+          data = json.dumps({
+              "chat_id": os.environ["TG_CHAT_ID"],
+              "text": text,
+              "disable_web_page_preview": True,
+          }).encode()
+          req = urllib.request.Request(
+              f"https://api.telegram.org/bot{os.environ['TG_BOT_TOKEN']}/sendMessage",
+              data=data, headers={"Content-Type": "application/json"})
+          with urllib.request.urlopen(req, timeout=20) as r:
+              print(r.status)
+          PY
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
