@@ -1,0 +1,79 @@
+name: career-ops notify self-test
+
+# On-demand workflow to prove the email + Telegram + CSV notification path
+# works end-to-end from GitHub's runner (which holds the secrets). Runs a
+# manual dispatch only — never on a schedule. Use to verify alerts after any
+# change. Reports a demo offer so the send steps actually fire.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  notify-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create demo offer file
+        run: |
+          cat > /tmp/new-offers.txt <<'EOF'
+          + CareerOps | Notification System Test - DEMO | Remote - TEST | https://example.com/notify-demo
+          + Smartling | Localization Specialist, Arabic | Remote | https://jobs.smartling.com/arabic
+          EOF
+          echo "new=1" >> "$GITHUB_OUTPUT"
+
+      - name: Email new matches
+        id: email
+        if: env.SMTP_PASS != ''
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          subject: "CareerOps: [SELF-TEST] 1 new remote job match"
+          to: ${{ secrets.SMTP_TO }}
+          from: "CareerOps Scanner <${{ secrets.SMTP_USER }}>"
+          convert_markdown: true
+          body: |
+            **CareerOps notification SELF-TEST — demo only. Nothing to apply to.**
+
+            CareerOps | Notification System Test - DEMO | Remote - TEST | <https://example.com/notify-demo>
+
+            Smartling | Localization Specialist, Arabic | Remote | <https://jobs.smartling.com/arabic>
+
+            ---
+            Full list (CSV, opens in Excel): https://github.com/waleedba19/career-ops/blob/main/data/pipeline.csv
+            Full pipeline: https://github.com/waleedba19/career-ops/blob/main/data/pipeline.md
+
+            If you received this, email alerting is working. — Self-test bot
+        env:
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+
+      - name: Telegram new matches
+        if: env.TG_BOT_TOKEN != ''
+        run: |
+          python - <<'PY'
+          import json, os, urllib.request
+          text = ("CareerOps: [SELF-TEST] 1 new remote job match (demo only)\n\n"
+                  "CareerOps — Notification System Test - DEMO (Remote - TEST)\n"
+                  "https://example.com/notify-demo\n\n"
+                  "Smartling — Localization Specialist, Arabic (Remote)\n"
+                  "https://jobs.smartling.com/arabic\n\n"
+                  "📊 Spreadsheet: github.com/waleedba19/career-ops/blob/main/data/pipeline.csv\n"
+                  "📋 Pipeline: github.com/waleedba19/career-ops/blob/main/data/pipeline.md\n\n"
+                  "If you received this, Telegram alerting is working. — Self-test bot")
+          data = json.dumps({"chat_id": os.environ["TG_CHAT_ID"], "text": text}).encode()
+          req = urllib.request.Request(
+              f"https://api.telegram.org/bot{os.environ['TG_BOT_TOKEN']}/sendMessage",
+              data=data, headers={"Content-Type": "application/json"})
+          with urllib.request.urlopen(req, timeout=20) as r:
+              print("telegram", r.status)
+          PY
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
