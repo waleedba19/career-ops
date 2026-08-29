@@ -35,6 +35,10 @@ candidates_json = os.environ.get("CANDIDATES_JSON", "data/candidates.json")
 all_found_json = os.environ.get("ALL_FOUND_JSON", "data/all-found.json")
 scan_runs_tsv = os.environ.get("SCAN_RUNS_TSV", "data/scan-runs.tsv")
 out_xlsx = os.environ.get("OUT_XLSX", "data/matches.xlsx")
+# When "1", force a rebuild of the wide "All Jobs 700+" browse sheet this run
+# regardless of the day marker. The 09:00 Tripoli digest slot sets this so the
+# big browse sheet is refreshed once per day at 09:00 (per the user's request).
+force_rebuild_wide = os.environ.get("REBUILD_WIDE", "") == "1"
 run_label = os.environ.get("RUN_LABEL", "").strip()
 tz_offset = float(os.environ.get("TZ_OFFSET_H", "2"))
 
@@ -335,14 +339,16 @@ def main():
     else:
         wb = Workbook()
 
-    # Wide "All Jobs 700+" browse sheet: build it only ONCE per day (the first
-    # run of the day). Later runs keep the same full 700+ pull so they don't
-    # waste time re-listing ~2,800 rows. The day it was built is stored in a
-    # hidden marker cell (H1); when the marker matches today we skip the rebuild.
+    # Wide "All Jobs 700+" browse sheet: rebuilt ONCE per day, prompted by the
+    # 09:00 Tripoli digest slot (REBUILD_WIDE=1) or, as a safety fallback, the
+    # first run of the day when no slot has rebuilt it yet. The day it was built
+    # is stored in a hidden marker cell (H1); when the marker matches today and
+    # we are not asked to force-rebuild, we skip so we don't re-list ~2,800 rows
+    # on every scan.
     if "All Jobs 700+" in wb.sheetnames:
         ws_all = wb["All Jobs 700+"]
         marker = ws_all.cell(row=1, column=8).value
-        if not marker or str(marker) != name:
+        if force_rebuild_wide or (not marker or str(marker) != name):
             write_all_found_sheet(ws_all, all_found, now, label)
             ws_all.cell(row=1, column=8, value=name)
     else:

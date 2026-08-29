@@ -33,13 +33,21 @@ if os.environ.get("SMTP_USER") and os.environ.get("SMTP_PASS") and os.environ.ge
         # Build a simple HTML body (basic markdown -> <br> lines, links clickable).
         import re
         def htmlize(md):
-            out = re.sub(r"^#+ (.*)$", r"<h1>\1</h1>", md, flags=re.M)
+            out = md
+            # STRONG MATCH sentinels (from generate-alert.mjs) -> red highlight
+            # so genuinely high-fit roles pop in the HTML email.
+            out = out.replace("⟪STRONG⟫", '<span style="color:#c0392b;font-weight:bold">')
+            out = out.replace("⟪/STRONG⟫", "</span>")
+            out = re.sub(r"^#+ (.*)$", r"<h1>\1</h1>", out, flags=re.M)
             out = re.sub(r"^## (.*)$", r"<h2>\1</h2>", out, flags=re.M)
             out = re.sub(r"\[(.+?)\]\((https?://\S+?)\)", r'<a href="\2">\1</a>', out)
             out = out.replace("***", "<b>").replace("**", "<b>")
             return out.replace("\n", "<br/>")
         msg = MIMEMultipart("alternative")
-        subject = f"CareerOps: {count} new remote job match(es)"
+        if count == "0":
+            subject = "CareerOps: your daily job update (no new matches today)"
+        else:
+            subject = f"CareerOps: {count} new remote job match(es)"
         if test_mode:
             subject = "[TEST] " + subject
         msg["Subject"] = subject

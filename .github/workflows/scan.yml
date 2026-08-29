@@ -1,10 +1,13 @@
 name: career-ops scan
 
-# Runs the headless ATS portal scanner 6x/day (Tripoli time, UTC+2)
-# and emails Waleed when new matching offers are found.
+# Runs the headless ATS portal scanner 6x/day (Tripoli time, UTC+2) plus one
+# dedicated 09:00 slot. The 09:00 slot rebuilds the wide "All Jobs 700+" browse
+# sheet once per day and sends a guaranteed daily digest (summary + workbook)
+# even when no new matches were found. The other slots do the strict CV-match
+# scans and only alert when a genuinely new match appears.
 on:
   schedule:
-    - cron: '0 5,8,11,14,17,20 * * *'   # 07:00, 10:00, 13:00, 16:00, 19:00, 22:00 Tripoli (UTC+2)
+    - cron: '0 5,7,8,11,14,17,20 * * *'   # 07:00, 09:00, 10:00, 13:00, 16:00, 19:00, 22:00 Tripoli (UTC+2)
   workflow_dispatch: {}                  # allow manual trigger
 
 permissions:
@@ -40,18 +43,23 @@ jobs:
           # blank line / footer that closes the section)
           awk 'BEGIN{s=0} /^New offers:$/{s=1;next} /^$/{if(s)exit} s&&/^  \+ /' /tmp/scan.log > /tmp/new-offers.txt || true
 
-      - name: Count new offers
+      - name: Count new offers + detect 09:00 digest slot
         id: count
         run: |
           if [ -s /tmp/new-offers.txt ]; then
             NEW=$(grep -c '^  + ' /tmp/new-offers.txt || true)
-            echo "new=${NEW:-0}" >> "$GITHUB_OUTPUT"
           else
-            echo "new=0" >> "$GITHUB_OUTPUT"
+            NEW=0
           fi
+          echo "new=${NEW:-0}" >> "$GITHUB_OUTPUT"
+          # The 09:00 Tripoli slot (UTC+2) is the daily-digest slot: it rebuilds
+          # the wide 700+ sheet once/day and sends a guaranteed daily update even
+          # when nothing new was found. Identify it by the current Tripoli hour.
+          TH=$(TZ=Etc/GMT-2 date +%H)
+          echo "tri_poli_hour=$TH" >> "$GITHUB_OUTPUT"
+          if [ "$TH" = "09" ]; then echo "slot=digest" >> "$GITHUB_OUTPUT"; else echo "slot=scan" >> "$GITHUB_OUTPUT"; fi
 
-      - name: Build alert (TG + email params)
-        if: steps.count.outputs.new != '0'
+      - name: Build alert (TG + email params) [always, so the digest has content]
         run: node generate-alert.mjs /tmp/new-offers.txt || true
 
       - name: Export pipeline CSV
@@ -70,6 +78,8 @@ jobs:
           ALL_FOUND_JSON: data/all-found.json
           SCAN_RUNS_TSV: data/scan-runs.tsv
           OUT_XLSX: data/matches.xlsx
+          # Only the 09:00 digest slot forces the once-per-day wide-sheet rebuild.
+          REBUILD_WIDE: ${{ steps.count.outputs.slot == 'digest' && '1' || '0' }}
 
       - name: Commit scanner results
         run: |
@@ -80,8 +90,10 @@ jobs:
           git diff --cached --quiet || git commit -m "chore(scan): update pipeline $(date -u +%Y-%m-%dT%H:%MZ)"
           git push
 
+      # Daily digest slot (09:00): send EVERY day, even with 0 new, with the
+      # workbook. Otherwise (strict scan slots): send only when genuinely new.
       - name: Send alerts (email + Telegram + Excel)
-        if: steps.count.outputs.new != '0' && (env.SMTP_PASS != '' || env.TG_BOT_TOKEN != '')
+        if: (steps.count.outputs.slot == 'digest' || steps.count.outputs.new != '0') && (env.SMTP_PASS != '' || env.TG_BOT_TOKEN != '')
         run: python send_alert.py "${{ steps.count.outputs.new }}"
         env:
           SMTP_USER: ${{ secrets.SMTP_USER }}

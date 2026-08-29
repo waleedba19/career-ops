@@ -143,13 +143,19 @@ function money(o) { return o.comp ? o.comp : 'Not advertised'; }
 const offers = parse(readFileSync(offersPath, 'utf-8'));
 const n = offers.length;
 
+// A role counts as a STRONG MATCH when it clears this fit threshold. Such roles
+// are put first, marked "STRONG MATCH", and highlighted in red in the email so
+// Waleed spots the genuinely high-confidence apply-worthy ones at a glance.
+const STRONG_MATCH_SCORE = 88;
+
 // Enrich each offer
 const detailed = offers.map((o) => {
   const b = bucketFor(o);
   const age = ageInfo(o.postedMs);
   const kind = locationKind(o.location);
   const score = fitScore(o, b, age, kind);
-  return { o, b, age, score, kind };
+  const strong = score >= STRONG_MATCH_SCORE;
+  return { o, b, age, score, kind, strong };
 });
 
 // Sort: score desc, then fresh first
@@ -161,12 +167,13 @@ const bestRemote = detailed.find((d) => d.kind !== 'onsite');
 const best = bestRemote || null;
 
 function humanOffer(d) {
-  const { o, b, age, score, kind } = d;
+  const { o, b, age, score, kind, strong } = d;
   const lines = [];
   lines.push(`${o.company} is hiring a ${o.title} (${o.location || 'remote'}).`);
   lines.push(`Field: ${b.label}. Pay: ${money(o)}. Age: ${age.text}.`);
   if (age.urgent) lines.push('This is fresh, so apply fast while the role is still open.');
   lines.push(`Fit for your CV: around ${score} out of 100.`);
+  if (strong) lines.push('STRONG MATCH: this lines up strongly with your experience and is worth applying to.');
   if (kind === 'onsite') {
     lines.push('Caution: this is based in one of the countries you cannot relocate to, and it does not clearly say remote. Treat it as on-site, not a remote fit, and only apply if you are sure.');
   } else if (kind === 'me') {
@@ -289,7 +296,7 @@ em.push('');
 em.push('ABOUT THE WORKBOOK');
 em.push('I am attaching career-matches.xlsx. It has two clearly different sheets:');
 em.push('- "All Jobs 700+" is the wide browse sheet: every single job found today across all sources, so you can search far beyond your exact match.');
-em.push('- The day sheet (for example 29-8-2026) holds only your strict CV matches, stacked by each scan run. Today\'s wide sheet is built once on the first scan of the day and kept for the rest of the day.');
+em.push('- The day sheet (for example 29-8-2026) holds only your strict CV matches, stacked by each scan run. Today\'s wide sheet is rebuilt once per day at 09:00 and kept for the rest of the day.');
 em.push('Open it in Excel or Google Sheets to browse.');
 em.push('');
 em.push('Regards,');
@@ -297,13 +304,19 @@ em.push('Your CareerOps assistant');
 writeFileSync('/tmp/alert-email.md', em.join('\n'));
 
 function pushEmailOffer(emArr, d) {
-  const { o, b, age, score } = d;
-  emArr.push(`${o.company} - ${o.title}`);
+  const { o, b, age, score, strong } = d;
+  // STRONG MATCH roles are wrapped in a sentinel pair that send_alert.py turns
+  // into red styling in the HTML email, so the genuinely high-confidence,
+  // apply-worthy roles visually pop above the rest.
+  const openTag = strong ? '⟪STRONG⟫' : '';
+  const closeTag = strong ? '⟪/STRONG⟫' : '';
+  emArr.push(`${openTag}${o.company} - ${o.title}${closeTag}`);
   emArr.push(`Field: ${b.label}`);
   emArr.push(`Pay: ${money(o)}`);
   emArr.push(`Age: ${age.text}`);
   if (age.urgent) emArr.push('This is fresh, so apply fast.');
-  emArr.push(`Fit for your CV: ${score} out of 100`);
+  emArr.push(`${openTag}Fit for your CV: ${score} out of 100${closeTag}`);
+  if (strong) emArr.push('STRONG MATCH: this lines up strongly with your experience and is worth applying to.');
   emArr.push(`Recommendation: ${b.rec}`);
   emArr.push(`Apply at: ${o.url}`);
   emArr.push(`Source site: ${hostname(o.url)}`);
