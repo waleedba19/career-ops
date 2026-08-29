@@ -1,4 +1,7 @@
-url	first_seen	portal	title	company	status	location	fingerprint	posted_at	trust_score	trust_flags	normalized_company
+﻿url	first_seen	portal	title	company	status	location	fingerprint	posted_at	trust_score	trust_flags	normalized_company
 https://job-boards.greenhouse.io/2k/jobs/7787506003	2026-08-29	greenhouse-api	Staff Data Analyst	2K	added	Novato, California, United States	f05d0f1e9ea11acf	2026-07-21			2k
 https://job-boards.greenhouse.io/wppmedia/jobs/5166445008	2026-08-29	greenhouse-api	Data Analyst H/F - CDI (Lille)	WPP	added	Lille, France	f0fad65cf0e830f8	2026-03-26			wpp
 https://job-boards.greenhouse.io/wppmedia/jobs/5133547008	2026-08-29	greenhouse-api	Executive Data Analyst	WPP	added	Jakarta, Indonesia	5752189e73be48aa	2026-07-31			wpp
+https://4dayweek.io/job/senior-data-analyst-at-oak-national-academy-41c852ae	2026-08-29	4dayweek-api	Senior Data Analyst	Oak National Academy	added	United Kingdom, Remote		2026-08-28			oak national academy
+https://www.workingnomads.com/job/go/1821504/	2026-08-29	workingnomads-api	Data Analyst (No Experience Required)	Peroptyx	added	Belgium					peroptyx
+https://www.workingnomads.com/job/go/1799726/	2026-08-29	workingnomads-api	Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100	Polly English	added	North America					polly english

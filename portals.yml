@@ -54,6 +54,68 @@ location_filter:
     - "Argentina"
     - "Colombia"
     - "Chile"
+    # Hub cities — on-site roles are useless to Waleed; the country keyword
+    # often isn't in the location string ("Adelaide," carries no "Australia").
+    # always_allow "Remote" still rescues genuine remote listings.
+    - "Adelaide"
+    - "Sydney"
+    - "Melbourne"
+    - "Brisbane"
+    - "Perth"
+    - "Auckland"
+    - "London"
+    - "Manchester"
+    - "Birmingham"
+    - "Leeds"
+    - "Glasgow"
+    - "Edinburgh"
+    - "Dublin"
+    - "Paris"
+    - "Berlin"
+    - "Munich"
+    - "Frankfurt"
+    - "Amsterdam"
+    - "Brussels"
+    - "Madrid"
+    - "Barcelona"
+    - "Milan"
+    - "Rome"
+    - "Lisbon"
+    - "New York"
+    - "Los Angeles"
+    - "San Francisco"
+    - "Chicago"
+    - "Austin"
+    - "Toronto"
+    - "Vancouver"
+    - "Singapore"
+    - "Dubai"
+    - "Riyadh"
+    - "Doha"
+    - "Kuwait City"
+    - "Manama"
+    - "Muscat"
+    - "Cairo"
+    - "Alexandria"
+    - "Casablanca"
+    - "Tunis"
+    - "Amman"
+    - "Beirut"
+    - "Istanbul"
+    - "Ankara"
+    - "Jakarta"
+    - "Bangkok"
+    - "Ho Chi Minh"
+    - "Manila"
+    - "Mumbai"
+    - "Delhi"
+    - "Bangalore"
+    - "Karachi"
+    - "Lahore"
+    - "Lagos"
+    - "Nairobi"
+    - "Johannesburg"
+    - "Cape Town"
   allow: []
 
 # -- Scan history recheck --
@@ -167,19 +229,117 @@ tracked_companies:
     notes: "Lever slug unreachable — disable until verified."
   # Remote-first general boards with free APIs (broad data-entry/admin coverage)
   - name: Remotive
+    provider: remotive
     careers_url: https://remotive.com/remote-jobs
     api: https://remotive.com/api/remote-jobs
     notes: "Broad remote board; data entry, admin, VA roles."
     enabled: true
   - name: Himalayas
+    provider: himalayas
     careers_url: https://himalayas.app/jobs
     api: https://himalayas.app/jobs/api
     notes: "Remote jobs focused; admin + ops."
     enabled: true
   - name: Working Nomads
+    provider: workingnomads
     careers_url: https://www.workingnomads.com/jobs
     api: https://www.workingnomads.com/api/exposed_jobs/
     notes: "Remote jobs for digital workers."
+    enabled: true
+  # --- Board-wide free feeds (zero-token, provider-pinned) ---
+  - name: We Work Remotely
+    provider: weworkremotely
+    careers_url: https://weworkremotely.com/remote-jobs.rss
+    notes: "Remote-first board; teaching, admin, VA, writing."
+    enabled: true
+  - name: RemoteOK
+    provider: remoteok
+    careers_url: https://remoteok.com/api
+    notes: "Remote-first board; support, admin, writing roles."
+    enabled: true
+  - name: Jobspresso
+    provider: jobspresso
+    careers_url: https://jobspresso.co
+    notes: "Remote board; admin, VA, support."
+    enabled: true
+  - name: NoDesk
+    provider: nodesk
+    careers_url: https://nodesk.co/remote-jobs
+    notes: "Remote board; admin/ops/VA feed."
+    enabled: true
+  - name: Jobicy
+    provider: jobicy
+    careers_url: https://jobicy.com
+    notes: "Remote jobs aggregator; admin + support."
+    enabled: true
+  - name: 4 Day Week
+    provider: 4dayweek
+    careers_url: https://4dayweek.io/remote-jobs
+    notes: "Reduced-hours remote roles."
+    enabled: true
+  # --- Translation / localization vendors (verified live Aug 2026) ---
+  - name: Smartling
+    careers_url: https://job-boards.greenhouse.io/smartling
+    api: https://boards-api.greenhouse.io/v1/boards/smartling/jobs
+    notes: "Localization platform; linguist + QA roles."
+    enabled: true
+  - name: Lokalise
+    careers_url: https://job-boards.greenhouse.io/lokalise
+    api: https://boards-api.greenhouse.io/v1/boards/lokalise/jobs
+    notes: "Localization product; remote roles."
+    enabled: true
+  - name: TransPerfect
+    careers_url: https://jobs.smartrecruiters.com/transperfect
+    api: https://jobs.smartrecruiters.com/transperfect
+    notes: "Biggest translation vendor; linguist roles."
+    enabled: true
+  - name: Welocalize
+    careers_url: https://jobs.smartrecruiters.com/Welocalize
+    api: https://jobs.smartrecruiters.com/Welocalize
+    notes: "Localization LSP; freelance linguists."
+    enabled: true
+  - name: RWS
+    careers_url: https://jobs.smartrecruiters.com/RWSGroup
+    api: https://jobs.smartrecruiters.com/RWSGroup
+    notes: "Translation/interpretation services."
+    enabled: true
+  - name: Appen
+    careers_url: https://jobs.lever.co/appen
+    api: https://api.lever.co/v0/postings/appen?mode=json
+    notes: "Data annotation/crowd; Arabic projects."
+    enabled: true
+  # --- Teaching / education platforms (verified live Aug 2026) ---
+  - name: Outschool
+    careers_url: https://job-boards.greenhouse.io/outschool
+    api: https://boards-api.greenhouse.io/v1/boards/outschool/jobs
+    notes: "Online teaching marketplace."
+    enabled: true
+  - name: Khan Academy
+    careers_url: https://job-boards.greenhouse.io/khanacademy
+    api: https://boards-api.greenhouse.io/v1/boards/khanacademy/jobs
+    notes: "Education content roles."
+    enabled: true
+  # --- Admin / VA services (verified live Aug 2026) ---
+  - name: Belay
+    careers_url: https://apply.workable.com/belay
+    notes: "Virtual assistant / admin services firm."
+    enabled: true
+  # --- AI data / annotation (verified live Aug 2026) ---
+  - name: Scale AI
+    careers_url: https://job-boards.greenhouse.io/scaleai
+    api: https://boards-api.greenhouse.io/v1/boards/scaleai/jobs
+    notes: "Data annotation; AI training roles."
+    enabled: true
+  # --- Broad corporates with public boards (verified live Aug 2026) ---
+  - name: Mozilla
+    careers_url: https://job-boards.greenhouse.io/mozilla
+    api: https://boards-api.greenhouse.io/v1/boards/mozilla/jobs
+    notes: "Remote-first; localization + content roles."
+    enabled: true
+  - name: Riot Games
+    careers_url: https://job-boards.greenhouse.io/riotgames
+    api: https://boards-api.greenhouse.io/v1/boards/riotgames/jobs
+    notes: "Game localization; Arabic language roles."
     enabled: true
 
 # -- Job board search queries --
