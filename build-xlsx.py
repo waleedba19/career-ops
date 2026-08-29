@@ -82,7 +82,7 @@ def write_link(ws, row, col, url, display=None):
 def read_matches():
     if not os.path.exists(matches_csv):
         return []
-    with open(matches_csv, newline="", encoding="utf-8") as f:
+    with open(matches_csv, newline="", encoding="utf-8-sig") as f:
         return list(csv.DictReader(f))
 
 
@@ -215,23 +215,60 @@ def append_scan_stats(ws, now):
 MATCH_HDRS = ["Fit", "Field", "Company", "Role", "Location", "Pay", "Age", "Urgency", "Apply link", "Source"]
 FULL_HDRS = ["Company", "Role", "Location", "Posted", "Pay", "Source", "Apply link"]
 
+# Fit-score floor for the strict apply-worthy sheet. On-site blocked-hub roles
+# are hard-capped at <=15 by generate-alert, so this floor drops them AND the
+# low near-miss noise, while leaving a few easy-to-eyeball 40+ rows. Balanced,
+# per the user's "few easy near-misses" preference.
+APP_MIN_FIT = 40
+
+
+def apply_worthy(m):
+    """Return True when a row is genuinely worth Waleed's click on the strict
+    apply-worthy sheet: it is eligible (not an on-site blocked-hub role) and its
+    fit score clears the balanced floor. Missing eligibility is treated as
+    eligible (older rows / defensible default); missing score is kept so we
+    never silently drop an undated or un-scored but otherwise strong role."""
+    elig = str(m.get("eligible", "yes")).strip().lower()
+    if elig == "no":
+        return False
+    try:
+        score = float(m.get("fit_score"))
+    except (TypeError, ValueError):
+        return True
+    return score >= APP_MIN_FIT
+
+
 
 def append_match_table(ws, row, matches, label):
-    """Write a run's match table starting at `row`. Returns next free row."""
+    """Write a run's match table starting at `row`. Returns next free row.
+
+    This is the strict APPLY-WORTHY sheet, so we show only rows that are genuinely
+    worth a click and drop the noise that would waste Waleed's time:
+      - skip on-site blocked-hub roles outright (eligible == "no" — these were
+        hard-capped by generate-alert and are not eligible for him)
+      - skip fit scores below APP_MIN_FIT (low / near-miss noise that is not a
+        real match). Balanced by design: keeping rows from ~40 up leaves the
+        few easy-to-eyeball near-misses without burying the real matches.
+    The wider "Full List" table below still carries every relevant role for
+    browsing, so nothing is hidden, only de-prioritised here.
+    """
     if not matches:
         return row
+    kept = [m for m in matches if apply_worthy(m)]
+    if not kept:
+        return row
     cell = ws.cell(row=row, column=1,
-                   value=f"{label}  -  Matches (new relevant jobs)")
+                   value=f"{label}  -  Apply-worthy matches")
     cell.font = RUN_FONT
     cell.fill = RUN_FILL
     row += 1
-    ws.cell(row=row, column=1, value=("The jobs this run found that fit your "
-                                      "profile, with fit score, pay, how fresh, and urgency."))
+    ws.cell(row=row, column=1, value=("The jobs this run found that are genuinely worth your time: strong "
+                                      "fits that are remote or in Libya/the Middle East, filtered so you don't waste clicks."))
     ws.cell(row=row, column=1).font = Font(italic=True, size=9, color="808080")
     row += 1
     style_header(ws, row, MATCH_HDRS)
     row += 1
-    for m in matches:
+    for m in kept:
         write_row(ws, row, [
             m.get("fit_score", ""), m.get("field", ""), m.get("company", ""),
             m.get("title", ""), m.get("location", ""), m.get("pay", ""),

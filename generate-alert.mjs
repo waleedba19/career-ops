@@ -46,22 +46,33 @@ const BUCKETS = [
   { key: 'academic', label: 'Academic or research support', priority: 3,
     match: /academic|research|thesis|editor|proofread|curriculum|education|instructional design|study/i,
     base: 78, rec: 'A good fit. You have supervised 15 graduate theses and done academic editing and research support, which fits this type of role.' },
+  { key: 'libya', label: 'Libya-based role (on-site or remote)', priority: 3,
+    match: /libya|tripoli|benghazi/i,
+    base: 80, rec: 'A local Libyan opportunity aligned with your background. Because it is in-country, it is an option even if it is not remote. Review the requirements and apply if it matches.' },
   { key: 'data', label: 'Data or administrative', priority: 4,
     match: /data (entry|analyst|annotat)|annotation|labeling|transcription|virtual assistant|admin|typing|project manager/i,
     base: 68, rec: 'An okay fit and a possible route in, but this area attracts some scams. Check that the company is a real firm before sharing any personal details.' },
 ];
 
-// Hub cities/countries where an ONSITE role is useless to Waleed (remote only,
-// no relocation). Mirror of portals.yml location_filter.block. When an offer's
-// location string names one of these with no remote/anywhere qualifier, we
-// refuse to rank it as a strong fit or best-to-apply.
-const BLOCKED_HUBS = /(^|[,\-\s])(madrid|barcelona|paris|berlin|munich|frankfurt|london|manchester|dublin|amsterdam|brussels|milan|rome|lisbon|stockholm|oslo|copenhagen|helsinki|warsaw|adelaide|sydney|melbourne|brisbane|perth|auckland|new york|los angeles|san francisco|chicago|austin|toronto|vancouver|singapore|dubai|riyadh|doha|kuwait|manama|muscat|cairo|alexandria|casablanca|tunis|amman|beirut|istanbul|ankara|jakarta|bangkok|manila|mumbai|delhi|bangalore|karachi|lahore|lagos|nairobi|johannesburg|cape town|spain|usa|united states|uk|united kingdom|canada|australia|france|germany|italy|netherlands|poland|sweden|norway|denmark|finland|ireland|portugal|singapore|japan|south korea|china|brazil|mexico|argentina|colombia|chile|india|pakistan|bangladesh|sri lanka|nigeria|kenya|ghana|south africa|indonesia|philippines|malaysia|vietnam|thailand)([,\-\s]|$)/i;
+// Hub cities/countries where an ONSITE role is useless to Waleed (non-ME
+// regions he cannot work in: US/EU/Asia-Pacific etc.). Mirror of
+// portals.yml location_filter.block with the Middle-East and Libya entries
+// REMOVED, because those regions are now allowed on-site. When an offer's
+// location string names a still-blocked hub with no remote/anywhere qualifier,
+// we refuse to rank it as a strong fit or best-to-apply.
+const BLOCKED_HUBS = /(^|[,\-\s])(madrid|barcelona|paris|berlin|munich|frankfurt|london|manchester|dublin|amsterdam|brussels|milan|rome|lisbon|stockholm|oslo|copenhagen|helsinki|warsaw|adelaide|sydney|melbourne|brisbane|perth|auckland|new york|los angeles|san francisco|chicago|austin|toronto|vancouver|jakarta|bangkok|manila|mumbai|delhi|bangalore|karachi|lahore|lagos|nairobi|johannesburg|cape town|spain|usa|united states|uk|united kingdom|canada|australia|france|germany|italy|netherlands|poland|sweden|norway|denmark|finland|ireland|portugal|japan|south korea|china|brazil|mexico|argentina|colombia|chile|india|pakistan|bangladesh|sri lanka|nigeria|kenya|ghana|south africa|indonesia|philippines|malaysia|vietnam|thailand)([,\-\s]|$)/i;
 
-// Returns 'remote' | 'onsite' | 'unknown' based on the location field alone.
+// Middle-East / Arab-world countries+their hubs (allowed on-site as of the 2026
+// Libya/ME expansion) plus Libya. Used to mark such roles as eligible rather
+// than applying the on-site penalty.
+const ME_LIBYA_HUBS = /(^|[,\-\s])(dubai|riyadh|doha|kuwait|manama|muscat|cairo|alexandria|casablanca|tunis|amman|beirut|istanbul|ankara|libya|tripoli|benghazi|uae|united arab emirates|saudi|saudi arabia|qatar|bahrain|oman|egypt|morocco|tunisia|jordan|lebanon|turkey|kuwait)([,\-\s]|$)/i;
+
+// Returns 'remote' | 'onsite' | 'me' | 'unknown' based on the location field.
 function locationKind(loc) {
   const s = String(loc || '').toLowerCase();
   if (!s) return 'unknown';
   if (/remote|anywhere|worldwide|global|online|home ?based|virtual/.test(s)) return 'remote';
+  if (ME_LIBYA_HUBS.test(s)) return 'me';
   if (BLOCKED_HUBS.test(s)) return 'onsite';
   return 'unknown';
 }
@@ -158,6 +169,8 @@ function humanOffer(d) {
   lines.push(`Fit for your CV: around ${score} out of 100.`);
   if (kind === 'onsite') {
     lines.push('Caution: this is based in one of the countries you cannot relocate to, and it does not clearly say remote. Treat it as on-site, not a remote fit, and only apply if you are sure.');
+  } else if (kind === 'me') {
+    lines.push('This is in Libya or the Middle East, so it is a genuine option for you even if it is on-site. Worth a look.');
   } else if (kind === 'unknown') {
     lines.push('Note: the listing does not say where it is based or whether it is remote. Check the posting before applying.');
   }
@@ -302,11 +315,11 @@ function pushEmailOffer(emArr, d) {
 // export-pipeline-csv.mjs owns as the running ledger of every job in the pipeline.
 // This file is the enriched per-scan view: fit score, field, pay, age, urgency.
 const f = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
-const head = ['fit_score', 'field', 'company', 'title', 'location', 'pay', 'age', 'urgency', 'url', 'source_site'];
+const head = ['fit_score', 'field', 'company', 'title', 'location', 'pay', 'age', 'urgency', 'url', 'source_site', 'eligible'];
 const rows = detailed.map((d) => {
-  const { o, b, age, score } = d;
+  const { o, b, age, score, kind } = d;
   const urgency = !o.postedMs ? 'unknown' : (age.urgent ? 'urgent' : (age.fresh ? 'fresh' : 'old'));
-  return [score, b.label, o.company, o.title, o.location, money(o), age.text, urgency, o.url, hostname(o.url)].map(f).join(',');
+  return [score, b.label, o.company, o.title, o.location, money(o), age.text, urgency, o.url, hostname(o.url), kind !== 'onsite' ? 'yes' : 'no'].map(f).join(',');
 });
 writeFileSync('/tmp/alert-rows.csv', head.join(',') + '\n' + rows.join('\n') + '\n');
 

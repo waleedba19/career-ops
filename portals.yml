@@ -4,9 +4,15 @@
 # Strategy: WebSearch with site: filters (broad discovery), plus portal scans.
 
 # -- Location filter --
-# Waleed works fully remote from Libya. PASS if the posting mentions remote/
-# anywhere/worldwide. Otherwise reject on-site roles in hub countries where he
-# cannot work. Empty location strings pass (don't penalize missing data).
+# Waleed works remotely and, as of the Libya/Middle-East expansion, also accepts
+# on-site roles IN LIBYA or IN ANY MIDDLE-EAST / ARAB-WORLD COUNTRY. PASS:
+#   - a remote/anywhere/worldwide marker, OR
+#   - Libya / its main cities (he lives there), OR
+#   - a Middle-East / Arab-world country (on-site is fine there).
+# Otherwise reject on-site roles in hub countries where he cannot work (US, EU,
+# Asia-Pacific, etc.). Empty location strings pass (don't penalize missing data),
+# but a description-based guard in scan.mjs re-checks empty-location postings
+# against the blocked-hub country list below.
 location_filter:
   always_allow:
     - "Remote"
@@ -15,7 +21,11 @@ location_filter:
     - "Anywhere"
     - "Global"
     - "Anywhere in the world"
+    - "Libya"
+    - "Tripoli"
+    - "Benghazi"
   block:
+    # On-site hub countries Waleed cannot work in (non-ME, non-Libya).
     - "United States"
     - "United Kingdom"
     - "Canada"
@@ -88,21 +98,6 @@ location_filter:
     - "Austin"
     - "Toronto"
     - "Vancouver"
-    - "Singapore"
-    - "Dubai"
-    - "Riyadh"
-    - "Doha"
-    - "Kuwait City"
-    - "Manama"
-    - "Muscat"
-    - "Cairo"
-    - "Alexandria"
-    - "Casablanca"
-    - "Tunis"
-    - "Amman"
-    - "Beirut"
-    - "Istanbul"
-    - "Ankara"
     - "Jakarta"
     - "Bangkok"
     - "Ho Chi Minh"
@@ -435,4 +430,26 @@ search_queries:
 
   - name: Working Nomads — Translators
     query: 'site:workingnomads.com "translator" OR "translation" OR "Arabic" OR "localization" remote'
+    enabled: true
+
+  # Libya — local on-site + freelance/in-country roles (added 2026-08)
+  - name: Libya — Translator/Admin (site
+    query: 'site:libyajobs.net OR site:bayt.com "translator" OR "data entry" OR "admin" OR "English teacher" Libya'
+    enabled: true
+
+  - name: Libya — Teacher/Data (foreign boards
+    query: 'site:linkedin.com Libya "English teacher" OR "translator" OR "data entry" OR "admin"'
+    enabled: true
+
+  - name: Libya — Freelance/Remote Arabic (broad
+    query: '"Libya" "Arabic" (translator OR "English teacher" OR "data entry") remote OR freelance'
+    enabled: true
+
+  # Middle East on-site (allowed as of 2026-08)
+  - name: Middle East — Translator (Gulf boards
+    query: 'site:bayt.com OR site:gulftalent.com OR site:naukrigulf.com "translator" OR "Arabic-English" OR "localization" (UAE OR Saudi OR Qatar OR Kuwait OR Egypt OR Jordan)'
+    enabled: true
+
+  - name: Middle East — Teacher/Admin (Gulf boards
+    query: 'site:bayt.com OR site:gulftalent.com OR site:naukrigulf.com "English teacher" OR "ESL" OR "data entry" OR "admin" (Dubai OR Riyadh OR Doha OR Cairo)'
     enabled: true

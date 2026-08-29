@@ -331,6 +331,32 @@ export function buildLocationFilter(locationFilter) {
   };
 }
 
+// ── Description blocked-hub guard ──────────────────────────────────
+// The structured location field is frequently EMPTY on ATS feeds (Greenhouse
+// especially), so a genuinely on-site role in a region Waleed cannot work in
+// (US, EU, Asia-Pacific — i.e. anything still on the location_filter `block`
+// list) sails past the location filter untouched. This guard runs only when
+// the structured location gave no signal; it then reads the job DESCRIPTION
+// body and rejects the posting if the body explicitly names a still-blocked
+// hub country/city (word-bounded, so "Spain" on its own region does not
+// collide with "Spain" inside "Spainish" etc.).
+//
+// Deliberately opt-in and additive: only active when a `block` list exists,
+// and only fires for postings whose location field is empty. Middle East and
+// Libya are NOT in the blocked set, so an empty-location ME/Libya role whose
+// description names Dubai/Cairo/etc. passes — matching the ME/Libya expansion.
+export function buildDescriptionBlockedHubGuard(blockKeywords) {
+  const block = compileLocationKeywordList(blockKeywords);
+  if (block.length === 0) return () => true;
+  return (location, description) => {
+    // Only guard when the structured location gave NO signal.
+    if (typeof location === 'string' && location.trim() !== '') return true;
+    if (typeof description !== 'string' || description.trim() === '') return true;
+    const lower = description.toLowerCase();
+    return !block.some(m => m(lower));
+  };
+}
+
 // ── Posting-age filter ──────────────────────────────────────────────
 // Optional opt-in. If `max_posting_age_days` is absent (or not a positive
 // integer) in portals.yml, every offer passes. An offer is skipped only when
@@ -2459,6 +2485,9 @@ async function main() {
   }
 
   const locationFilter = buildLocationFilter(config.location_filter);
+  const descBlockedHubGuard = buildDescriptionBlockedHubGuard(
+    config.location_filter && config.location_filter.block
+  );
   const postingAgeFilter = buildPostingAgeFilter(config.max_posting_age_days);
   const postedDateFilter = buildPostedDateFilter(effectiveAfter, postedBefore);
 
@@ -2565,6 +2594,7 @@ async function main() {
   let totalFilteredTitle = 0;
   let totalFilteredTier = 0;
   let totalFilteredLocation = 0;
+  let totalFilteredDescBlockedHub = 0;
   let totalFilteredPostingAge = 0;
   let totalFilteredPostedDate = 0;
   let totalFilteredSalary = 0;
@@ -2595,6 +2625,7 @@ async function main() {
       errors: errors.length, filteredBlacklist: totalFilteredBlacklist,
       filteredVisa: totalFilteredVisa, filteredPostedDate: totalFilteredPostedDate,
       filteredCountryEligibility: totalFilteredCountryEligibility,
+      filteredDescBlockedHub: totalFilteredDescBlockedHub,
     }));
     // Ctrl-C mid-sweep is the common abort. Best effort: record, then die
     // with the conventional SIGINT code.
@@ -2698,6 +2729,12 @@ async function main() {
         // ("Program Manager - Remote") isn't rejected for a city-only location.
         if (!locationFilter(job.location, job.url, job.title)) {
           totalFilteredLocation++;
+          continue;
+        }
+        // Empty structured location + description names a still-blocked hub
+        // country/city → reject (closes the on-site-Greenhouse leak).
+        if (!descBlockedHubGuard(job.location, job.description)) {
+          totalFilteredDescBlockedHub++;
           continue;
         }
         // Relevant: title + location filters both passed. Record for the Full
