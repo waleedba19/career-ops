@@ -51,6 +51,21 @@ const BUCKETS = [
     base: 68, rec: 'An okay fit and a possible route in, but this area attracts some scams. Check that the company is a real firm before sharing any personal details.' },
 ];
 
+// Hub cities/countries where an ONSITE role is useless to Waleed (remote only,
+// no relocation). Mirror of portals.yml location_filter.block. When an offer's
+// location string names one of these with no remote/anywhere qualifier, we
+// refuse to rank it as a strong fit or best-to-apply.
+const BLOCKED_HUBS = /(^|[,\-\s])(madrid|barcelona|paris|berlin|munich|frankfurt|london|manchester|dublin|amsterdam|brussels|milan|rome|lisbon|stockholm|oslo|copenhagen|helsinki|warsaw|adelaide|sydney|melbourne|brisbane|perth|auckland|new york|los angeles|san francisco|chicago|austin|toronto|vancouver|singapore|dubai|riyadh|doha|kuwait|manama|muscat|cairo|alexandria|casablanca|tunis|amman|beirut|istanbul|ankara|jakarta|bangkok|manila|mumbai|delhi|bangalore|karachi|lahore|lagos|nairobi|johannesburg|cape town|spain|usa|united states|uk|united kingdom|canada|australia|france|germany|italy|netherlands|poland|sweden|norway|denmark|finland|ireland|portugal|singapore|japan|south korea|china|brazil|mexico|argentina|colombia|chile|india|pakistan|bangladesh|sri lanka|nigeria|kenya|ghana|south africa|indonesia|philippines|malaysia|vietnam|thailand)([,\-\s]|$)/i;
+
+// Returns 'remote' | 'onsite' | 'unknown' based on the location field alone.
+function locationKind(loc) {
+  const s = String(loc || '').toLowerCase();
+  if (!s) return 'unknown';
+  if (/remote|anywhere|worldwide|global|online|home ?based|virtual/.test(s)) return 'remote';
+  if (BLOCKED_HUBS.test(s)) return 'onsite';
+  return 'unknown';
+}
+
 function bucketFor(o) {
   const hay = `${o.title} ${o.company} ${o.location}`;
   for (const b of BUCKETS) if (b.match.test(hay)) return b;
@@ -97,13 +112,18 @@ function ageInfo(postedMs) {
   return { text: `posted ${d} days ago, several days old`, urgent: false, fresh: false };
 }
 
-// Fit score: bucket base, +8 if fresh, +6 if pay present, -12 if old, -12 if trust-warning.
-function fitScore(o, b, age) {
+// Fit score: bucket base, +8 if fresh, +6 if pay present, -12 if old, -12 if
+// trust-warning. Location/eligibility terms: an onsite role in a blocked hub is
+// NOT eligible for remote-only Waleed, so it is capped hard (and never a best
+// pick); an unknown location gets a small penalty but is still shown.
+function fitScore(o, b, age, kind) {
   let s = b.base;
   if (age.fresh) s += 6;
   else if (age.text.includes('several days') || /days ago/.test(age.text) && /[3-9]|1\d/.test(age.text)) s -= 10;
   if (o.comp) s += 6;
   if (o.trust != null && o.trust < 100) s -= 10;
+  if (kind === 'onsite') { s = Math.min(s, 15); s -= 40; }
+  else if (kind === 'unknown') s -= 6;
   return Math.max(0, Math.min(100, Math.round(s)));
 }
 
@@ -116,23 +136,31 @@ const n = offers.length;
 const detailed = offers.map((o) => {
   const b = bucketFor(o);
   const age = ageInfo(o.postedMs);
-  const score = fitScore(o, b, age);
-  return { o, b, age, score };
+  const kind = locationKind(o.location);
+  const score = fitScore(o, b, age, kind);
+  return { o, b, age, score, kind };
 });
 
 // Sort: score desc, then fresh first
 detailed.sort((a, b2) => (b2.score - a.score) || (b2.o.postedMs - a.o.postedMs));
 
-// Best pick = highest score with pay and fresh, else top score
-const best = detailed[0];
+// Best pick = the top *eligible* (remote or unknown) option with pay and fresh,
+// else simply the top score of an eligible option.
+const bestRemote = detailed.find((d) => d.kind !== 'onsite');
+const best = bestRemote || null;
 
 function humanOffer(d) {
-  const { o, b, age, score } = d;
+  const { o, b, age, score, kind } = d;
   const lines = [];
   lines.push(`${o.company} is hiring a ${o.title} (${o.location || 'remote'}).`);
   lines.push(`Field: ${b.label}. Pay: ${money(o)}. Age: ${age.text}.`);
   if (age.urgent) lines.push('This is fresh, so apply fast while the role is still open.');
   lines.push(`Fit for your CV: around ${score} out of 100.`);
+  if (kind === 'onsite') {
+    lines.push('Caution: this is based in one of the countries you cannot relocate to, and it does not clearly say remote. Treat it as on-site, not a remote fit, and only apply if you are sure.');
+  } else if (kind === 'unknown') {
+    lines.push('Note: the listing does not say where it is based or whether it is remote. Check the posting before applying.');
+  }
   lines.push(`My recommendation: ${b.rec}`);
   lines.push(`Link to apply: ${o.url} (from ${hostname(o.url)})`);
   return lines.join('\n');
