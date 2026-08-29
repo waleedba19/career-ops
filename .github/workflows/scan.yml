@@ -74,12 +74,12 @@ jobs:
           body: |
             **New remote job matches found for Waleed Ballag.**
 
-            $(cat /tmp/new-offers.txt 2>/dev/null || echo "See data/pipeline.md")
+            $(sed -E 's#(https?://[^ |]+)#<\1>#g' /tmp/new-offers.txt 2>/dev/null || echo "See data/pipeline.md")
 
             ---
-            **Next step:** review each match, then run the AI evaluation
-            (open D:\CareerOps\career-ops and run `/career-ops pipeline`).
-            Nothing is submitted automatically — you review and apply.
+            **Next step:** review each match below — every link opens the official
+            application. Then tell me which one you want and I'll pre-fill the form
+            from your CV; you review and submit. Nothing is sent without you.
 
             — CareerOps automatic scanner
         env:
