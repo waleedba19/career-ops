@@ -1,9 +1,6 @@
-status,url,source_site,company,role,location
-"pending","https://job-boards.greenhouse.io/2k/jobs/7809858003","job-boards.greenhouse.io","2K","Localization Language Lead, Arabic","Remote"
-"pending","https://job-boards.greenhouse.io/xai/jobs/5090171007","job-boards.greenhouse.io","xAI (SpaceXAI)","AI Tutor - Arabic","Remote"
-"pending","https://job-boards.greenhouse.io/aplayers/jobs/5362909004","job-boards.greenhouse.io","CreatorGlobal (MrBeast)","Language Coordinator - Open Application","Remote"
-"pending","https://job-boards.greenhouse.io/kayak/jobs/5709804002","job-boards.greenhouse.io","KAYAK","Freelance Localization Specialist","Remote"
-"pending","https://job-boards.greenhouse.io/wppmedia/jobs/5189276008","job-boards.greenhouse.io","WPP Media","Copywriter (Arabic & English)","Cairo, Egypt"
-"pending","https://4dayweek.io/job/senior-data-analyst-at-oak-national-academy-41c852ae","4dayweek.io","Oak National Academy","Senior Data Analyst","United Kingdom, Remote"
-"pending","https://www.workingnomads.com/job/go/1821504/","workingnomads.com","Peroptyx","Data Analyst (No Experience Required)","Belgium"
-"pending","https://www.workingnomads.com/job/go/1799726/","workingnomads.com","Polly English","Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100","North America"
+field,company,title,location,url,source_site
+"Translation / Localization","2K","Localization Language Lead, Arabic","Remote","https://job-boards.greenhouse.io/2k/jobs/7809858003","job-boards.greenhouse.io"
+"General Remote","xAI (SpaceXAI)","AI Tutor - Arabic","Remote","https://job-boards.greenhouse.io/xai/jobs/5090171007","job-boards.greenhouse.io"
+"Translation / Localization","Smartling","Localization Specialist","Remote","https://jobs.smartling.com/arabic","jobs.smartling.com"
+"ESL / English Teaching","Outschool","Online English Tutor","Remote","https://outschool.com/tutor","outschool.com"
+"Data / Rem. Admin","Appen","Remote Data Annotator","Worldwide","https://appen.com/jobs","appen.com"
