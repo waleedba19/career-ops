@@ -77,4 +77,4 @@ jobs:
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           ALERT_EMAIL: /tmp/alert-email.md
           ALERT_TG: /tmp/alert-telegram.txt
-          ALERT_CSV: data/pipeline.csv
+          ALERT_CSV: /tmp/alert-rows.csv

@@ -157,3 +157,8 @@ documents/*
 # Intake fingerprints — the recorded source filenames may themselves carry
 # PII (e.g. cv/jane-doe-master-cv.pdf). #1723
 data/intake-state.json
+
+# Abandoned JS SMTP sender (replaced by send_alert.py) - dead code kept out of status
+send-alert.mjs
+lib/smtp.mjs
+lib/telegram.mjs

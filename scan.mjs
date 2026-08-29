@@ -3001,7 +3001,10 @@ async function main() {
         ? ` [Trust: ${o.trustScore}/100${o.trustFlags?.length ? ' — ' + o.trustFlags.join(', ') : ''}]`
         : '';
       const blacklistSuffix = o.blacklisted ? ' [BLACKLISTED — on your do-not-apply list]' : '';
-      console.log(`  + ${o.company} | ${o.title} | ${o.location || 'N/A'} | ${o.url}${trustSuffix}${blacklistSuffix}`);
+      const comp = formatCompensation(o.salary);
+      const posted = postedAtIsoDate(o.postedAt);
+      const postExtra = posted ? (comp ? ` | ${comp} | posted: ${posted}` : ` | posted: ${posted}`) : (comp ? ` | ${comp}` : '');
+      console.log(`  + ${o.company} | ${o.title} | ${o.location || 'N/A'} | ${o.url}${postExtra}${trustSuffix}${blacklistSuffix}`);
     }
     if (dryRun) {
       console.log('\n(dry run — run without --dry-run to save results)');

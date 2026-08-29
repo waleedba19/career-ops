@@ -63,8 +63,6 @@ else:
 if os.environ.get("TG_BOT_TOKEN") and os.environ.get("TG_CHAT_ID"):
     try:
         text = Path(tg_path).read_text(encoding="utf-8")
-        text = text.replace("*CareerOps — New Remote Job Matches*",
-                            f"*CareerOps — {count} new Remote Job Matches*")
         data = json.dumps({
             "chat_id": os.environ["TG_CHAT_ID"],
             "text": text,
