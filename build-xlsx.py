@@ -298,9 +298,16 @@ def main():
     else:
         wb = Workbook()
 
-    # Wide "All Jobs 700+" browse sheet (get or create; refreshed each run).
+    # Wide "All Jobs 700+" browse sheet: build it only ONCE per day (the first
+    # run of the day). Later runs keep the same full 700+ pull so they don't
+    # waste time re-listing ~2,800 rows. The day it was built is stored in a
+    # hidden marker cell (H1); when the marker matches today we skip the rebuild.
     if "All Jobs 700+" in wb.sheetnames:
         ws_all = wb["All Jobs 700+"]
+        marker = ws_all.cell(row=1, column=8).value
+        if not marker or str(marker) != name:
+            write_all_found_sheet(ws_all, all_found, now, label)
+            ws_all.cell(row=1, column=8, value=name)
     else:
         # Reuse the default empty "Sheet" as the wide sheet on a fresh file so
         # no leftover blank tab remains.
@@ -309,7 +316,8 @@ def main():
         ws_all = wb[dflt] if dflt else wb.create_sheet("All Jobs 700+")
         if dflt:
             ws_all.title = "All Jobs 700+"
-    write_all_found_sheet(ws_all, all_found, now, label)
+        write_all_found_sheet(ws_all, all_found, now, label)
+        ws_all.cell(row=1, column=8, value=name)
 
     # Get (or create) today's sheet.
     if name in wb.sheetnames:

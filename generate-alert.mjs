@@ -138,60 +138,136 @@ function humanOffer(d) {
   return lines.join('\n');
 }
 
-// ----- Telegram body (plain, human, no symbols) -----
-let tg = [];
-tg.push('Hello Waleed, here is your remote jobs update.');
-tg.push(`${n} new role${n === 1 ? '' : 's'} were found that match your experience.`);
-tg.push('');
-if (best) {
-  tg.push(`Best one to apply to right now is ${best.o.company}, the ${best.o.title}, with a fit of ${best.score} out of 100. ${best.age.text}.`);
-  if (best.age.urgent) tg.push('Since it is fresh, do not delay on it.');
-  tg.push('');
+// ----- Run reasoning ---------------------------------------------------------
+// This is the "intelligent" part: instead of sending the same canned message
+// every run, we look at what THIS run actually produced and choose a fitting
+// message. A run can land in one of several states:
+//   found-many   -> several genuinely new roles
+//   found-one    -> exactly one new role
+//   found-none   -> nothing new this scan
+// Each state gets its own lead line, body emphasis, and closing, and the email
+// and Telegram messages are deliberately different in shape but consistent in
+// facts. The script is fed only the NEW offers of this run, so "new" is exactly
+// what changed since the last scan.
+
+const SLOTS = [
+  { t: 7,  label: '07:00' }, { t: 10, label: '10:00' }, { t: 13, label: '13:00' },
+  { t: 16, label: '16:00' }, { t: 19, label: '19:00' }, { t: 22, label: '22:00' },
+];
+function tripoliHours() {
+  // Convert current UTC to local Tripoli time (UTC+2) without timezone libs.
+  const d = new Date(now + 2 * 3600 * 1000);
+  return d.getUTCHours();
 }
-detailed.slice(0, 8).forEach((d) => { tg.push(humanOffer(d)); tg.push(''); });
-if (detailed.length > 8) tg.push(`Plus ${detailed.length - 8} more in the spreadsheet.`);
+function nextSlotText() {
+  const h = tripoliHours();
+  for (const s of SLOTS) if (s.t > h) return `The next scan is at ${s.label} today.`;
+  return 'The next scan is tomorrow at 07:00.';
+}
+
+function leadLine() {
+  if (n === 0) {
+    return 'This scan found no new roles that match your experience. The last matches still stand and the workbook still holds them.';
+  }
+  const freshCount = detailed.filter((d) => d.age.fresh).length;
+  const totalFound = `Found ${n} new role${n === 1 ? '' : 's'} this scan.`;
+  if (freshCount > 0 && n > 1) return `${totalFound} ${freshCount} of them look fresh, so timing is on your side.`;
+  if (n === 1) return 'One new role appeared this scan.';
+  return totalFound;
+}
+
+// ----- Telegram body (short, scannable, reasoned for this run) -----
+let tg = [];
+tg.push('Hello Waleed, your remote jobs update.');
 tg.push('');
-tg.push('How to act: pick a company from the list and tell me the name. I will read the whole posting, fill the application from your CV, and draft your message. You review it and submit. Nothing goes out without your approval.');
+if (n === 0) {
+  tg.push('Nothing new this scan. No fresh role matched your experience in the last run.');
+  tg.push('');
+  tg.push('The previous matches are still in the workbook. Next scan:');
+  const nx = nextSlotText();
+  tg.push(nx);
+  tg.push('');
+  tg.push('If you want, I can re-scan now or focus on a specific company.');
+} else if (n === 1) {
+  tg.push('A new role showed up this scan.');
+  tg.push('');
+  tg.push(humanOffer(detailed[0]));
+  tg.push('');
+  tg.push(`Best one to apply to right now is ${best.o.company}, the ${best.o.title}, fit ${best.score} out of 100. ${best.age.text}.`);
+  if (best.age.urgent) tg.push('It is fresh, so do not sit on it.');
+  tg.push('');
+  tg.push('Say the company name and I will read the posting, fill the application from your CV, and draft your message for review.');
+} else {
+  tg.push(leadLine());
+  tg.push('');
+  detailed.slice(0, 4).forEach((d) => { tg.push(humanOffer(d)); tg.push(''); });
+  if (n > 4) tg.push(`Plus ${n - 4} more in the email and the workbook.`);
+  tg.push('');
+  tg.push('How to act: pick a company and tell me the name. I will read the whole posting, fill the application from your CV, and draft your message. You review and submit; nothing goes out without you.');
+  if (best && best.age.urgent) tg.push('The best one to apply to right now is the top one above; it is fresh.');
+}
 tg.push('');
-tg.push('You can ask me for a deeper write up on any of these companies or roles at any time.');
+tg.push('Full detail and the complete browse list are in the Excel workbook attached to the email (two sheets: Matches and the wide All Jobs 700+).');
 writeFileSync('/tmp/alert-telegram.txt', tg.join('\n'));
 
-// ----- Email body (plain text, no markdown symbols) -----
+// ----- Email body (plain text, reasoned for this run, distinct from TG) -----
 let em = [];
 em.push('Hello Waleed, here is your remote jobs update.');
 em.push('');
-em.push(`${n} new roles were found that match your experience. Below each role you will find the field, the pay if the company published it, how fresh the posting is, a fit score out of 100 based on your CV, and my recommendation.`);
-em.push('');
-if (best) {
-  em.push('BEST TO APPLY RIGHT NOW');
-  em.push(`${best.o.company}, ${best.o.title}. Fit ${best.score} out of 100. Age: ${best.age.text}.${best.age.urgent ? ' This one is fresh, apply soon.' : ''}`);
-  em.push(`Apply at ${best.o.url}`);
+
+if (n === 0) {
+  em.push('Nothing new to report this scan. Every relevant posting is still the ones you already saw.');
   em.push('');
+  em.push('This is normal: most scans of a single day do not surface brand new roles. The scan pulled the full list again and no new match crossed your threshold this time.');
+  em.push('');
+  em.push(nextSlotText());
+  em.push('');
+  em.push('The workbook I am attaching has the wide browse sheet (every job found today) and the strict matches sheet. You can always look through the wide sheet yourself, or ask me to chase a specific company.');
+} else if (n === 1) {
+  em.push(leadLine());
+  em.push('');
+  detailed.forEach((d) => { em.push('=================================='); pushEmailOffer(em, d); });
+  em.push('');
+  em.push('HOW TO ACT');
+  em.push(`Tell me the company (${detailed[0].o.company}) and I will read the whole posting, fill the application from your CV, and draft your message for your review. Nothing goes out without you.`);
+} else {
+  em.push('Below are the new roles, with field, pay, how fresh, a fit score, and my recommendation.');
+  em.push('');
+  if (best) {
+    em.push('BEST TO APPLY RIGHT NOW');
+    em.push(`${best.o.company}, the ${best.o.title}. Fit ${best.score} out of 100. ${best.age.text}.${best.age.urgent ? ' This one is fresh, so apply soon.' : ''}`);
+    em.push(`Apply at ${best.o.url}`);
+    em.push('');
+  }
+  detailed.forEach((d) => { em.push('=================================='); pushEmailOffer(em, d); });
 }
-detailed.forEach((d) => {
-  const { o, b, age, score } = d;
-  em.push('==================================');
-  em.push(`${o.company} - ${o.title}`);
-  em.push(`Field: ${b.label}`);
-  em.push(`Pay: ${money(o)}`);
-  em.push(`Age: ${age.text}`);
-  if (age.urgent) em.push('This is fresh, apply fast.');
-  em.push(`Fit for your CV: ${score} out of 100`);
-  em.push(`Recommendation: ${b.rec}`);
-  em.push(`Apply at: ${o.url}`);
-  em.push(`Source site: ${hostname(o.url)}`);
-  em.push('');
-});
-em.push('An Excel workbook is attached to this email (career-matches.xlsx). It has two sheets: Matches lists today\'s top jobs with their fit score, and Full List shows every relevant posting this run so you can browse wider. Open it in Excel or Google Sheets.');
 em.push('');
-em.push('HOW TO ACT');
-em.push('Tell me the company you want and I will read the whole posting, fill the application from your CV, and draft your message. You review it and submit. Nothing goes out without your approval.');
+const nx0 = nextSlotText();
+em.push(nx0);
 em.push('');
-em.push('You can ask me for a deeper write up on any company or role at any time.');
+em.push('ABOUT THE WORKBOOK');
+em.push('I am attaching career-matches.xlsx. It has two clearly different sheets:');
+em.push('- "All Jobs 700+" is the wide browse sheet: every single job found today across all sources, so you can search far beyond your exact match.');
+em.push('- The day sheet (for example 29-8-2026) holds only your strict CV matches, stacked by each scan run. Today\'s wide sheet is built once on the first scan of the day and kept for the rest of the day.');
+em.push('Open it in Excel or Google Sheets to browse.');
 em.push('');
 em.push('Regards,');
 em.push('Your CareerOps assistant');
 writeFileSync('/tmp/alert-email.md', em.join('\n'));
+
+function pushEmailOffer(emArr, d) {
+  const { o, b, age, score } = d;
+  emArr.push(`${o.company} - ${o.title}`);
+  emArr.push(`Field: ${b.label}`);
+  emArr.push(`Pay: ${money(o)}`);
+  emArr.push(`Age: ${age.text}`);
+  if (age.urgent) emArr.push('This is fresh, so apply fast.');
+  emArr.push(`Fit for your CV: ${score} out of 100`);
+  emArr.push(`Recommendation: ${b.rec}`);
+  emArr.push(`Apply at: ${o.url}`);
+  emArr.push(`Source site: ${hostname(o.url)}`);
+  emArr.push('');
+}
 
 // ----- CSV export (for email attachment) -----
 // Note: we write to a distinct path so we never clobber data/pipeline.csv, which
