@@ -1,48 +1,72 @@
 #!/usr/bin/env python3
-"""build-xlsx.py - turn the scan's matches + relevant candidates into a real
-Excel workbook (matches.xlsx) with two sheets:
+"""build-xlsx.py - accumulate scan results into one growing Excel workbook.
 
-  Sheet "Matches"   - the day's new high-fit jobs (from /tmp/alert-rows.csv)
-  Sheet "Full List" - every relevant posting the scanner saw this run (from
-                      data/candidates.json), so you can browse wider than the
-                      handful that got a new alert.
+One file (default data/matches.xlsx) with one sheet per day, named by the day
+(Excel forbids "/" in tab names, so a date is written as e.g. 29-8-2026).
+Inside each day's sheet, every scan run of that day is appended as a set of
+stacked tables (one below the other), each labelled with its run time, so a
+full day with 6 runs shows 6 stacked match tables (plus their fuller lists).
 
-Uses openpyxl. Paths via env: MATCHES_CSV, CANDIDATES_JSON, OUT_XLSX.
+If today's sheet already exists (a later run of the same day), we append a new
+stacked table below the previous ones instead of overwriting. Tomorrow creates
+a fresh sheet in the same file, so the workbook grows across days.
 
-Writes matches.xlsx to the current dir by default (the runner passes OUT_XLSX).
+Inputs (env):
+  MATCHES_CSV       enriched per-run matches (from generate-alert.mjs)
+  CANDIDATES_JSON   relevant candidates this run (from scan.mjs)
+  OUT_XLSX          path to the accumulating workbook (default data/matches.xlsx)
+  RUN_LABEL         label for this run's table (e.g. "13:00"); optional
+  TZ_OFFSET_H       hours offset for local-day naming (default 2, Tripoli)
 """
 
 import csv
 import json
 import os
 import sys
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 matches_csv = os.environ.get("MATCHES_CSV", "/tmp/alert-rows.csv")
 candidates_json = os.environ.get("CANDIDATES_JSON", "data/candidates.json")
-out_xlsx = os.environ.get("OUT_XLSX", "matches.xlsx")
+out_xlsx = os.environ.get("OUT_XLSX", "data/matches.xlsx")
+run_label = os.environ.get("RUN_LABEL", "").strip()
+tz_offset = float(os.environ.get("TZ_OFFSET_H", "2"))
 
 HEADER_FILL = PatternFill("solid", fgColor="1F4E79")
 HEADER_FONT = Font(bold=True, color="FFFFFF", size=11)
+RUN_FILL = PatternFill("solid", fgColor="DDEBF7")
+RUN_FONT = Font(bold=True, size=12, color="1F4E79")
 LINK_FONT = Font(color="0563C1", underline="single")
 URGENT_FILL = PatternFill("solid", fgColor="FFEB9C")
 THIN = Side(style="thin", color="D0D0D0")
 BORDER = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
-WRAP = Alignment(vertical="top", wrap_text=True)
+CENTER = Alignment(horizontal="center")
 
 
-def style_header(ws, ncols):
-    for c in range(1, ncols + 1):
-        cell = ws.cell(row=1, column=c)
+def local_now():
+    return datetime.now(timezone.utc) + timedelta(hours=tz_offset)
+
+
+def day_name(dt):
+    # Excel tab names cannot contain "/" -> use dashes: 29-8-2026
+    return f"{dt.day}-{dt.month}-{dt.year}"
+
+
+def style_header(ws, row, headers):
+    for c, _ in enumerate(headers, start=1):
+        cell = ws.cell(row=row, column=c, value=headers[c - 1])
         cell.fill = HEADER_FILL
         cell.font = HEADER_FONT
-        cell.alignment = Alignment(vertical="center")
-    ws.freeze_panes = "A2"
-    ws.auto_filter.ref = f"A1:{get_column_letter(ncols)}1"
+
+
+def write_row(ws, row, values, headers):
+    for c in range(1, len(headers) + 1):
+        ws.cell(row=row, column=c).value = values[c - 1]
+        ws.cell(row=row, column=c).border = BORDER
 
 
 def write_link(ws, row, col, url, display=None):
@@ -53,52 +77,74 @@ def write_link(ws, row, col, url, display=None):
     return cell
 
 
-def build_matches(ws):
-    rows = []
-    if os.path.exists(matches_csv):
-        with open(matches_csv, newline="", encoding="utf-8") as f:
-            rows = list(csv.DictReader(f))
-    headers = ["Fit", "Field", "Company", "Role", "Location", "Pay", "Age", "Urgency", "Apply link", "Source"]
-    ws.append(headers)
-    for r in rows:
-        ws.append([
-            r.get("fit_score", ""),
-            r.get("field", ""),
-            r.get("company", ""),
-            r.get("title", ""),
-            r.get("location", ""),
-            r.get("pay", ""),
-            r.get("age", ""),
-            r.get("urgency", ""),
-            r.get("url", ""),
-            r.get("source_site", ""),
-        ])
-    style_header(ws, len(headers))
-    # Wrap text + borders + urgency colour + clickable links
-    for i, r in enumerate(rows, start=2):
-        for c in range(1, len(headers) + 1):
-            ws.cell(row=i, column=c).border = BORDER
-        ws.cell(row=i, column=1).alignment = Alignment(horizontal="center")
-        ws.cell(row=i, column=8).alignment = Alignment(horizontal="center")
-        if str(r.get("urgency", "")).lower() == "urgent":
-            for c in range(1, len(headers) + 1):
-                ws.cell(row=i, column=c).fill = URGENT_FILL
-        write_link(ws, i, 9, r.get("url", ""))
-    widths = [6, 34, 24, 40, 18, 20, 26, 12, 46, 22]
-    for idx, w in enumerate(widths, start=1):
-        ws.column_dimensions[get_column_letter(idx)].width = w
+def read_matches():
+    if not os.path.exists(matches_csv):
+        return []
+    with open(matches_csv, newline="", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
 
 
-def build_full_list(ws):
-    candidates = []
-    if os.path.exists(candidates_json):
-        try:
-            with open(candidates_json, encoding="utf-8-sig") as f:
-                candidates = json.load(f).get("candidates", [])
-        except Exception:
-            candidates = []
-    headers = ["Company", "Role", "Location", "Posted", "Pay", "Source", "Apply link"]
-    ws.append(headers)
+def read_candidates():
+    if not os.path.exists(candidates_json):
+        return []
+    try:
+        with open(candidates_json, encoding="utf-8-sig") as f:
+            return json.load(f).get("candidates", [])
+    except Exception:
+        return []
+
+
+MATCH_HDRS = ["Fit", "Field", "Company", "Role", "Location", "Pay", "Age", "Urgency", "Apply link", "Source"]
+FULL_HDRS = ["Company", "Role", "Location", "Posted", "Pay", "Source", "Apply link"]
+
+
+def append_match_table(ws, row, matches, label):
+    """Write a run's match table starting at `row`. Returns next free row."""
+    if not matches:
+        return row
+    cell = ws.cell(row=row, column=1,
+                   value=f"{label}  -  Matches (new relevant jobs)")
+    cell.font = RUN_FONT
+    cell.fill = RUN_FILL
+    row += 1
+    ws.cell(row=row, column=1, value=("The jobs this run found that fit your "
+                                      "profile, with fit score, pay, how fresh, and urgency."))
+    ws.cell(row=row, column=1).font = Font(italic=True, size=9, color="808080")
+    row += 1
+    style_header(ws, row, MATCH_HDRS)
+    row += 1
+    for m in matches:
+        write_row(ws, row, [
+            m.get("fit_score", ""), m.get("field", ""), m.get("company", ""),
+            m.get("title", ""), m.get("location", ""), m.get("pay", ""),
+            m.get("age", ""), m.get("urgency", ""), m.get("url", ""),
+            m.get("source_site", ""),
+        ], MATCH_HDRS)
+        if str(m.get("urgency", "")).lower() == "urgent":
+            for c in range(1, len(MATCH_HDRS) + 1):
+                ws.cell(row=row, column=c).fill = URGENT_FILL
+        write_link(ws, row, 9, m.get("url", ""))
+        ws.cell(row=row, column=1).alignment = CENTER
+        ws.cell(row=row, column=8).alignment = CENTER
+        row += 1
+    return row
+
+
+def append_full_table(ws, row, candidates, label):
+    """Write a run's fuller candidate list starting at `row`. Returns next free row."""
+    if not candidates:
+        return row
+    cell = ws.cell(row=row, column=1,
+                   value=f"{label}  -  Full List (all relevant jobs this run)")
+    cell.font = RUN_FONT
+    cell.fill = RUN_FILL
+    row += 1
+    ws.cell(row=row, column=1, value=("Every posting that met the relevance "
+                                      "filters this run, so you can browse wider than the matches above."))
+    ws.cell(row=row, column=1).font = Font(italic=True, size=9, color="808080")
+    row += 1
+    style_header(ws, row, FULL_HDRS)
+    row += 1
     for c in candidates:
         posted = ""
         if c.get("postedAt"):
@@ -112,40 +158,54 @@ def build_full_list(ws):
                 pay = f"{lo}-{hi} {cur}".strip()
             elif lo:
                 pay = f"{lo} {cur}".strip()
-        ws.append([
-            c.get("company", ""),
-            c.get("role", ""),
-            c.get("location", ""),
-            posted,
-            pay,
-            c.get("source", ""),
-            c.get("url", ""),
-        ])
-    style_header(ws, len(headers))
-    for i in range(2, len(candidates) + 2):
-        for c in range(1, len(headers) + 1):
-            ws.cell(row=i, column=c).border = BORDER
-        write_link(ws, i, 7, candidates[i - 2].get("url", ""))
-    widths = [26, 44, 22, 12, 20, 22, 52]
-    for idx, w in enumerate(widths, start=1):
-        ws.column_dimensions[get_column_letter(idx)].width = w
+        write_row(ws, row, [
+            c.get("company", ""), c.get("role", ""), c.get("location", ""),
+            posted, pay, c.get("source", ""), c.get("url", ""),
+        ], FULL_HDRS)
+        write_link(ws, row, 7, c.get("url", ""))
+        row += 1
+    return row
 
 
 def main():
-    wb = Workbook()
-    ws_m = wb.active
-    ws_m.title = "Matches"
-    build_matches(ws_m)
-    ws_f = wb.create_sheet("Full List")
-    build_full_list(ws_f)
+    now = local_now()
+    label = run_label or now.strftime("%H:%M")
+    name = day_name(now)
+    matches = read_matches()
+    candidates = read_candidates()
+
+    if os.path.exists(out_xlsx):
+        wb = load_workbook(out_xlsx)
+    else:
+        wb = Workbook()
+
+    # Get (or create) today's sheet.
+    if name in wb.sheetnames:
+        ws = wb[name]
+    else:
+        # Reuse the default empty "Sheet" as today's sheet so fresh files
+        # don't carry a leftover blank tab; otherwise create a new one.
+        if len(wb.sheetnames) == 1 and wb.sheetnames[0] == "Sheet" and (wb["Sheet"].max_row or 0) <= 1:
+            ws = wb["Sheet"]
+            ws.title = name
+        else:
+            ws = wb.create_sheet(name)
+
+    # Determine the first empty row (after any existing content).
+    # A blank sheet reports max_row=1; we then start tables at row 1.
+    row = 1 if ws.max_row <= 1 else ws.max_row + 1
+
+    # Write this run's two stacked tables.
+    row = append_match_table(ws, row, matches, label)
+    row = append_full_table(ws, row, candidates, label)
+
+    # Leave a blank spacer row between runs so tables stay visually separate.
+    ws.cell(row=row, column=1, value="")
+
     out = Path(out_xlsx)
     out.parent.mkdir(parents=True, exist_ok=True)
     wb.save(out)
-    n_matches = 0
-    if os.path.exists(matches_csv):
-        with open(matches_csv, newline="", encoding="utf-8") as f:
-            n_matches = sum(1 for _ in f) - 1
-    print(f"xlsx saved: {out} (Matches={max(n_matches, 0)}, FullList=total)")
+    print(f"xlsx updated: {out}  sheet={name} run={label} matches={len(matches)} candidates={len(candidates)}")
     return 0
 
 

@@ -60,6 +60,9 @@ jobs:
       - name: Build Excel workbook (Matches + Full List)
         run: |
           python -m pip install --quiet openpyxl 2>/dev/null || true
+          # Label this run's stacked table with Tripoli (UTC+2) time.
+          export RUN_LABEL=$(TZ=Etc/GMT-2 date +%H:%M)
+          echo "RUN_LABEL=$RUN_LABEL"
           python build-xlsx.py
         env:
           MATCHES_CSV: /tmp/alert-rows.csv
