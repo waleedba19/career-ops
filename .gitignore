@@ -162,3 +162,8 @@ data/intake-state.json
 send-alert.mjs
 lib/smtp.mjs
 lib/telegram.mjs
+
+# Local Python tooling (never commit)
+.venv/
+__pycache__/
+*.pyc

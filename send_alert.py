@@ -4,7 +4,8 @@ Uses only the Python stdlib (smtplib for Gmail, urllib for Telegram) which has
 been verified working. Reads:
   /tmp/alert-email.md     (markdown email body)
   /tmp/alert-telegram.txt (plain text)
-Env: SMTP_USER, SMTP_PASS, SMTP_TO, TG_BOT_TOKEN, TG_CHAT_ID
+  matches.xlsx            (attached via ALERT_XLSX)
+Env: SMTP_USER, SMTP_PASS, SMTP_TO, TG_BOT_TOKEN, TG_CHAT_ID, ALERT_XLSX
 Usage: python send_alert.py <count>
 """
 import json
@@ -42,13 +43,13 @@ if os.environ.get("SMTP_USER") and os.environ.get("SMTP_PASS") and os.environ.ge
         msg["To"] = os.environ["SMTP_TO"]
         msg.attach(MIMEText(md, "plain", "utf-8"))
         msg.attach(MIMEText(htmlize(md), "html", "utf-8"))
-        # Attach the CSV spreadsheet export if present (path passed via ALERT_CSV).
-        csv_path = os.environ.get("ALERT_CSV")
-        if csv_path and Path(csv_path).exists():
-            part = MIMEBase("text", "csv")
-            part.set_payload(Path(csv_path).read_bytes())
+        # Attach the Excel workbook (matches + full list) if present.
+        xlsx_path = os.environ.get("ALERT_XLSX")
+        if xlsx_path and Path(xlsx_path).exists():
+            part = MIMEBase("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            part.set_payload(Path(xlsx_path).read_bytes())
             encoders.encode_base64(part)
-            part.add_header("Content-Disposition", "attachment; filename=pipeline.csv")
+            part.add_header("Content-Disposition", "attachment; filename=career-matches.xlsx")
             msg.attach(part)
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as s:
             s.login(os.environ["SMTP_USER"], os.environ["SMTP_PASS"])

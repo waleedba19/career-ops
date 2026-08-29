@@ -85,6 +85,9 @@ const PROFILE_PATH = process.env.CAREER_OPS_PROFILE || path.join(DATA_ROOT, 'con
 const SCAN_HISTORY_PATH = process.env.CAREER_OPS_SCAN_HISTORY || path.join(DATA_ROOT, 'data/scan-history.tsv');
 const PIPELINE_PATH = process.env.CAREER_OPS_PIPELINE || path.join(DATA_ROOT, 'data/pipeline.md');
 const APPLICATIONS_PATH = path.join(DATA_ROOT, 'data/applications.md');
+// Relevant-candidate export (Full List sheet source): every offer that passed
+// title + location relevance this run, before dedup/cooldown culling.
+const CANDIDATES_PATH = process.env.CAREER_OPS_CANDIDATES || path.join(DATA_ROOT, 'data/candidates.json');
 const PROVIDERS_DIR = path.resolve(CODE_ROOT, 'providers');
 
 // Ensure required directories exist (fresh setup). Stays rooted in the user-data
@@ -2546,6 +2549,11 @@ async function main() {
   const cooldownFilter = buildCooldownFilter(windows, date);
   let totalFilteredCooldown = 0;
   const cooldownOffers = [];
+  // Relevant candidates (passed title + location relevance) captured before
+  // dedup/cooldown culling, so the alert's "Full List" sheet can show the whole
+  // relevant pool each run — not just the newly-added matches. Kept in memory
+  // and written out in step 5.8.
+  const candidateOffers = [];
   let totalFound = 0;
   let totalFilteredTitle = 0;
   let totalFilteredTier = 0;
@@ -2672,6 +2680,17 @@ async function main() {
           totalFilteredLocation++;
           continue;
         }
+        // Relevant: title + location filters both passed. Record for the Full
+        // List export regardless of dedup/cooldown/age culling below.
+        candidateOffers.push({
+          company: job.company ?? company.name,
+          role: job.title,
+          location: job.location ?? '',
+          url: job.url,
+          salary: job.salary ?? null,
+          postedAt: job.postedAt ?? null,
+          source: sourceName,
+        });
         if (!postingAgeFilter(job.postedAt)) {
           totalFilteredPostingAge++;
           continue;
@@ -2777,6 +2796,17 @@ async function main() {
   if (!dryRun && verifiedOffers.length > 0) {
     await appendToPipeline(verifiedOffers);
     await appendToScanHistory(verifiedOffers, date);
+  }
+  // Write the relevant-candidate pool (Full List). Force-serialized even when
+  // empty so the alert builder always has a file to read; the workflow commits
+  // it along with the other generated data.
+  if (!dryRun) {
+    mkdirSync(path.dirname(CANDIDATES_PATH), { recursive: true });
+    writeFileSync(CANDIDATES_PATH, JSON.stringify({
+      generatedAt: new Date().toISOString(),
+      count: candidateOffers.length,
+      candidates: candidateOffers,
+    }, null, 2), 'utf-8');
   }
   if (!dryRun && cooldownOffers.length > 0) {
     const cooldownGroups = {};

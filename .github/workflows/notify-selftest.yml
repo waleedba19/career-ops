@@ -27,8 +27,29 @@ jobs:
           + Outschool | Online English Tutor | Remote | https://outschool.com/tutor | 40-60 USD/hour | posted: $TODAY
           EOF
           node generate-alert.mjs /tmp/new-offers.txt
+          # Sample candidates file so Full List sheet has content
+          cat > /tmp/candidates.json <<EOF
+          {
+            "generatedAt": "$(date -u +%Y-%m-%dT%H:%MZ)",
+            "count": 3,
+            "candidates": [
+              {"company":"2K","role":"Localization Language Lead, Arabic","location":"Remote","url":"https://job-boards.greenhouse.io/2k/jobs/7809858003","salary":{"min":80000,"max":110000,"currency":"USD"},"postedAt":"$TODAY","source":"greenhouse"},
+              {"company":"KAYAK","role":"Freelance Localization Specialist","location":"Remote","url":"https://job-boards.greenhouse.io/kayak/jobs/5709804002","salary":{"min":50,"max":70,"currency":"USD"},"postedAt":"$TODAY","source":"greenhouse"},
+              {"company":"Peroptyx","role":"Data Analyst","location":"Belgium","url":"https://www.workingnomads.com/job/go/1821504/","salary":null,"postedAt":"$TODAY","source":"workingnomads"}
+            ]
+          }
+          EOF
 
-      - name: Send alerts (email + Telegram)
+      - name: Build Excel workbook (Matches + Full List)
+        run: |
+          python -m pip install --quiet openpyxl 2>/dev/null || true
+          python build-xlsx.py
+        env:
+          MATCHES_CSV: /tmp/alert-rows.csv
+          CANDIDATES_JSON: /tmp/candidates.json
+          OUT_XLSX: /tmp/matches.xlsx
+
+      - name: Send alerts (email + Telegram + Excel)
         run: python send_alert.py 3
         env:
           SMTP_USER: ${{ secrets.SMTP_USER }}
@@ -38,4 +59,4 @@ jobs:
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           ALERT_EMAIL: /tmp/alert-email.md
           ALERT_TG: /tmp/alert-telegram.txt
-          ALERT_CSV: /tmp/alert-rows.csv
+          ALERT_XLSX: /tmp/matches.xlsx

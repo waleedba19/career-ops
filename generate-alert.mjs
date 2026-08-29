@@ -182,7 +182,7 @@ detailed.forEach((d) => {
   em.push(`Source site: ${hostname(o.url)}`);
   em.push('');
 });
-em.push('A spreadsheet with all these roles is attached to this email as pipeline.csv. Open it in Excel or Google Sheets to filter and sort.');
+em.push('An Excel workbook is attached to this email (career-matches.xlsx). It has two sheets: Matches lists today\'s top jobs with their fit score, and Full List shows every relevant posting this run so you can browse wider. Open it in Excel or Google Sheets.');
 em.push('');
 em.push('HOW TO ACT');
 em.push('Tell me the company you want and I will read the whole posting, fill the application from your CV, and draft your message. You review it and submit. Nothing goes out without your approval.');

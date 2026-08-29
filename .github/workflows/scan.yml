@@ -50,12 +50,21 @@ jobs:
             echo "new=0" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Build alert (TG + email + CSV)
+      - name: Build alert (TG + email params)
         if: steps.count.outputs.new != '0'
         run: node generate-alert.mjs /tmp/new-offers.txt || true
 
       - name: Export pipeline CSV
         run: node export-pipeline-csv.mjs || true
+
+      - name: Build Excel workbook (Matches + Full List)
+        run: |
+          python -m pip install --quiet openpyxl 2>/dev/null || true
+          python build-xlsx.py
+        env:
+          MATCHES_CSV: /tmp/alert-rows.csv
+          CANDIDATES_JSON: data/candidates.json
+          OUT_XLSX: data/matches.xlsx
 
       - name: Commit scanner results
         run: |
@@ -66,7 +75,7 @@ jobs:
           git diff --cached --quiet || git commit -m "chore(scan): update pipeline $(date -u +%Y-%m-%dT%H:%MZ)"
           git push
 
-      - name: Send alerts (email + Telegram)
+      - name: Send alerts (email + Telegram + Excel)
         if: steps.count.outputs.new != '0' && (env.SMTP_PASS != '' || env.TG_BOT_TOKEN != '')
         run: python send_alert.py "${{ steps.count.outputs.new }}"
         env:
@@ -77,4 +86,4 @@ jobs:
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           ALERT_EMAIL: /tmp/alert-email.md
           ALERT_TG: /tmp/alert-telegram.txt
-          ALERT_CSV: /tmp/alert-rows.csv
+          ALERT_XLSX: data/matches.xlsx
