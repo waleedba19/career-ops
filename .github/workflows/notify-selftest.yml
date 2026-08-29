@@ -65,6 +65,18 @@ jobs:
           SCAN_RUNS_TSV: data/scan-runs.tsv
           OUT_XLSX: /tmp/matches.xlsx
 
+      # Attach the REAL accumulating workbook (with the true 2864-row wide sheet)
+      # when it exists in the repo, so the test attachment mirrors the real daily
+      # one; otherwise fall back to the freshly built demo workbook above.
+      - name: Use the real accumulating workbook as the attachment
+        run: |
+          if [ -f data/matches.xlsx ]; then
+            echo "Using real data/matches.xlsx as ALERT_XLSX"
+            cp data/matches.xlsx /tmp/matches.xlsx
+          else
+            echo "No committed real workbook yet; keeping demo /tmp/matches.xlsx"
+          fi
+
       - name: Send alerts (email + Telegram + Excel)
         run: python send_alert.py 3
         env:
@@ -76,3 +88,4 @@ jobs:
           ALERT_EMAIL: /tmp/alert-email.md
           ALERT_TG: /tmp/alert-telegram.txt
           ALERT_XLSX: /tmp/matches.xlsx
+          TEST_MODE: "1"
