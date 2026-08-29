@@ -1,0 +1,55 @@
+# ONE-OFF demonstration workflow - sends today's surfaced candidates via
+# email + Telegram using the real GitHub secrets. Created so Waleed can see a
+# genuine delivery in his inbox/Telegram for the on-demand demonstration.
+# This does NOT change the permanent scan.yml schedule or its 0-new gate.
+# Delete this file after the demonstration is confirmed.
+name: send-demo (one-off)
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  send-demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build today's offer lines from candidates.json
+        run: |
+          node -e '
+            const fs = require("fs");
+            const d = JSON.parse(fs.readFileSync("data/candidates.json", "utf-8"));
+            const lines = (d.candidates || [])
+              .filter(c => c && (c.role || c.url))
+              .map(c => `  + ${c.company || ""} | ${c.role || ""} | ${c.location || ""} | ${c.url || ""}`);
+            fs.writeFileSync("/tmp/new-offers.txt", lines.join("\n") + "\n");
+            console.log(`wrote ${lines.length} offer line(s)`);
+          '
+
+      - name: Build alert
+        run: node generate-alert.mjs /tmp/new-offers.txt || true
+
+      - name: Send alerts (email + Telegram + Excel)
+        run: python send_alert.py demo
+        env:
+          TEST_MODE: "1"
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_TO: ${{ secrets.SMTP_TO }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          ALERT_EMAIL: /tmp/alert-email.md
+          ALERT_TG: /tmp/alert-telegram.txt
+          ALERT_XLSX: data/matches.xlsx
