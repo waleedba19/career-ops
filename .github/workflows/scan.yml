@@ -78,7 +78,7 @@ jobs:
 
       - name: Email new matches
         if: steps.count.outputs.new != '0' && env.SMTP_PASS != ''
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v18
         with:
           server_address: smtp.gmail.com
           server_port: 465
