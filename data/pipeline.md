@@ -13,4 +13,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://www.workingnomads.com/job/go/1821504/ | Peroptyx | Data Analyst (No Experience Required) | Belgium
 - [ ] https://www.workingnomads.com/job/go/1799726/ | Polly English | Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100 | North America
 
+- [ ] https://himalayas.app/companies/brighty-app/jobs/data-analyst | Brighty App | Data Analyst | posted: 2026-08-30
+
 ## Processed
