@@ -1,43 +1,7 @@
 {
-  "generatedAt": "2026-09-01T19:43:44.947Z",
+  "generatedAt": "2026-09-01T22:21:08.286Z",
   "count": 7,
   "candidates": [
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Belgium",
-      "url": "https://www.workingnomads.com/job/go/1821504/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Polly English",
-      "role": "Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100",
-      "location": "North America",
-      "url": "https://www.workingnomads.com/job/go/1799726/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Japan - Remote",
-      "url": "https://www.workingnomads.com/job/go/1775548/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Chess.com",
-      "role": "Tamil Translator",
-      "location": "",
-      "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
-      "salary": null,
-      "postedAt": 1788242400000,
-      "source": "nodesk-api"
-    },
     {
       "company": "Tremendous",
       "role": "Senior Data Analyst, GTM",
@@ -64,6 +28,42 @@
       "salary": null,
       "postedAt": 1788264010000,
       "source": "jobicy-api"
+    },
+    {
+      "company": "Chess.com",
+      "role": "Tamil Translator",
+      "location": "",
+      "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
+      "salary": null,
+      "postedAt": 1788242400000,
+      "source": "nodesk-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Belgium",
+      "url": "https://www.workingnomads.com/job/go/1821504/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Polly English",
+      "role": "Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100",
+      "location": "North America",
+      "url": "https://www.workingnomads.com/job/go/1799726/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Japan - Remote",
+      "url": "https://www.workingnomads.com/job/go/1775548/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
     }
   ]
 }
