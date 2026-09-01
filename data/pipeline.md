@@ -17,4 +17,9 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://himalayas.app/companies/rws-group/jobs/audio-transcription-tagalog-philippines | RWS Group | Audio Transcription - Tagalog (Philippines) | posted: 2026-09-01
 
+- [ ] https://nodesk.co/remote-jobs/chess-com-tamil-translator/ | Chess.com | Tamil Translator | posted: 2026-09-01
+- [ ] https://jobicy.com/jobs/152315-senior-data-analyst-gtm | Tremendous | Senior Data Analyst, GTM | USA | posted: 2026-09-01
+- [ ] https://jobicy.com/jobs/152312-binance-acceleration-program-product-data-analyst | Binance | Binance Acceleration Program - Product Data Analyst | Hong Kong | posted: 2026-09-01
+- [ ] https://jobicy.com/jobs/152307-bap-data-analyst | Binance | BAP - Data Analyst | Hong Kong | posted: 2026-09-01
+
 ## Processed
