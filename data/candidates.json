@@ -1,16 +1,7 @@
 {
-  "generatedAt": "2026-09-01T09:43:33.071Z",
-  "count": 5,
+  "generatedAt": "2026-09-01T15:22:27.963Z",
+  "count": 3,
   "candidates": [
-    {
-      "company": "RWS Group",
-      "role": "Audio Transcription - Tagalog  (Philippines)",
-      "location": "",
-      "url": "https://himalayas.app/companies/rws-group/jobs/audio-transcription-tagalog-philippines",
-      "salary": null,
-      "postedAt": 1788251140000,
-      "source": "himalayas-api"
-    },
     {
       "company": "Peroptyx",
       "role": "Data Analyst (No Experience Required)",
@@ -37,15 +28,6 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
-    },
-    {
-      "company": "Oak National Academy",
-      "role": "Senior Data Analyst",
-      "location": "United Kingdom, Remote",
-      "url": "https://4dayweek.io/job/senior-data-analyst-at-oak-national-academy-41c852ae",
-      "salary": null,
-      "postedAt": 1787920853000,
-      "source": "4dayweek-api"
     }
   ]
 }
