@@ -15,4 +15,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://himalayas.app/companies/brighty-app/jobs/data-analyst | Brighty App | Data Analyst | posted: 2026-08-30
 
+- [ ] https://himalayas.app/companies/rws-group/jobs/audio-transcription-tagalog-philippines | RWS Group | Audio Transcription - Tagalog (Philippines) | posted: 2026-09-01
+
 ## Processed
