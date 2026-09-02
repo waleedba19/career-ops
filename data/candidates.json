@@ -1,7 +1,16 @@
 {
-  "generatedAt": "2026-09-02T19:37:18.268Z",
+  "generatedAt": "2026-09-02T22:18:44.920Z",
   "count": 5,
   "candidates": [
+    {
+      "company": "Chess.com",
+      "role": "Tamil Translator",
+      "location": "",
+      "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
+      "salary": null,
+      "postedAt": 1788242400000,
+      "source": "nodesk-api"
+    },
     {
       "company": "Peroptyx",
       "role": "Data Analyst (No Experience Required)",
@@ -28,15 +37,6 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
-    },
-    {
-      "company": "Chess.com",
-      "role": "Tamil Translator",
-      "location": "",
-      "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
-      "salary": null,
-      "postedAt": 1788242400000,
-      "source": "nodesk-api"
     },
     {
       "company": "Scale AI",
