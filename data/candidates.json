@@ -1,34 +1,7 @@
 {
-  "generatedAt": "2026-09-01T22:21:08.286Z",
-  "count": 7,
+  "generatedAt": "2026-09-02T09:16:29.718Z",
+  "count": 4,
   "candidates": [
-    {
-      "company": "Tremendous",
-      "role": "Senior Data Analyst, GTM",
-      "location": "USA",
-      "url": "https://jobicy.com/jobs/152315-senior-data-analyst-gtm",
-      "salary": null,
-      "postedAt": 1788272455000,
-      "source": "jobicy-api"
-    },
-    {
-      "company": "Binance",
-      "role": "Binance Acceleration Program - Product Data Analyst",
-      "location": "Hong Kong",
-      "url": "https://jobicy.com/jobs/152312-binance-acceleration-program-product-data-analyst",
-      "salary": null,
-      "postedAt": 1788264115000,
-      "source": "jobicy-api"
-    },
-    {
-      "company": "Binance",
-      "role": "BAP - Data Analyst",
-      "location": "Hong Kong",
-      "url": "https://jobicy.com/jobs/152307-bap-data-analyst",
-      "salary": null,
-      "postedAt": 1788264010000,
-      "source": "jobicy-api"
-    },
     {
       "company": "Chess.com",
       "role": "Tamil Translator",
