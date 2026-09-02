@@ -22,4 +22,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://jobicy.com/jobs/152312-binance-acceleration-program-product-data-analyst | Binance | Binance Acceleration Program - Product Data Analyst | Hong Kong | posted: 2026-09-01
 - [ ] https://jobicy.com/jobs/152307-bap-data-analyst | Binance | BAP - Data Analyst | Hong Kong | posted: 2026-09-01
 
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4729899005 | Scale AI | Senior Data Analyst, Public Sector | Washington, DC | posted: 2026-09-02
+
 ## Processed
