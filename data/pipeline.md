@@ -24,4 +24,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4729899005 | Scale AI | Senior Data Analyst, Public Sector | Washington, DC | posted: 2026-09-02
 
+- [ ] https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286 | Astrek Careers | Data Entry Clerk
+
 ## Processed
