@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T19:16:28.409Z",
+  "generatedAt": "2026-09-04T22:04:20.906Z",
   "count": 7,
   "candidates": [
     {
@@ -10,24 +10,6 @@
       "salary": null,
       "postedAt": 1788501311000,
       "source": "jobicy-api"
-    },
-    {
-      "company": "Astrek Careers",
-      "role": "Data Entry Clerk",
-      "location": "",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
-    },
-    {
-      "company": "Scale AI",
-      "role": "Senior Data Analyst, Public Sector",
-      "location": "Washington, DC",
-      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
-      "salary": null,
-      "postedAt": 1788374660000,
-      "source": "greenhouse-api"
     },
     {
       "company": "Peroptyx",
@@ -64,6 +46,24 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
+    },
+    {
+      "company": "Scale AI",
+      "role": "Senior Data Analyst, Public Sector",
+      "location": "Washington, DC",
+      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
+      "salary": null,
+      "postedAt": 1788374660000,
+      "source": "greenhouse-api"
+    },
+    {
+      "company": "Astrek Careers",
+      "role": "Data Entry Clerk",
+      "location": "",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
     }
   ]
 }
