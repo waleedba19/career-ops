@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T14:44:54.232Z",
+  "generatedAt": "2026-09-04T19:16:28.409Z",
   "count": 7,
   "candidates": [
     {
@@ -12,13 +12,31 @@
       "source": "jobicy-api"
     },
     {
-      "company": "Parsons Corporation",
-      "role": "Administrative Assistant (UAE National)",
-      "location": "Abu Dhabi, United Arab Emirates",
-      "url": "https://4dayweek.io/job/administrative-assistant-uae-national-at-parsons-corporation-86ae8b8a",
+      "company": "Astrek Careers",
+      "role": "Data Entry Clerk",
+      "location": "",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
       "salary": null,
-      "postedAt": 1788524722000,
-      "source": "4dayweek-api"
+      "postedAt": null,
+      "source": "remoteok-api"
+    },
+    {
+      "company": "Scale AI",
+      "role": "Senior Data Analyst, Public Sector",
+      "location": "Washington, DC",
+      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
+      "salary": null,
+      "postedAt": 1788374660000,
+      "source": "greenhouse-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Japan - Remote",
+      "url": "https://www.workingnomads.com/job/go/1835291/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
     },
     {
       "company": "Peroptyx",
@@ -46,24 +64,6 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
-    },
-    {
-      "company": "Astrek Careers",
-      "role": "Data Entry Clerk",
-      "location": "",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
-    },
-    {
-      "company": "Scale AI",
-      "role": "Senior Data Analyst, Public Sector",
-      "location": "Washington, DC",
-      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
-      "salary": null,
-      "postedAt": 1788374660000,
-      "source": "greenhouse-api"
     }
   ]
 }
