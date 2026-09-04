@@ -1,7 +1,25 @@
 {
-  "generatedAt": "2026-09-03T22:13:30.279Z",
-  "count": 5,
+  "generatedAt": "2026-09-04T09:18:07.696Z",
+  "count": 6,
   "candidates": [
+    {
+      "company": "Clover Health",
+      "role": "Data Analyst, Clinical Data Effectiveness",
+      "location": "USA",
+      "url": "https://jobicy.com/jobs/150923-data-analyst-clinical-data-effectiveness",
+      "salary": null,
+      "postedAt": 1788501311000,
+      "source": "jobicy-api"
+    },
+    {
+      "company": "Astrek Careers",
+      "role": "Data Entry Clerk",
+      "location": "",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
+    },
     {
       "company": "Peroptyx",
       "role": "Data Analyst (No Experience Required)",
@@ -28,15 +46,6 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
-    },
-    {
-      "company": "Astrek Careers",
-      "role": "Data Entry Clerk",
-      "location": "",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
     },
     {
       "company": "Scale AI",

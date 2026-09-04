@@ -26,4 +26,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286 | Astrek Careers | Data Entry Clerk
 
+- [ ] https://jobicy.com/jobs/150923-data-analyst-clinical-data-effectiveness | Clover Health | Data Analyst, Clinical Data Effectiveness | USA | posted: 2026-09-04
+
 ## Processed
