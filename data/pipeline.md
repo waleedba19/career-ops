@@ -28,4 +28,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://jobicy.com/jobs/150923-data-analyst-clinical-data-effectiveness | Clover Health | Data Analyst, Clinical Data Effectiveness | USA | posted: 2026-09-04
 
+- [ ] https://4dayweek.io/job/administrative-assistant-uae-national-at-parsons-corporation-86ae8b8a | Parsons Corporation | Administrative Assistant (UAE National) | Abu Dhabi, United Arab Emirates | posted: 2026-09-04
+
 ## Processed

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-04T09:18:07.696Z",
-  "count": 6,
+  "generatedAt": "2026-09-04T14:44:54.232Z",
+  "count": 7,
   "candidates": [
     {
       "company": "Clover Health",
@@ -12,13 +12,13 @@
       "source": "jobicy-api"
     },
     {
-      "company": "Astrek Careers",
-      "role": "Data Entry Clerk",
-      "location": "",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
+      "company": "Parsons Corporation",
+      "role": "Administrative Assistant (UAE National)",
+      "location": "Abu Dhabi, United Arab Emirates",
+      "url": "https://4dayweek.io/job/administrative-assistant-uae-national-at-parsons-corporation-86ae8b8a",
       "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
+      "postedAt": 1788524722000,
+      "source": "4dayweek-api"
     },
     {
       "company": "Peroptyx",
@@ -46,6 +46,15 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
+    },
+    {
+      "company": "Astrek Careers",
+      "role": "Data Entry Clerk",
+      "location": "",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
     },
     {
       "company": "Scale AI",
