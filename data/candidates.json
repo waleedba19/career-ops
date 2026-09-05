@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T22:04:20.906Z",
+  "generatedAt": "2026-09-05T08:46:57.138Z",
   "count": 7,
   "candidates": [
     {
@@ -48,15 +48,6 @@
       "source": "workingnomads-api"
     },
     {
-      "company": "Scale AI",
-      "role": "Senior Data Analyst, Public Sector",
-      "location": "Washington, DC",
-      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
-      "salary": null,
-      "postedAt": 1788374660000,
-      "source": "greenhouse-api"
-    },
-    {
       "company": "Astrek Careers",
       "role": "Data Entry Clerk",
       "location": "",
@@ -64,6 +55,15 @@
       "salary": null,
       "postedAt": null,
       "source": "remoteok-api"
+    },
+    {
+      "company": "Scale AI",
+      "role": "Senior Data Analyst, Public Sector",
+      "location": "Washington, DC",
+      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
+      "salary": null,
+      "postedAt": 1788374660000,
+      "source": "greenhouse-api"
     }
   ]
 }
