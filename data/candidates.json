@@ -1,7 +1,16 @@
 {
-  "generatedAt": "2026-09-05T18:46:06.879Z",
+  "generatedAt": "2026-09-05T21:53:10.962Z",
   "count": 5,
   "candidates": [
+    {
+      "company": "Astrek Careers",
+      "role": "Data Entry Clerk",
+      "location": "",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
+    },
     {
       "company": "Peroptyx",
       "role": "Data Analyst (No Experience Required)",
@@ -28,15 +37,6 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
-    },
-    {
-      "company": "Astrek Careers",
-      "role": "Data Entry Clerk",
-      "location": "",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
     },
     {
       "company": "Scale AI",
