@@ -30,4 +30,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://4dayweek.io/job/administrative-assistant-uae-national-at-parsons-corporation-86ae8b8a | Parsons Corporation | Administrative Assistant (UAE National) | Abu Dhabi, United Arab Emirates | posted: 2026-09-04
 
+- [ ] https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7 | NoGigiddy | Remote Data Entry Clerk | Anywhere in the World | posted: 2025-11-11
+
 ## Processed
