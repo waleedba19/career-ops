@@ -32,4 +32,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7 | NoGigiddy | Remote Data Entry Clerk | Anywhere in the World | posted: 2025-11-11
 
+- [ ] https://jobicy.com/jobs/152722-senior-data-analyst-risk-analytics | SeatGeek | Senior Data Analyst, Risk Analytics | USA | posted: 2026-09-07
+
 ## Processed
