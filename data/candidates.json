@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-08T14:52:05.800Z",
-  "count": 7,
+  "generatedAt": "2026-09-08T19:42:51.434Z",
+  "count": 5,
   "candidates": [
     {
       "company": "Peroptyx",
@@ -30,22 +30,13 @@
       "source": "workingnomads-api"
     },
     {
-      "company": "SeatGeek",
-      "role": "Senior Data Analyst, Risk Analytics",
-      "location": "USA",
-      "url": "https://jobicy.com/jobs/152722-senior-data-analyst-risk-analytics",
+      "company": "NoGigiddy",
+      "role": "Remote Data Entry Clerk",
+      "location": "Anywhere in the World",
+      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
       "salary": null,
-      "postedAt": 1788790077000,
-      "source": "jobicy-api"
-    },
-    {
-      "company": "Astrek Careers",
-      "role": "Data Entry Clerk",
-      "location": "",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-clerk-astrek-careers-1137286",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
+      "postedAt": 1762822704000,
+      "source": "weworkremotely-api"
     },
     {
       "company": "Scale AI",
@@ -55,15 +46,6 @@
       "salary": null,
       "postedAt": 1788374660000,
       "source": "greenhouse-api"
-    },
-    {
-      "company": "NoGigiddy",
-      "role": "Remote Data Entry Clerk",
-      "location": "Anywhere in the World",
-      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
-      "salary": null,
-      "postedAt": 1762822704000,
-      "source": "weworkremotely-api"
     }
   ]
 }
