@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T20:21:00.639Z",
+  "generatedAt": "2026-09-08T09:19:54.304Z",
   "count": 7,
   "candidates": [
     {
@@ -10,15 +10,6 @@
       "salary": null,
       "postedAt": 1788790077000,
       "source": "jobicy-api"
-    },
-    {
-      "company": "NoGigiddy",
-      "role": "Remote Data Entry Clerk",
-      "location": "Anywhere in the World",
-      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
-      "salary": null,
-      "postedAt": 1762822704000,
-      "source": "weworkremotely-api"
     },
     {
       "company": "Peroptyx",
@@ -55,6 +46,15 @@
       "salary": null,
       "postedAt": null,
       "source": "remoteok-api"
+    },
+    {
+      "company": "NoGigiddy",
+      "role": "Remote Data Entry Clerk",
+      "location": "Anywhere in the World",
+      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
+      "salary": null,
+      "postedAt": 1762822704000,
+      "source": "weworkremotely-api"
     },
     {
       "company": "Scale AI",
