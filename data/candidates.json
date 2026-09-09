@@ -1,16 +1,7 @@
 {
-  "generatedAt": "2026-09-09T09:22:34.985Z",
+  "generatedAt": "2026-09-09T15:00:56.312Z",
   "count": 5,
   "candidates": [
-    {
-      "company": "NoGigiddy",
-      "role": "Remote Data Entry Clerk",
-      "location": "Anywhere in the World",
-      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
-      "salary": null,
-      "postedAt": 1762822704000,
-      "source": "weworkremotely-api"
-    },
     {
       "company": "Peroptyx",
       "role": "Data Analyst (No Experience Required)",
@@ -37,6 +28,15 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
+    },
+    {
+      "company": "NoGigiddy",
+      "role": "Remote Data Entry Clerk",
+      "location": "Anywhere in the World",
+      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
+      "salary": null,
+      "postedAt": 1762822704000,
+      "source": "weworkremotely-api"
     },
     {
       "company": "Scale AI",
