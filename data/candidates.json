@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T22:20:52.835Z",
+  "generatedAt": "2026-09-09T09:22:34.985Z",
   "count": 5,
   "candidates": [
     {
@@ -10,15 +10,6 @@
       "salary": null,
       "postedAt": 1762822704000,
       "source": "weworkremotely-api"
-    },
-    {
-      "company": "Scale AI",
-      "role": "Senior Data Analyst, Public Sector",
-      "location": "Washington, DC",
-      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
-      "salary": null,
-      "postedAt": 1788374660000,
-      "source": "greenhouse-api"
     },
     {
       "company": "Peroptyx",
@@ -46,6 +37,15 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
+    },
+    {
+      "company": "Scale AI",
+      "role": "Senior Data Analyst, Public Sector",
+      "location": "Washington, DC",
+      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
+      "salary": null,
+      "postedAt": 1788374660000,
+      "source": "greenhouse-api"
     }
   ]
 }
