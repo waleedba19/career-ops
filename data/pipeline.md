@@ -34,4 +34,10 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://jobicy.com/jobs/152722-senior-data-analyst-risk-analytics | SeatGeek | Senior Data Analyst, Risk Analytics | USA | posted: 2026-09-07
 
+- [ ] https://remoteOK.com/remote-jobs/remote-data-analyst-assistant-arabian-private-holdings-1136217 | Arabian Private Holdings | Data Analyst Assistant | Ø¯Ø¨Ù, Ø¯Ø¨Ù Ø¯Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©
+- [ ] https://remoteOK.com/remote-jobs/remote-entry-level-administrative-assistant-re-lytics-hires-1136105 | Re Lytics Hires | Entry Level Administrative Assistant | Ø£Ø¨Ù Ø¸Ø¨Ù, Ø£Ø¨Ù Ø¸Ø¨Ù Ø£Ø¨Ù Ø¸Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©
+- [ ] https://remoteOK.com/remote-jobs/remote-data-entry-amp-administrative-assistant-re-lytics-hires-1136107 | Re Lytics Hires | Data Entry &amp; Administrative Assistant | Ø£Ø¨Ù Ø¸Ø¨Ù, Ø£Ø¨Ù Ø¸Ø¨Ù Ø£Ø¨Ù Ø¸Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©
+- [ ] https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903 | PulseMediaNL | Data Entry Administrator | Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©
+- [ ] https://remoteOK.com/remote-jobs/remote-administrative-assistant-viable-medical-solutions-1135697 | Viable Medical Solutions | Administrative Assistant | Greater Orlando
+
 ## Processed

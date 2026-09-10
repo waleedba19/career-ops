@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-09T22:13:52.943Z",
-  "count": 5,
+  "generatedAt": "2026-09-10T09:21:57.813Z",
+  "count": 10,
   "candidates": [
     {
       "company": "NoGigiddy",
@@ -37,6 +37,51 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
+    },
+    {
+      "company": "Arabian Private Holdings",
+      "role": "Data Analyst Assistant",
+      "location": "Ø¯Ø¨Ù, Ø¯Ø¨Ù Ø¯Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-analyst-assistant-arabian-private-holdings-1136217",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
+    },
+    {
+      "company": "Re Lytics Hires",
+      "role": "Entry Level Administrative Assistant",
+      "location": "Ø£Ø¨Ù Ø¸Ø¨Ù, Ø£Ø¨Ù Ø¸Ø¨Ù Ø£Ø¨Ù Ø¸Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
+      "url": "https://remoteOK.com/remote-jobs/remote-entry-level-administrative-assistant-re-lytics-hires-1136105",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
+    },
+    {
+      "company": "Re Lytics Hires",
+      "role": "Data Entry &amp; Administrative Assistant",
+      "location": "Ø£Ø¨Ù Ø¸Ø¨Ù, Ø£Ø¨Ù Ø¸Ø¨Ù Ø£Ø¨Ù Ø¸Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-amp-administrative-assistant-re-lytics-hires-1136107",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
+    },
+    {
+      "company": "PulseMediaNL",
+      "role": "Data Entry Administrator",
+      "location": "Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
+    },
+    {
+      "company": "Viable Medical Solutions",
+      "role": "Administrative Assistant",
+      "location": "Greater Orlando",
+      "url": "https://remoteOK.com/remote-jobs/remote-administrative-assistant-viable-medical-solutions-1135697",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
     },
     {
       "company": "Scale AI",
