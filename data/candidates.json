@@ -1,16 +1,7 @@
 {
-  "generatedAt": "2026-09-10T09:21:57.813Z",
+  "generatedAt": "2026-09-10T14:46:31.957Z",
   "count": 10,
   "candidates": [
-    {
-      "company": "NoGigiddy",
-      "role": "Remote Data Entry Clerk",
-      "location": "Anywhere in the World",
-      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
-      "salary": null,
-      "postedAt": 1762822704000,
-      "source": "weworkremotely-api"
-    },
     {
       "company": "Peroptyx",
       "role": "Data Analyst (No Experience Required)",
@@ -37,6 +28,24 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
+    },
+    {
+      "company": "NoGigiddy",
+      "role": "Remote Data Entry Clerk",
+      "location": "Anywhere in the World",
+      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
+      "salary": null,
+      "postedAt": 1762822704000,
+      "source": "weworkremotely-api"
+    },
+    {
+      "company": "Scale AI",
+      "role": "Senior Data Analyst, Public Sector",
+      "location": "Washington, DC",
+      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
+      "salary": null,
+      "postedAt": 1788374660000,
+      "source": "greenhouse-api"
     },
     {
       "company": "Arabian Private Holdings",
@@ -82,15 +91,6 @@
       "salary": null,
       "postedAt": null,
       "source": "remoteok-api"
-    },
-    {
-      "company": "Scale AI",
-      "role": "Senior Data Analyst, Public Sector",
-      "location": "Washington, DC",
-      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
-      "salary": null,
-      "postedAt": 1788374660000,
-      "source": "greenhouse-api"
     }
   ]
 }
