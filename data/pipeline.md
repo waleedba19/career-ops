@@ -40,4 +40,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903 | PulseMediaNL | Data Entry Administrator | Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©
 - [ ] https://remoteOK.com/remote-jobs/remote-administrative-assistant-viable-medical-solutions-1135697 | Viable Medical Solutions | Administrative Assistant | Greater Orlando
 
+- [ ] https://remoteOK.com/remote-jobs/remote-healthcare-virtual-assistant-athena-emr-experience-snapscale-philippines-1135688 | Snapscale Philippines | Healthcare Virtual Assistant Athena EMR Experience | Davao,
+
 ## Processed
