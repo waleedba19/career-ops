@@ -1,34 +1,7 @@
 {
-  "generatedAt": "2026-09-10T22:13:46.855Z",
+  "generatedAt": "2026-09-11T09:20:10.620Z",
   "count": 8,
   "candidates": [
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Japan - Remote",
-      "url": "https://www.workingnomads.com/job/go/1835291/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Belgium",
-      "url": "https://www.workingnomads.com/job/go/1821504/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Polly English",
-      "role": "Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100",
-      "location": "North America",
-      "url": "https://www.workingnomads.com/job/go/1799726/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
     {
       "company": "Arabian Private Holdings",
       "role": "Data Analyst Assistant",
@@ -64,6 +37,33 @@
       "salary": null,
       "postedAt": null,
       "source": "remoteok-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Japan - Remote",
+      "url": "https://www.workingnomads.com/job/go/1835291/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Belgium",
+      "url": "https://www.workingnomads.com/job/go/1821504/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Polly English",
+      "role": "Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100",
+      "location": "North America",
+      "url": "https://www.workingnomads.com/job/go/1799726/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
     },
     {
       "company": "Scale AI",
