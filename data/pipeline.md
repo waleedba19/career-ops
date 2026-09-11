@@ -42,4 +42,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://remoteOK.com/remote-jobs/remote-healthcare-virtual-assistant-athena-emr-experience-snapscale-philippines-1135688 | Snapscale Philippines | Healthcare Virtual Assistant Athena EMR Experience | Davao,
 
+- [ ] https://nodesk.co/remote-jobs/boulevard-staff-data-analyst/ | Boulevard | Staff Data Analyst | posted: 2026-09-11
+
 ## Processed
