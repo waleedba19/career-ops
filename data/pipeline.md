@@ -44,4 +44,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://nodesk.co/remote-jobs/boulevard-staff-data-analyst/ | Boulevard | Staff Data Analyst | posted: 2026-09-11
 
+- [ ] https://jobicy.com/jobs/153127-data-analyst-internal-audit | GiveDirectly | Data Analyst, Internal Audit | UK, USA | posted: 2026-09-12
+
 ## Processed
