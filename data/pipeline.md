@@ -46,4 +46,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://jobicy.com/jobs/153127-data-analyst-internal-audit | GiveDirectly | Data Analyst, Internal Audit | UK, USA | posted: 2026-09-12
 
+- [ ] https://himalayas.app/companies/ataraxis-management/jobs/healthcare-virtual-assistant-mental-health-practice-remote-7686738480 | Ataraxis Management | Healthcare Virtual Assistant (Mental Health Practice / Remote) | Costa Rica | posted: 2026-09-13
+
 ## Processed
