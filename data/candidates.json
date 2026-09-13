@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T21:54:58.761Z",
+  "generatedAt": "2026-09-13T14:47:15.908Z",
   "count": 11,
   "candidates": [
     {
@@ -19,15 +19,6 @@
       "salary": null,
       "postedAt": 1789106400000,
       "source": "nodesk-api"
-    },
-    {
-      "company": "GiveDirectly",
-      "role": "Data Analyst, Internal Audit",
-      "location": "UK,  USA",
-      "url": "https://jobicy.com/jobs/153127-data-analyst-internal-audit",
-      "salary": null,
-      "postedAt": 1789231808000,
-      "source": "jobicy-api"
     },
     {
       "company": "Peroptyx",
@@ -55,6 +46,15 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
+    },
+    {
+      "company": "GiveDirectly",
+      "role": "Data Analyst, Internal Audit",
+      "location": "UK,  USA",
+      "url": "https://jobicy.com/jobs/153127-data-analyst-internal-audit",
+      "salary": null,
+      "postedAt": 1789231808000,
+      "source": "jobicy-api"
     },
     {
       "company": "Arabian Private Holdings",
