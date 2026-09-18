@@ -51,4 +51,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://jobicy.com/jobs/153293-administrative-assistant-iv | Affirm | Administrative Assistant IV | USA | posted: 2026-09-14
 - [ ] https://jobicy.com/jobs/153289-senior-administrative-assistant | Motive | Senior Administrative Assistant | USA | posted: 2026-09-14
 
+- [ ] https://jobicy.com/jobs/153580-financial-data-analyst-account-management | SmithRx | Financial Data Analyst, Account Management | USA | posted: 2026-09-18
+
 ## Processed

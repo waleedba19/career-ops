@@ -1,7 +1,25 @@
 {
-  "generatedAt": "2026-09-18T14:45:45.050Z",
-  "count": 7,
+  "generatedAt": "2026-09-18T19:25:31.599Z",
+  "count": 10,
   "candidates": [
+    {
+      "company": "Chess.com",
+      "role": "Tamil Translator",
+      "location": "",
+      "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
+      "salary": null,
+      "postedAt": 1789711200000,
+      "source": "nodesk-api"
+    },
+    {
+      "company": "Boulevard",
+      "role": "Staff Data Analyst",
+      "location": "",
+      "url": "https://nodesk.co/remote-jobs/boulevard-staff-data-analyst/",
+      "salary": null,
+      "postedAt": 1789711200000,
+      "source": "nodesk-api"
+    },
     {
       "company": "Peroptyx",
       "role": "Data Analyst (No Experience Required)",
@@ -19,6 +37,15 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
+    },
+    {
+      "company": "SmithRx",
+      "role": "Financial Data Analyst, Account Management",
+      "location": "USA",
+      "url": "https://jobicy.com/jobs/153580-financial-data-analyst-account-management",
+      "salary": null,
+      "postedAt": 1789733688000,
+      "source": "jobicy-api"
     },
     {
       "company": "Scale AI",
