@@ -53,4 +53,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://jobicy.com/jobs/153580-financial-data-analyst-account-management | SmithRx | Financial Data Analyst, Account Management | USA | posted: 2026-09-18
 
+- [ ] https://weworkremotely.com/remote-jobs/cortland-plastics-international-data-entry-specialist | Cortland Plastics International | Data Entry Specialist | Anywhere in the World | posted: 2026-09-19
+
 ## Processed
