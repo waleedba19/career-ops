@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T19:08:19.238Z",
+  "generatedAt": "2026-09-19T22:04:48.581Z",
   "count": 9,
   "candidates": [
     {
@@ -19,24 +19,6 @@
       "salary": null,
       "postedAt": 1789711200000,
       "source": "nodesk-api"
-    },
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Japan - Remote",
-      "url": "https://www.workingnomads.com/job/go/1835291/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Belgium",
-      "url": "https://www.workingnomads.com/job/go/1821504/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
     },
     {
       "company": "Arabian Private Holdings",
@@ -73,6 +55,24 @@
       "salary": null,
       "postedAt": null,
       "source": "remoteok-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Japan - Remote",
+      "url": "https://www.workingnomads.com/job/go/1835291/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Belgium",
+      "url": "https://www.workingnomads.com/job/go/1821504/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
     },
     {
       "company": "Scale AI",
