@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-19T09:09:41.177Z",
-  "count": 11,
+  "generatedAt": "2026-09-19T14:09:32.711Z",
+  "count": 9,
   "candidates": [
     {
       "company": "Chess.com",
@@ -37,24 +37,6 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
-    },
-    {
-      "company": "SmithRx",
-      "role": "Financial Data Analyst, Account Management",
-      "location": "USA",
-      "url": "https://jobicy.com/jobs/153580-financial-data-analyst-account-management",
-      "salary": null,
-      "postedAt": 1789733688000,
-      "source": "jobicy-api"
-    },
-    {
-      "company": "Cortland Plastics International",
-      "role": "Data Entry Specialist",
-      "location": "Anywhere in the World",
-      "url": "https://weworkremotely.com/remote-jobs/cortland-plastics-international-data-entry-specialist",
-      "salary": null,
-      "postedAt": 1789807706000,
-      "source": "weworkremotely-api"
     },
     {
       "company": "Arabian Private Holdings",
