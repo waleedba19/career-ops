@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T22:04:48.581Z",
+  "generatedAt": "2026-09-20T02:00:30.547Z",
   "count": 9,
   "candidates": [
     {
@@ -19,6 +19,15 @@
       "salary": null,
       "postedAt": 1789711200000,
       "source": "nodesk-api"
+    },
+    {
+      "company": "Scale AI",
+      "role": "Senior Data Analyst, Public Sector",
+      "location": "Washington, DC",
+      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
+      "salary": null,
+      "postedAt": 1788374660000,
+      "source": "greenhouse-api"
     },
     {
       "company": "Arabian Private Holdings",
@@ -73,15 +82,6 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
-    },
-    {
-      "company": "Scale AI",
-      "role": "Senior Data Analyst, Public Sector",
-      "location": "Washington, DC",
-      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
-      "salary": null,
-      "postedAt": 1788374660000,
-      "source": "greenhouse-api"
     }
   ]
 }
