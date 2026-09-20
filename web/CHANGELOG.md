@@ -1,5 +1,48 @@
 # Changelog
 
+## [0.9.0](https://github.com/waleedba19/career-ops/compare/web-v0.8.1...web-v0.9.0) (2026-09-20)
+
+
+### Features
+
+* **web:** restrict the local dashboard API to same-origin and loopback ([b3974e6](https://github.com/waleedba19/career-ops/commit/b3974e6104d83c2714fd0d071898a7c7b9f68726))
+
+
+### Bug Fixes
+
+* **deps:** refresh web lockfile for Next update ([2ca6c00](https://github.com/waleedba19/career-ops/commit/2ca6c00fa9d18cb45caef99fea0b97b05971bf55))
+* **deps:** update web npm dependencies (major) ([1207eae](https://github.com/waleedba19/career-ops/commit/1207eae4b5799cb92602c99737fd2f0cee1319c9))
+* **deps:** update web npm dependencies (next 16.3.1, shaders 0.0.80) ([cf793f6](https://github.com/waleedba19/career-ops/commit/cf793f6bdfffd78b3c2613b202b9905c290bec0e))
+* **web:** block_hard survives the Explore round-trip — type, URL params, seed and serializer ([#3102](https://github.com/waleedba19/career-ops/issues/3102)) ([89d6b1b](https://github.com/waleedba19/career-ops/commit/89d6b1b708454cca863bcf11464c87b76400b14e))
+* **web:** classify a tracker-lock filesystem failure as itself, not as contention ([#3138](https://github.com/waleedba19/career-ops/issues/3138)) ([cf880eb](https://github.com/waleedba19/career-ops/commit/cf880eb55945019663e1b423499041097cb24ccd))
+* **web:** give the methodology link a real tap target and a new-tab cue ([#3023](https://github.com/waleedba19/career-ops/issues/3023)) ([344a116](https://github.com/waleedba19/career-ops/commit/344a116de15fd98c1e1d48aae9bf08bbdc4f067e))
+* **web:** honour language.modes_dir and language.output on web-triggered runs ([#3253](https://github.com/waleedba19/career-ops/issues/3253)) ([316906e](https://github.com/waleedba19/career-ops/commit/316906e64cc779d7580122b1d345c4c06f503a4b))
+* **web:** ignore nonfatal CLI stderr on clean run exit ([#1974](https://github.com/waleedba19/career-ops/issues/1974)) ([7f430ee](https://github.com/waleedba19/career-ops/commit/7f430eeab07b8bd514295fd02aec571c42699d1e))
+* **web:** keep child stderr out of the status response on the crash path ([#3022](https://github.com/waleedba19/career-ops/issues/3022)) ([883ebec](https://github.com/waleedba19/career-ops/commit/883ebec33c1c775bb295c4b4eecca31fc53066da))
+* **web:** keep the query string in the Explore dedup key so distinct postings don't collapse ([#3082](https://github.com/waleedba19/career-ops/issues/3082)) ([275e213](https://github.com/waleedba19/career-ops/commit/275e2137fb804a762caed8bed34194c5920b71c4))
+* **web:** keep the run stream alive during silent agent phases ([#3026](https://github.com/waleedba19/career-ops/issues/3026)) ([aaeb114](https://github.com/waleedba19/career-ops/commit/aaeb114238283ce3cc44b7b3e2168ed2d22c56a8))
+* **web:** key company logos with the Unicode-aware normalizer so non-Latin names don't collide ([#3134](https://github.com/waleedba19/career-ops/issues/3134)) ([7b9f858](https://github.com/waleedba19/career-ops/commit/7b9f8588f57d3313265c49f37d2055bb533a7d08))
+* **web:** only surface follow-ups that are actually due ([#2157](https://github.com/waleedba19/career-ops/issues/2157)) ([82e1055](https://github.com/waleedba19/career-ops/commit/82e10559beb8c80d8a50bcd456e1a893e8ba76f8))
+* **web:** persist the only installed CLI so jobs can start ([#2966](https://github.com/waleedba19/career-ops/issues/2966)) ([e80bf7e](https://github.com/waleedba19/career-ops/commit/e80bf7e60ce95e92dcd7501f97fda092b60b8f95))
+* **web:** regenerate the nested web/ lockfile on postcss bumps ([dba2a2e](https://github.com/waleedba19/career-ops/commit/dba2a2ed7e6317e5962be51c2fe680376221e0de))
+* **web:** report the uncapped weekly match count while keeping the render bounded ([#2662](https://github.com/waleedba19/career-ops/issues/2662)) ([6e9f029](https://github.com/waleedba19/career-ops/commit/6e9f0299dff6fc0903b97b349390408d1f859571))
+* **web:** resolve 27 unmapped states.yml aliases and fix the Turkish status fold ([#2918](https://github.com/waleedba19/career-ops/issues/2918)) ([360ce49](https://github.com/waleedba19/career-ops/commit/360ce490c2e8d610a76767261679ed6b02880c9c))
+* **web:** resolve company logos by name, not one guessed domain ([#2942](https://github.com/waleedba19/career-ops/issues/2942)) ([6096fc9](https://github.com/waleedba19/career-ops/commit/6096fc9497f3d8bd920d2eaa83c13c30fa989f3d))
+* **web:** safe Codex AI-search exec with mtime-keyed capability cache ([#2361](https://github.com/waleedba19/career-ops/issues/2361)) ([699f506](https://github.com/waleedba19/career-ops/commit/699f506f62427cdb5a93bef8247eb6c1fd6418ef))
+* **web:** salvage truncated JSON at each prefix's own depth, not one global pad ([#3142](https://github.com/waleedba19/career-ops/issues/3142)) ([a308bc5](https://github.com/waleedba19/career-ops/commit/a308bc5cc96197f3ed84ac75493d75c45a770f02))
+* **web:** show the retry card, not the update-checkout panel, for runtime scan errors ([#1904](https://github.com/waleedba19/career-ops/issues/1904)) ([29c0d69](https://github.com/waleedba19/career-ops/commit/29c0d69cb0e2c2c3507e2712eaf04f1633244722))
+* **web:** show Via attribution for confidential employers ([f749939](https://github.com/waleedba19/career-ops/commit/f7499392ff75bf966693bdae535f785743ad300d))
+* **web:** stamp pipeline first_seen with the local day, not UTC ([#3081](https://github.com/waleedba19/career-ops/issues/3081)) ([809e93b](https://github.com/waleedba19/career-ops/commit/809e93b419094dcc77c8f3d3f1a1c31c578a547a))
+* **web:** stop first-run from claiming no setup ([#2965](https://github.com/waleedba19/career-ops/issues/2965)) ([f028012](https://github.com/waleedba19/career-ops/commit/f0280129e63a063a88b00598cc09747cd70bc19e))
+* **web:** stop hiding an employer's whole board after one evaluation ([b56cde5](https://github.com/waleedba19/career-ops/commit/b56cde551d84ad5c28d7ea8b99edcc450a2b8b4c))
+* **web:** stop killing evaluate runs at 285s and misreporting the kill ([#3124](https://github.com/waleedba19/career-ops/issues/3124)) ([8a245ed](https://github.com/waleedba19/career-ops/commit/8a245edd677598aa539e74c7565be44b7676e4ab))
+* **web:** stop tracing runtime data paths ([0a9d71f](https://github.com/waleedba19/career-ops/commit/0a9d71fe94286bfe26cdd99e5d7b3d50b27a948a))
+* **web:** tab label spacing and report table word-breaking ([#3160](https://github.com/waleedba19/career-ops/issues/3160)) ([102560b](https://github.com/waleedba19/career-ops/commit/102560bb904f5d107338719f8ce3bdce8d9399e5))
+* **web:** take the core followups lock so web writes cannot race the seeder ([#3034](https://github.com/waleedba19/career-ops/issues/3034)) ([3b761b0](https://github.com/waleedba19/career-ops/commit/3b761b09b2979eedf4eadbd9d3c24b9d61462f04))
+* **web:** take the core tracker lock in POST /api/status ([#2903](https://github.com/waleedba19/career-ops/issues/2903)) ([d9c4fd0](https://github.com/waleedba19/career-ops/commit/d9c4fd0a0fa191717f1f68663b5eaa11c0351ea6))
+* **web:** Today primary action opens the report ([#2967](https://github.com/waleedba19/career-ops/issues/2967)) ([74781e6](https://github.com/waleedba19/career-ops/commit/74781e6d66784bff97e15c507db7383a7fa2ab59))
+* **web:** use next/link for decision-card report link ([#1931](https://github.com/waleedba19/career-ops/issues/1931)) ([e7b38b3](https://github.com/waleedba19/career-ops/commit/e7b38b3e086540060f5f5704afd55ea5fa4a4a3c))
+
 ## [0.8.1](https://github.com/santifer/career-ops/compare/web-v0.8.0...web-v0.8.1) (2026-08-27)
 
 
