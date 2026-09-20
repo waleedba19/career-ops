@@ -8,7 +8,13 @@ name: career-ops scan
 on:
   schedule:
     - cron: '0 5,7,8,11,14,17,20 * * *'   # 07:00, 09:00, 10:00, 13:00, 16:00, 19:00, 22:00 Tripoli (UTC+2)
-  workflow_dispatch: {}                  # allow manual trigger
+  workflow_dispatch:
+    inputs:
+      test_alert:
+        description: 'Send a test email+Telegram alert regardless of new matches'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -37,6 +43,8 @@ jobs:
 
       - name: Run portal scanner
         id: scan
+        env:
+          SCAN_RESULT_PATH: /tmp/scan-result.json
         run: |
           node scan.mjs 2>&1 | tee /tmp/scan.log
           # extract the "+" offer lines that follow "New offers:" (stop at the
@@ -46,7 +54,11 @@ jobs:
       - name: Count new offers + detect 09:00 digest slot
         id: count
         run: |
-          if [ -s /tmp/new-offers.txt ]; then
+          # Prefer the structured result the scanner wrote (versioned JSON);
+          # fall back to counting the scraped log lines only if absent.
+          if [ -f /tmp/scan-result.json ]; then
+            NEW=$(python3 -c "import json;print(json.load(open('/tmp/scan-result.json')).get('new_count',0))" 2>/dev/null || echo 0)
+          elif [ -s /tmp/new-offers.txt ]; then
             NEW=$(grep -c '^  + ' /tmp/new-offers.txt || true)
           else
             NEW=0
@@ -92,8 +104,9 @@ jobs:
 
       # Daily digest slot (09:00): send EVERY day, even with 0 new, with the
       # workbook. Otherwise (strict scan slots): send only when genuinely new.
+      # test_alert dispatch forces a send to verify the delivery path.
       - name: Send alerts (email + Telegram + Excel)
-        if: (steps.count.outputs.slot == 'digest' || steps.count.outputs.new != '0') && (env.SMTP_PASS != '' || env.TG_BOT_TOKEN != '')
+        if: (steps.count.outputs.slot == 'digest' || steps.count.outputs.new != '0' || github.event.inputs.test_alert == 'true') && (env.SMTP_PASS != '' || env.TG_BOT_TOKEN != '')
         run: python send_alert.py "${{ steps.count.outputs.new }}"
         env:
           SMTP_USER: ${{ secrets.SMTP_USER }}
@@ -104,3 +117,4 @@ jobs:
           ALERT_EMAIL: /tmp/alert-email.md
           ALERT_TG: /tmp/alert-telegram.txt
           ALERT_XLSX: data/matches.xlsx
+          TEST_MODE: ${{ github.event.inputs.test_alert == 'true' && '1' || '' }}

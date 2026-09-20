@@ -20,16 +20,25 @@ from email import encoders
 from pathlib import Path
 
 count = sys.argv[1] if len(sys.argv) > 1 else "?"
+force_send = "--force" in sys.argv          # bypass "only when new" gating (delivery test)
+test_mode = os.environ.get("TEST_MODE", "") == "1" or "--test" in sys.argv
 email_path = os.environ.get("ALERT_EMAIL", "/tmp/alert-email.md")
 tg_path = os.environ.get("ALERT_TG", "/tmp/alert-telegram.txt")
-test_mode = os.environ.get("TEST_MODE", "") == "1"
+xlsx_env = os.environ.get("ALERT_XLSX", "")
+# In test/force mode the alert bodies may not have been generated — fall back
+# to a simple built-in body so the delivery path itself is exercised.
+if (test_mode or force_send):
+    if not Path(email_path).exists():
+        email_path = ""  # signal to use fallback
+    if not Path(tg_path).exists():
+        tg_path = ""
 
 results = []
 
 # ---- Email via smtplib (Gmail 465 SSL) ----
 if os.environ.get("SMTP_USER") and os.environ.get("SMTP_PASS") and os.environ.get("SMTP_TO"):
     try:
-        md = Path(email_path).read_text(encoding="utf-8")
+        md = Path(email_path).read_text(encoding="utf-8") if email_path else "CareerOps delivery test — the email path works."
         # Build a simple HTML body (basic markdown -> <br> lines, links clickable).
         import re
         def htmlize(md):
@@ -43,7 +52,14 @@ if os.environ.get("SMTP_USER") and os.environ.get("SMTP_PASS") and os.environ.ge
             out = re.sub(r"\[(.+?)\]\((https?://\S+?)\)", r'<a href="\2">\1</a>', out)
             out = out.replace("***", "<b>").replace("**", "<b>")
             return out.replace("\n", "<br/>")
-        msg = MIMEMultipart("alternative")
+        # MIME structure: the xlsx attachment must NOT be nested inside
+        # multipart/alternative (which is for alternative body representations
+        # only). Use an outer multipart/mixed containing an inner
+        # multipart/alternative (plain + HTML) plus the workbook as a sibling.
+        # Some clients drop/misrender the body when the attachment is nested
+        # inside "alternative".
+        msg = MIMEMultipart("mixed")
+        alt = MIMEMultipart("alternative")
         if count == "0":
             subject = "CareerOps: your daily job update (no new matches today)"
         else:
@@ -55,8 +71,9 @@ if os.environ.get("SMTP_USER") and os.environ.get("SMTP_PASS") and os.environ.ge
         msg["To"] = os.environ["SMTP_TO"]
         if test_mode:
             md = "THIS IS A TEST MESSAGE FROM CAREEROPS - not a real job alert.\n\n" + md
-        msg.attach(MIMEText(md, "plain", "utf-8"))
-        msg.attach(MIMEText(htmlize(md), "html", "utf-8"))
+        alt.attach(MIMEText(md, "plain", "utf-8"))
+        alt.attach(MIMEText(htmlize(md), "html", "utf-8"))
+        msg.attach(alt)
         # Attach the Excel workbook (matches + full list) if present.
         xlsx_path = os.environ.get("ALERT_XLSX")
         if xlsx_path and Path(xlsx_path).exists():
@@ -77,7 +94,7 @@ else:
 # ---- Telegram via urllib ----
 if os.environ.get("TG_BOT_TOKEN") and os.environ.get("TG_CHAT_ID"):
     try:
-        text = Path(tg_path).read_text(encoding="utf-8")
+        text = Path(tg_path).read_text(encoding="utf-8") if tg_path else "CareerOps delivery test — the Telegram path works."
         if test_mode:
             text = "THIS IS A TEST MESSAGE FROM CAREEROPS - not a real job alert.\n\n" + text
         data = json.dumps({
