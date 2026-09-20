@@ -18,7 +18,7 @@
  */
 
 import { chromium } from 'playwright';
-import { readFileSync, existsSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import * as yaml from 'js-yaml';
 import { appendToPipeline, appendToScanHistory, loadSeenUrls } from './scan.mjs';
 import { localToday } from './lib/local-today.mjs';
@@ -344,6 +344,21 @@ async function main() {
   if (errors.length > 0) {
     console.log(`\nErrors (${errors.length}):`);
     for (const e of errors) console.log(`  ✗ "${e.keyword}": ${e.error}`);
+  }
+
+  // Structured result for the workflow (see scan.mjs).
+  if (!DRY_RUN && process.env.SCAN_RESULT_PATH) {
+    try {
+      writeFileSync(process.env.SCAN_RESULT_PATH, JSON.stringify({
+        version: 1,
+        status: 'ok',
+        new_count: newOffers.length,
+        offers: newOffers.map(o => ({
+          company: o.company, title: o.title, location: o.location || 'N/A',
+          url: o.url || null, postedAt: o.postedAt || null, salary: o.salary || null,
+        })),
+      }, null, 2));
+    } catch { /* best-effort */ }
   }
 
   if (newOffers.length > 0) {

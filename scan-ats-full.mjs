@@ -1001,6 +1001,22 @@ async function main() {
   if (droppedContent) log(`Content-filtered:   ${droppedContent}`);
   log(`New matches:        ${offers.length}`);
 
+  // Structured result for the workflow (see scan.mjs). `offers` here is the
+  // new-match list; skipped on dry runs.
+  if (!opts.dryRun && process.env.SCAN_RESULT_PATH) {
+    try {
+      writeFileSync(process.env.SCAN_RESULT_PATH, JSON.stringify({
+        version: 1,
+        status: 'ok',
+        new_count: offers.length,
+        offers: offers.map(o => ({
+          company: o.company, title: o.title, location: o.location || 'N/A',
+          url: o.url, postedAt: o.postedAt || null, salary: o.salary || null,
+        })),
+      }, null, 2));
+    } catch { /* best-effort */ }
+  }
+
   if (offers.length) {
     log('\nNew offers:');
     for (const o of offers) {
