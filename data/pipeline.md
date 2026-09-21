@@ -55,4 +55,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://weworkremotely.com/remote-jobs/cortland-plastics-international-data-entry-specialist | Cortland Plastics International | Data Entry Specialist | Anywhere in the World | posted: 2026-09-19
 
+- [ ] https://4dayweek.io/job/administrative-assistant-ep-ags-2026-227-grae-at-cern-498f2bc3 | CERN | Administrative Assistant (EP-AGS-2026-227-GRAE) | Geneva, Switzerland | posted: 2026-09-21
+
 ## Processed
