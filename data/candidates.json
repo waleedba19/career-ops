@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-21T16:45:59.687Z",
-  "count": 9,
+  "generatedAt": "2026-09-21T20:45:55.945Z",
+  "count": 8,
   "candidates": [
     {
       "company": "Chess.com",
@@ -8,7 +8,7 @@
       "location": "",
       "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
       "salary": null,
-      "postedAt": 1789711200000,
+      "postedAt": 1789970400000,
       "source": "nodesk-api"
     },
     {
@@ -17,26 +17,8 @@
       "location": "",
       "url": "https://nodesk.co/remote-jobs/boulevard-staff-data-analyst/",
       "salary": null,
-      "postedAt": 1789711200000,
+      "postedAt": 1789970400000,
       "source": "nodesk-api"
-    },
-    {
-      "company": "CERN",
-      "role": "Administrative Assistant (EP-AGS-2026-227-GRAE)",
-      "location": "Geneva, Switzerland",
-      "url": "https://4dayweek.io/job/administrative-assistant-ep-ags-2026-227-grae-at-cern-498f2bc3",
-      "salary": null,
-      "postedAt": 1789978364000,
-      "source": "4dayweek-api"
-    },
-    {
-      "company": "Scale AI",
-      "role": "Senior Data Analyst, Public Sector",
-      "location": "Washington, DC",
-      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
-      "salary": null,
-      "postedAt": 1788374660000,
-      "source": "greenhouse-api"
     },
     {
       "company": "Peroptyx",
@@ -82,6 +64,15 @@
       "salary": null,
       "postedAt": null,
       "source": "remoteok-api"
+    },
+    {
+      "company": "Scale AI",
+      "role": "Senior Data Analyst, Public Sector",
+      "location": "Washington, DC",
+      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
+      "salary": null,
+      "postedAt": 1788374660000,
+      "source": "greenhouse-api"
     }
   ]
 }
