@@ -60,4 +60,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://jobicy.com/jobs/153978-data-analyst-sql-databricks | Tenable | Data Analyst - SQL / Databricks | USA | posted: 2026-09-23
 - [ ] https://jobicy.com/jobs/153937-senior-data-analyst-gtm-analytics-us | Luxury Presence | Senior Data Analyst, GTM Analytics - US | USA | posted: 2026-09-23
 
+- [ ] https://himalayas.app/companies/mayflower/jobs/payments-data-analyst | Mayflower | Payments Data Analyst | posted: 2026-09-23
+
 ## Processed
