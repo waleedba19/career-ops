@@ -57,4 +57,7 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://4dayweek.io/job/administrative-assistant-ep-ags-2026-227-grae-at-cern-498f2bc3 | CERN | Administrative Assistant (EP-AGS-2026-227-GRAE) | Geneva, Switzerland | posted: 2026-09-21
 
+- [ ] https://jobicy.com/jobs/153978-data-analyst-sql-databricks | Tenable | Data Analyst - SQL / Databricks | USA | posted: 2026-09-23
+- [ ] https://jobicy.com/jobs/153937-senior-data-analyst-gtm-analytics-us | Luxury Presence | Senior Data Analyst, GTM Analytics - US | USA | posted: 2026-09-23
+
 ## Processed

@@ -1,15 +1,24 @@
 {
-  "generatedAt": "2026-09-23T15:16:24.668Z",
-  "count": 8,
+  "generatedAt": "2026-09-23T19:56:57.338Z",
+  "count": 9,
   "candidates": [
     {
-      "company": "Chess.com",
-      "role": "Tamil Translator",
-      "location": "",
-      "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
+      "company": "Tenable",
+      "role": "Data Analyst - SQL / Databricks",
+      "location": "USA",
+      "url": "https://jobicy.com/jobs/153978-data-analyst-sql-databricks",
       "salary": null,
-      "postedAt": 1789970400000,
-      "source": "nodesk-api"
+      "postedAt": 1790176769000,
+      "source": "jobicy-api"
+    },
+    {
+      "company": "Luxury Presence",
+      "role": "Senior Data Analyst, GTM Analytics - US",
+      "location": "USA",
+      "url": "https://jobicy.com/jobs/153937-senior-data-analyst-gtm-analytics-us",
+      "salary": null,
+      "postedAt": 1790166787000,
+      "source": "jobicy-api"
     },
     {
       "company": "Clover Health",
