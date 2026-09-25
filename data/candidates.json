@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-24T20:15:48.155Z",
-  "count": 9,
+  "generatedAt": "2026-09-25T09:58:49.336Z",
+  "count": 8,
   "candidates": [
     {
-      "company": "micro1",
-      "role": "Data Analyst",
-      "location": "",
-      "url": "https://himalayas.app/companies/micro1/jobs/data-analyst-9215136284",
+      "company": "Müller`s Solutions",
+      "role": "SAP Data Analyst - 8-Month Cloud Project",
+      "location": "United Arab Emirates",
+      "url": "https://himalayas.app/companies/muller-s-solutions/jobs/sap-data-analyst-8-month-cloud-project",
       "salary": null,
-      "postedAt": 1790259633000,
+      "postedAt": 1790319125000,
       "source": "himalayas-api"
     },
     {
@@ -19,33 +19,6 @@
       "salary": null,
       "postedAt": 1790229600000,
       "source": "nodesk-api"
-    },
-    {
-      "company": "Docplanner",
-      "role": "Freelance - Spanish Data Annotation Specialist (100% Remote within Europe)",
-      "location": "Europe",
-      "url": "https://jobicy.com/jobs/154012-freelance-spanish-data-annotation-specialist-100-remote-within-europe",
-      "salary": null,
-      "postedAt": 1790252710000,
-      "source": "jobicy-api"
-    },
-    {
-      "company": "Arabian Private Holdings",
-      "role": "Data Analyst Assistant",
-      "location": "Ø¯Ø¨Ù, Ø¯Ø¨Ù Ø¯Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-analyst-assistant-arabian-private-holdings-1136217",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
-    },
-    {
-      "company": "PulseMediaNL",
-      "role": "Data Entry Administrator",
-      "location": "Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
     },
     {
       "company": "Polly English",
@@ -73,6 +46,24 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
+    },
+    {
+      "company": "Arabian Private Holdings",
+      "role": "Data Analyst Assistant",
+      "location": "Ø¯Ø¨Ù, Ø¯Ø¨Ù Ø¯Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-analyst-assistant-arabian-private-holdings-1136217",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
+    },
+    {
+      "company": "PulseMediaNL",
+      "role": "Data Entry Administrator",
+      "location": "Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
     },
     {
       "company": "Scale AI",

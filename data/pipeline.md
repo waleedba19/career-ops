@@ -65,4 +65,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://himalayas.app/companies/micro1/jobs/data-analyst-9215136284 | micro1 | Data Analyst | posted: 2026-09-24
 - [ ] https://jobicy.com/jobs/154012-freelance-spanish-data-annotation-specialist-100-remote-within-europe | Docplanner | Freelance - Spanish Data Annotation Specialist (100% Remote within Europe) | Europe | posted: 2026-09-24
 
+- [ ] https://himalayas.app/companies/muller-s-solutions/jobs/sap-data-analyst-8-month-cloud-project | Müller`s Solutions | SAP Data Analyst - 8-Month Cloud Project | United Arab Emirates | posted: 2026-09-25
+
 ## Processed
