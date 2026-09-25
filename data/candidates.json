@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-09-25T09:58:49.336Z",
-  "count": 8,
+  "generatedAt": "2026-09-25T15:43:00.115Z",
+  "count": 7,
   "candidates": [
     {
-      "company": "Müller`s Solutions",
-      "role": "SAP Data Analyst - 8-Month Cloud Project",
-      "location": "United Arab Emirates",
-      "url": "https://himalayas.app/companies/muller-s-solutions/jobs/sap-data-analyst-8-month-cloud-project",
+      "company": "Arabian Private Holdings",
+      "role": "Data Analyst Assistant",
+      "location": "Ø¯Ø¨Ù, Ø¯Ø¨Ù Ø¯Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-analyst-assistant-arabian-private-holdings-1136217",
       "salary": null,
-      "postedAt": 1790319125000,
-      "source": "himalayas-api"
+      "postedAt": null,
+      "source": "remoteok-api"
     },
     {
-      "company": "Chess.com",
-      "role": "Tamil Translator",
-      "location": "",
-      "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
+      "company": "PulseMediaNL",
+      "role": "Data Entry Administrator",
+      "location": "Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903",
       "salary": null,
-      "postedAt": 1790229600000,
-      "source": "nodesk-api"
+      "postedAt": null,
+      "source": "remoteok-api"
     },
     {
       "company": "Polly English",
@@ -48,22 +48,13 @@
       "source": "workingnomads-api"
     },
     {
-      "company": "Arabian Private Holdings",
-      "role": "Data Analyst Assistant",
-      "location": "Ø¯Ø¨Ù, Ø¯Ø¨Ù Ø¯Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-analyst-assistant-arabian-private-holdings-1136217",
+      "company": "Chess.com",
+      "role": "Tamil Translator",
+      "location": "",
+      "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
       "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
-    },
-    {
-      "company": "PulseMediaNL",
-      "role": "Data Entry Administrator",
-      "location": "Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
+      "postedAt": 1790229600000,
+      "source": "nodesk-api"
     },
     {
       "company": "Scale AI",
