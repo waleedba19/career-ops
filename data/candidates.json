@@ -1,7 +1,16 @@
 {
-  "generatedAt": "2026-09-25T15:43:00.115Z",
+  "generatedAt": "2026-09-25T20:12:55.440Z",
   "count": 7,
   "candidates": [
+    {
+      "company": "Chess.com",
+      "role": "Tamil Translator",
+      "location": "",
+      "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
+      "salary": null,
+      "postedAt": 1790229600000,
+      "source": "nodesk-api"
+    },
     {
       "company": "Arabian Private Holdings",
       "role": "Data Analyst Assistant",
@@ -46,15 +55,6 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
-    },
-    {
-      "company": "Chess.com",
-      "role": "Tamil Translator",
-      "location": "",
-      "url": "https://nodesk.co/remote-jobs/chess-com-tamil-translator/",
-      "salary": null,
-      "postedAt": 1790229600000,
-      "source": "nodesk-api"
     },
     {
       "company": "Scale AI",
