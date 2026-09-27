@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-27T10:20:41.247Z",
-  "count": 7,
+  "generatedAt": "2026-09-27T15:30:08.886Z",
+  "count": 6,
   "candidates": [
     {
       "company": "Chess.com",
@@ -52,15 +52,6 @@
       "role": "Data Analyst (No Experience Required)",
       "location": "Japan - Remote",
       "url": "https://www.workingnomads.com/job/go/1835291/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Belgium",
-      "url": "https://www.workingnomads.com/job/go/1821504/",
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
