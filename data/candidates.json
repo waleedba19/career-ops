@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T19:05:57.628Z",
+  "generatedAt": "2026-09-29T23:24:33.410Z",
   "count": 7,
   "candidates": [
     {
@@ -48,15 +48,6 @@
       "source": "remoteok-api"
     },
     {
-      "company": "Scale AI",
-      "role": "Senior Data Analyst, Public Sector",
-      "location": "Washington, DC",
-      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
-      "salary": null,
-      "postedAt": 1788374660000,
-      "source": "greenhouse-api"
-    },
-    {
       "company": "Native Camp",
       "role": "Online English Teacher",
       "location": "Anywhere in the World",
@@ -64,6 +55,15 @@
       "salary": null,
       "postedAt": 1790682090000,
       "source": "weworkremotely-api"
+    },
+    {
+      "company": "Scale AI",
+      "role": "Senior Data Analyst, Public Sector",
+      "location": "Washington, DC",
+      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
+      "salary": null,
+      "postedAt": 1788374660000,
+      "source": "greenhouse-api"
     }
   ]
 }
