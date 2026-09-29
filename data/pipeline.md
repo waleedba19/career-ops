@@ -67,4 +67,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://himalayas.app/companies/muller-s-solutions/jobs/sap-data-analyst-8-month-cloud-project | Müller`s Solutions | SAP Data Analyst - 8-Month Cloud Project | United Arab Emirates | posted: 2026-09-25
 
+- [ ] https://weworkremotely.com/remote-jobs/native-camp-online-english-teacher-36 | Native Camp | Online English Teacher | Anywhere in the World | posted: 2026-09-29
+
 ## Processed
