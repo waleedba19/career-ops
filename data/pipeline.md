@@ -69,4 +69,11 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://weworkremotely.com/remote-jobs/native-camp-online-english-teacher-36 | Native Camp | Online English Teacher | Anywhere in the World | posted: 2026-09-29
 
+- [ ] https://jobs.lever.co/appen/1e8a6da5-c700-42e5-b4e1-1302a9acc55b | Appen | Czech Language Transcription Expert | Any | posted: 2026-09-30
+- [ ] https://jobs.lever.co/appen/2ff0e598-9763-4ba5-86fc-b218f7b35747 | Appen | Greek Language Transcription Expert | Any | posted: 2026-09-30
+- [ ] https://jobs.lever.co/appen/0fb08db5-a661-4203-9a64-1f085fceec82 | Appen | Hindi Language Transcription Expert | Any | posted: 2026-09-30
+- [ ] https://jobs.lever.co/appen/eacadf99-862b-47bb-abe1-4b95d6fc7baa | Appen | Mandarin Chinese (Simplified) Language Transcription Expert | Any | posted: 2026-09-29
+- [ ] https://jobs.lever.co/appen/243c202f-21a0-4be1-b542-caa1596f0226 | Appen | Polish Language Transcription Expert | Any | posted: 2026-09-30
+- [ ] https://jobs.lever.co/appen/09ea18b6-cf3e-400c-a94c-bf329ebbc23d | Appen | Portuguese Language Transcription Expert | Any | posted: 2026-09-30
+
 ## Processed
