@@ -1,34 +1,7 @@
 {
-  "generatedAt": "2026-10-01T11:19:27.700Z",
+  "generatedAt": "2026-10-01T19:14:40.350Z",
   "count": 14,
   "candidates": [
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Belgium",
-      "url": "https://www.workingnomads.com/job/go/1901964/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Polly English",
-      "role": "Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100",
-      "location": "North America",
-      "url": "https://www.workingnomads.com/job/go/1884997/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Japan - Remote",
-      "url": "https://www.workingnomads.com/job/go/1835291/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
     {
       "company": "PadSplit",
       "role": "Senior Data Analyst (Fully Remote)",
@@ -55,24 +28,6 @@
       "salary": null,
       "postedAt": null,
       "source": "remoteok-api"
-    },
-    {
-      "company": "Scale AI",
-      "role": "Senior Data Analyst, Public Sector",
-      "location": "Washington, DC",
-      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
-      "salary": null,
-      "postedAt": 1788374660000,
-      "source": "greenhouse-api"
-    },
-    {
-      "company": "Native Camp",
-      "role": "Online English Teacher",
-      "location": "Anywhere in the World",
-      "url": "https://weworkremotely.com/remote-jobs/native-camp-online-english-teacher-36",
-      "salary": null,
-      "postedAt": 1790682090000,
-      "source": "weworkremotely-api"
     },
     {
       "company": "Appen",
@@ -127,6 +82,51 @@
       "salary": null,
       "postedAt": 1790728944397,
       "source": "lever-api"
+    },
+    {
+      "company": "Scale AI",
+      "role": "Senior Data Analyst, Public Sector",
+      "location": "Washington, DC",
+      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4729899005",
+      "salary": null,
+      "postedAt": 1788374660000,
+      "source": "greenhouse-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Belgium",
+      "url": "https://www.workingnomads.com/job/go/1901964/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Polly English",
+      "role": "Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100",
+      "location": "North America",
+      "url": "https://www.workingnomads.com/job/go/1884997/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Japan - Remote",
+      "url": "https://www.workingnomads.com/job/go/1835291/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Native Camp",
+      "role": "Online English Teacher",
+      "location": "Anywhere in the World",
+      "url": "https://weworkremotely.com/remote-jobs/native-camp-online-english-teacher-36",
+      "salary": null,
+      "postedAt": 1790682090000,
+      "source": "weworkremotely-api"
     }
   ]
 }
