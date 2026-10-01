@@ -76,4 +76,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://jobs.lever.co/appen/243c202f-21a0-4be1-b542-caa1596f0226 | Appen | Polish Language Transcription Expert | Any | posted: 2026-09-30
 - [ ] https://jobs.lever.co/appen/09ea18b6-cf3e-400c-a94c-bf329ebbc23d | Appen | Portuguese Language Transcription Expert | Any | posted: 2026-09-30
 
+- [ ] https://jobicy.com/jobs/154331-senior-data-analyst-fully-remote | PadSplit | Senior Data Analyst (Fully Remote) | LATAM | posted: 2026-10-01
+
 ## Processed

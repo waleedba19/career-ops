@@ -1,25 +1,7 @@
 {
-  "generatedAt": "2026-09-30T21:11:45.922Z",
-  "count": 13,
+  "generatedAt": "2026-10-01T11:19:27.700Z",
+  "count": 14,
   "candidates": [
-    {
-      "company": "Arabian Private Holdings",
-      "role": "Data Analyst Assistant",
-      "location": "Ø¯Ø¨Ù, Ø¯Ø¨Ù Ø¯Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-analyst-assistant-arabian-private-holdings-1136217",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
-    },
-    {
-      "company": "PulseMediaNL",
-      "role": "Data Entry Administrator",
-      "location": "Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
-    },
     {
       "company": "Peroptyx",
       "role": "Data Analyst (No Experience Required)",
@@ -46,6 +28,33 @@
       "salary": null,
       "postedAt": null,
       "source": "workingnomads-api"
+    },
+    {
+      "company": "PadSplit",
+      "role": "Senior Data Analyst (Fully Remote)",
+      "location": "LATAM",
+      "url": "https://jobicy.com/jobs/154331-senior-data-analyst-fully-remote",
+      "salary": null,
+      "postedAt": 1790832533000,
+      "source": "jobicy-api"
+    },
+    {
+      "company": "Arabian Private Holdings",
+      "role": "Data Analyst Assistant",
+      "location": "Ø¯Ø¨Ù, Ø¯Ø¨Ù Ø¯Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-analyst-assistant-arabian-private-holdings-1136217",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
+    },
+    {
+      "company": "PulseMediaNL",
+      "role": "Data Entry Administrator",
+      "location": "Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903",
+      "salary": null,
+      "postedAt": null,
+      "source": "remoteok-api"
     },
     {
       "company": "Scale AI",
