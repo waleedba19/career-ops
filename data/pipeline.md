@@ -78,4 +78,8 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://jobicy.com/jobs/154331-senior-data-analyst-fully-remote | PadSplit | Senior Data Analyst (Fully Remote) | LATAM | posted: 2026-10-01
 
+- [ ] https://jobicy.com/jobs/154499-3d-lidar-data-annotation-analyst | Appen | 3D & LiDAR Data Annotation Analyst | Anywhere | posted: 2026-10-04
+- [ ] https://jobs.lever.co/appen/b8aec32d-bc8d-49b3-8b94-972fceb1fbb8 | Appen | Hebrew Language Transcription Expert | Any | posted: 2026-10-04
+- [ ] https://jobs.lever.co/appen/28a3bf58-e0e2-4a45-8376-ebdaf6078fd5 | Appen | Thai Language Transcription Expert | Any | posted: 2026-10-04
+
 ## Processed
