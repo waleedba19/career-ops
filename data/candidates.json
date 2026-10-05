@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-05T12:00:34.360Z",
-  "count": 4,
+  "generatedAt": "2026-10-05T21:25:28.719Z",
+  "count": 13,
   "candidates": [
     {
       "company": "Arabian Private Holdings",
@@ -21,13 +21,22 @@
       "source": "remoteok-api"
     },
     {
-      "company": "Viable Medical Solutions",
-      "role": "Administrative Assistant",
-      "location": "Greater Orlando",
-      "url": "https://remoteOK.com/remote-jobs/remote-administrative-assistant-viable-medical-solutions-1135697",
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Belgium",
+      "url": "https://www.workingnomads.com/job/go/1901964/",
       "salary": null,
       "postedAt": null,
-      "source": "remoteok-api"
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Polly English",
+      "role": "Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100",
+      "location": "North America",
+      "url": "https://www.workingnomads.com/job/go/1884997/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
     },
     {
       "company": "Scale AI",
@@ -37,6 +46,78 @@
       "salary": null,
       "postedAt": 1788374660000,
       "source": "greenhouse-api"
+    },
+    {
+      "company": "Appen",
+      "role": "Czech Language Transcription Expert",
+      "location": "Any",
+      "url": "https://jobs.lever.co/appen/1e8a6da5-c700-42e5-b4e1-1302a9acc55b",
+      "salary": null,
+      "postedAt": 1790736661625,
+      "source": "lever-api"
+    },
+    {
+      "company": "Appen",
+      "role": "Greek Language Transcription Expert",
+      "location": "Any",
+      "url": "https://jobs.lever.co/appen/2ff0e598-9763-4ba5-86fc-b218f7b35747",
+      "salary": null,
+      "postedAt": 1790729833219,
+      "source": "lever-api"
+    },
+    {
+      "company": "Appen",
+      "role": "Hebrew Language Transcription Expert",
+      "location": "Any",
+      "url": "https://jobs.lever.co/appen/b8aec32d-bc8d-49b3-8b94-972fceb1fbb8",
+      "salary": null,
+      "postedAt": 1791084087006,
+      "source": "lever-api"
+    },
+    {
+      "company": "Appen",
+      "role": "Hindi Language Transcription Expert",
+      "location": "Any",
+      "url": "https://jobs.lever.co/appen/0fb08db5-a661-4203-9a64-1f085fceec82",
+      "salary": null,
+      "postedAt": 1790726897213,
+      "source": "lever-api"
+    },
+    {
+      "company": "Appen",
+      "role": "Mandarin Chinese (Simplified) Language Transcription Expert",
+      "location": "Any",
+      "url": "https://jobs.lever.co/appen/eacadf99-862b-47bb-abe1-4b95d6fc7baa",
+      "salary": null,
+      "postedAt": 1790722249009,
+      "source": "lever-api"
+    },
+    {
+      "company": "Appen",
+      "role": "Polish Language Transcription Expert",
+      "location": "Any",
+      "url": "https://jobs.lever.co/appen/243c202f-21a0-4be1-b542-caa1596f0226",
+      "salary": null,
+      "postedAt": 1790730323753,
+      "source": "lever-api"
+    },
+    {
+      "company": "Appen",
+      "role": "Portuguese Language Transcription Expert",
+      "location": "Any",
+      "url": "https://jobs.lever.co/appen/09ea18b6-cf3e-400c-a94c-bf329ebbc23d",
+      "salary": null,
+      "postedAt": 1790728944397,
+      "source": "lever-api"
+    },
+    {
+      "company": "Appen",
+      "role": "Thai Language Transcription Expert",
+      "location": "Any",
+      "url": "https://jobs.lever.co/appen/28a3bf58-e0e2-4a45-8376-ebdaf6078fd5",
+      "salary": null,
+      "postedAt": 1791083640031,
+      "source": "lever-api"
     }
   ]
 }
