@@ -1,16 +1,7 @@
 {
-  "generatedAt": "2026-10-07T11:29:35.272Z",
-  "count": 16,
+  "generatedAt": "2026-10-07T19:42:03.870Z",
+  "count": 15,
   "candidates": [
-    {
-      "company": "NoGigiddy",
-      "role": "Remote Data Entry Clerk",
-      "location": "Anywhere in the World",
-      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
-      "salary": null,
-      "postedAt": 1762822704000,
-      "source": "weworkremotely-api"
-    },
     {
       "company": "Peroptyx",
       "role": "Data Analyst (No Experience Required)",
@@ -39,6 +30,15 @@
       "source": "workingnomads-api"
     },
     {
+      "company": "NoGigiddy",
+      "role": "Remote Data Entry Clerk",
+      "location": "Anywhere in the World",
+      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
+      "salary": null,
+      "postedAt": 1762822704000,
+      "source": "weworkremotely-api"
+    },
+    {
       "company": "Scale AI",
       "role": "Senior Data Analyst, Public Sector",
       "location": "Washington, DC",
@@ -61,15 +61,6 @@
       "role": "Data Entry Administrator",
       "location": "Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©",
       "url": "https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903",
-      "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
-    },
-    {
-      "company": "Viable Medical Solutions",
-      "role": "Administrative Assistant",
-      "location": "Greater Orlando",
-      "url": "https://remoteOK.com/remote-jobs/remote-administrative-assistant-viable-medical-solutions-1135697",
       "salary": null,
       "postedAt": null,
       "source": "remoteok-api"
