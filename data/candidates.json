@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-10-09T19:13:56.308Z",
+  "generatedAt": "2026-10-09T23:47:22.690Z",
   "count": 15,
   "candidates": [
     {
-      "company": "Affirm",
-      "role": "Administrative Assistant IV",
-      "location": "Anywhere in the World",
-      "url": "https://weworkremotely.com/remote-jobs/affirm-administrative-assistant-iv",
+      "company": "Arabian Private Holdings",
+      "role": "Data Analyst Assistant",
+      "location": "Ø¯Ø¨Ù, Ø¯Ø¨Ù Ø¯Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-analyst-assistant-arabian-private-holdings-1136217",
       "salary": null,
-      "postedAt": 1791531056000,
-      "source": "weworkremotely-api"
+      "postedAt": null,
+      "source": "remoteok-api"
     },
     {
-      "company": "NoGigiddy",
-      "role": "Remote Data Entry Clerk",
-      "location": "Anywhere in the World",
-      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
+      "company": "PulseMediaNL",
+      "role": "Data Entry Administrator",
+      "location": "Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903",
       "salary": null,
-      "postedAt": 1762822704000,
-      "source": "weworkremotely-api"
+      "postedAt": null,
+      "source": "remoteok-api"
     },
     {
       "company": "Peroptyx",
@@ -57,22 +57,22 @@
       "source": "greenhouse-api"
     },
     {
-      "company": "Arabian Private Holdings",
-      "role": "Data Analyst Assistant",
-      "location": "Ø¯Ø¨Ù, Ø¯Ø¨Ù Ø¯Ø¨Ù Ø§ÙØ¥ÙØ§Ø±Ø§Øª Ø§ÙØ¹Ø±Ø¨ÙØ© Ø§ÙÙØªØ­Ø¯Ø©",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-analyst-assistant-arabian-private-holdings-1136217",
+      "company": "Affirm",
+      "role": "Administrative Assistant IV",
+      "location": "Anywhere in the World",
+      "url": "https://weworkremotely.com/remote-jobs/affirm-administrative-assistant-iv",
       "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
+      "postedAt": 1791531056000,
+      "source": "weworkremotely-api"
     },
     {
-      "company": "PulseMediaNL",
-      "role": "Data Entry Administrator",
-      "location": "Ø§ÙØ±ÙØ§Ø¶, Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ±ÙØ§Ø¶ Ø§ÙØ³Ø¹ÙØ¯ÙØ©",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-entry-administrator-pulsemedianl-1135903",
+      "company": "NoGigiddy",
+      "role": "Remote Data Entry Clerk",
+      "location": "Anywhere in the World",
+      "url": "https://weworkremotely.com/remote-jobs/nogigiddy-remote-data-entry-clerk-7",
       "salary": null,
-      "postedAt": null,
-      "source": "remoteok-api"
+      "postedAt": 1762822704000,
+      "source": "weworkremotely-api"
     },
     {
       "company": "Appen",
