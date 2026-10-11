@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T11:10:27.933Z",
+  "generatedAt": "2026-10-11T18:35:44.778Z",
   "count": 13,
   "candidates": [
     {
@@ -19,33 +19,6 @@
       "salary": null,
       "postedAt": null,
       "source": "remoteok-api"
-    },
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Japan - Remote",
-      "url": "https://www.workingnomads.com/job/go/1920476/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Peroptyx",
-      "role": "Data Analyst (No Experience Required)",
-      "location": "Belgium",
-      "url": "https://www.workingnomads.com/job/go/1901964/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
-    },
-    {
-      "company": "Polly English",
-      "role": "Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100",
-      "location": "North America",
-      "url": "https://www.workingnomads.com/job/go/1884997/",
-      "salary": null,
-      "postedAt": null,
-      "source": "workingnomads-api"
     },
     {
       "company": "Scale AI",
@@ -118,6 +91,33 @@
       "salary": null,
       "postedAt": 1791083640031,
       "source": "lever-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Japan - Remote",
+      "url": "https://www.workingnomads.com/job/go/1920476/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Peroptyx",
+      "role": "Data Analyst (No Experience Required)",
+      "location": "Belgium",
+      "url": "https://www.workingnomads.com/job/go/1901964/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
+    },
+    {
+      "company": "Polly English",
+      "role": "Looking For Online ESL Teachers - Remote- Joining Rewards of up to USD $100",
+      "location": "North America",
+      "url": "https://www.workingnomads.com/job/go/1884997/",
+      "salary": null,
+      "postedAt": null,
+      "source": "workingnomads-api"
     }
   ]
 }
