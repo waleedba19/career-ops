@@ -86,4 +86,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://jobs.lever.co/appen/ee14ddc7-72b8-4268-8db3-fb3a4ea03598 | Appen | Transcription Specialist -- Arabic | Any | posted: 2026-10-01
 - [ ] https://jobs.lever.co/appen/319fba66-c362-46d7-a67b-948d03e64ee8 | Appen | Transcription Specialist -- Vietnamese | Any | posted: 2026-10-12
 
+- [ ] https://job-boards.greenhouse.io/mozilla/jobs/8239656 | Mozilla | Sr Data Analyst | Remote Canada; Remote Germany; Remote UK | posted: 2026-10-12
+
 ## Processed
