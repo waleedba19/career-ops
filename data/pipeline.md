@@ -88,4 +88,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://job-boards.greenhouse.io/mozilla/jobs/8239656 | Mozilla | Sr Data Analyst | Remote Canada; Remote Germany; Remote UK | posted: 2026-10-12
 
+- [ ] https://weworkremotely.com/remote-jobs/baymard-institute-market-research-data-analyst | Baymard Institute | Market Research Data Analyst | Anywhere in the World | posted: 2026-10-13
+
 ## Processed
